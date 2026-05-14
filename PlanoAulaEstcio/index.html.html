@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Manual prático do aluno — ADS / Backend & ERP</title>
+<link rel="stylesheet" href="docs/Style.css" />
+</head>
+
+<body>
+<header>
+<div class="brand">
+<div class="logo">ADS</div>
+<div>
+<h1>Manual prático do aluno — ADS (Backend & ERP)</h1>
+<p class="lead">
+Plano 6 meses, stack recomendado, projetos e dicas para integrar
+ERPs (SOAP/REST) e deploy com PM2.
+</p>
+<div style="margin-top:8px">
+<h2>
+<a href="https://experimente.estacio.br/disciplinas"
+>Painel do Usuário</a
+>
+- Huemerson Leonardo Garcia
+</h2>
+<p class="muted">
+Total EAD - Formação em Análise e Desenvolvimento de Sistemas -
+Graduacao_tecnologica
+</p>
+<p>Indicações <a href="https://afiliado.saberemrede.net/home">Painel</a>: <a href="https://estacio.br/selecao?cod_agente=14369444&u=742366&end=1">InidqueGanhe</a></p>
+</div>
+</div>
+</div>
+</header>
+
+<main>
+<div class="grid">
+<section class="card">
+<div class="section-title">
+<h2>Resumo rápido</h2>
+<span class="pill">6 meses - Objetivo: API + Integração ERP</span>
+</div>
+
+<p class="muted">
+Objetivo: ficar apto a construir APIs em Node.js/TypeScript, integrar
+com ERPs (SOAP/REST), trabalhar com Oracle/Postgres e fazer deploy
+com PM2/Docker.
+</p>
+
+<div style="margin-top:14px">
+<h3 style="margin-bottom:8px">Checklist inicial</h3>
+<ul class="check">
+<li>JS moderno & TypeScript — dominar async/await e tipos.</li>
+<li>Git avançado + GitHub (PRs, branching).</li>
+<li>HTTP, REST, JSON, Postman/Insomnia.</li>
+<li>Node.js + Express (ou Fastify) com testes.</li>
+<li>SQL (Oracle/Postgres) e ORM (TypeORM/Knex).</li>
+<li>
+Consumir SOAP (node-soap) e REST (axios) — mapeamento XML↔JSON.
+</li>
+<li>Deploy: PM2, Docker, CI/CD (GitHub Actions).</li>
+<li>Observability: logs, health checks, monitoramento básico.</li>
+</ul>
+</div>
+
+<div style="margin-top:14px">
+<h3 style="margin-bottom:8px">Stack recomendado</h3>
+<ul class="check">
+<li>Linguagens: JavaScript + TypeScript.</li>
+<li>Framework: Node.js + Express / Fastify.</li>
+<li>Bancos: Oracle (integração ERP) e Postgres; Redis para filas/cache.</li>
+<li>
+Infra: PM2, Docker, VPS (DigitalOcean/Hetzner/AWS) e Cloudflare
+(tunnel/DNS).
+</li>
+<li>Integração: node-soap, axios, xml2js.</li>
+</ul>
+</div>
+</section>
+
+<aside class="card">
+<div class="section-title">
+<h2>Projetos para portfólio</h2>
+<span class="badge">3 projetos</span>
+</div>
+
+<ul class="check">
+<li>
+<strong>API CRUD</strong> (Node+TypeScript) com OpenAPI e testes
+automatizados.
+</li>
+<li>
+<strong>Adaptador ERP</strong>: consome SOAP, mapeia e persiste em
+Postgres/Oracle.
+</li>
+<li>
+<strong>Gateway</strong> com fila (Redis), retries e deploy com
+PM2/Docker.
+</li>
+</ul>
+
+<div style="margin-top:12px">
+<h3 style="margin-bottom:6px">Certificações rápidas</h3>
+<div class="muted">
+Sugestões: Node.js bootcamp, Oracle SQL (básico-avançado), AWS
+Cloud Practitioner.
+</div>
+</div>
+
+<div style="margin-top:12px">
+<h3 style="margin-bottom:6px">Entrega final</h3>
+<div class="muted">
+3 projetos no GitHub, README completo e vídeo demo de 2–3 minutos.
+</div>
+</div>
+</aside>
+</div>
+
+<section class="card" style="margin-top:18px">
+<div class="section-title">
+<h2>Cronograma resumido — 6 meses</h2>
+<span class="badge">Semanal</span>
+</div>
+
+<div class="timeline">
+<div class="step">
+<strong>Mês 1 — Fundamentos e Ferramentas</strong>
+<div class="muted">JS moderno + TypeScript; Git; HTTP/REST; Postman.</div>
+</div>
+
+<div class="step">
+<strong>Mês 2 — Node.js & APIs</strong>
+<div class="muted">
+Express, middlewares, autenticação (JWT), OpenAPI e testes.
+</div>
+</div>
+
+<div class="step">
+<strong>Mês 3 — Banco e Integração ERP</strong>
+<div class="muted">
+SQL para Oracle/Postgres, ORM, consumir SOAP/REST e criar adaptador.
+</div>
+</div>
+
+<div class="step">
+<strong>Mês 4 — Deploy & Infra</strong>
+<div class="muted">
+Docker, PM2, deploy em VPS, CI/CD e monitoramento.
+</div>
+</div>
+
+<div class="step">
+<strong>Mês 5 — Projeto principal</strong>
+<div class="muted">
+Construir Gateway de Integração ERP com fila e retries; tests E2E.
+</div>
+</div>
+
+<div class="step">
+<strong>Mês 6 — Especialização e apresentação</strong>
+<div class="muted">
+Perf, segurança, cloud básico; preparar portfólio e candidaturas.
+</div>
+</div>
+</div>
+</section>
+
+<section class="card" style="margin-top:18px">
+<div class="section-title">
+<h2>Detalhes técnicos e trechos úteis</h2>
+<span class="badge">Exemplos</span>
+</div>
+
+<h3 style="margin-bottom:8px">Exemplo: rota Express + validação simples</h3>
+<pre class="code">
+// app.ts (trecho)
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+const app = express();
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+app.post('/clientes', async (req, res) => {
+const { nome, documento } = req.body;
+if (!nome || !documento) return res.status(400).json({ error: 'dados faltando' });
+// gravar em DB / enviar ao ERP
+return res.status(201).json({ ok: true });
+});
+</pre>
+
+<h3 style="margin-top:12px">Exemplo: consumir SOAP (node-soap)</h3>
+<pre class="code">
+const soap = require('soap');
+const url = 'https://exemplo-erp/ws?wsdl';
+soap.createClient(url, (err, client) => {
+client.MethodName({ param: 'x' }, (err, result) => {
+console.log(result);
+});
+});
+</pre>
+</section>
+
+<section class="card" style="margin-top:18px">
+<div class="section-title">
+<h2>Análise da disciplina DGT0284 (Redes) — tópicos completos</h2>
+<span class="badge">Foco prático</span>
+</div>
+
+<p class="muted">
+Lista completa de tópicos (DGT0284 - Fundamentos de Redes) — adaptada
+para uso prático em backend/integração ERP:
+</p>
+
+<ul class="check">
+<li>
+Modelos de referência: OSI (7 camadas) e TCP/IP — função de cada
+camada e impacto em aplicações.
+</li>
+<li>Topologias de rede: ponto-a-ponto, barramento, estrela, malha, híbrida.</li>
+<li>
+Meios físicos e transmissão: par trançado, cabo coaxial, fibra óptica,
+wireless (básico).
+</li>
+<li>
+Endereçamento IP: IPv4 (classes, subnetting, máscara), IPv6 (conceitos
+básicos).
+</li>
+<li>Subnetting e VLSM — divisão de redes e cálculo de sub-redes.</li>
+<li>
+Protocolos de transporte: TCP (handshake, controle de fluxo,
+retransmissão) e UDP (características e usos).
+</li>
+<li>
+Protocolos de rede: IP, ICMP, ARP — funções e diagnóstico (ping,
+traceroute).
+</li>
+<li>
+Roteamento: conceitos, tabelas de roteamento, roteadores vs switches,
+roteamento estático e dinâmico (conceito).
+</li>
+<li>
+NAT e PAT — tradução de endereços e implicações para serviços expostos
+(port forwarding).
+</li>
+<li>
+DNS: resolução de nomes, tipos de registros (A, AAAA, CNAME, MX, TXT),
+TTL e troubleshooting.
+</li>
+<li>
+Segurança de redes: firewalls (filtragem por portas/IP), listas de
+controle (ACL), conceitos de DMZ.
+</li>
+<li>
+Criptografia em redes: SSL/TLS (handshake, certificados), HTTPS e
+boas práticas para APIs.
+</li>
+<li>
+VPNs e túneis: conceitos de VPN (IPSec, SSL VPN), Cloudflare Tunnel e
+uso para expor serviços com segurança.
+</li>
+<li>
+Serviços de rede: DHCP, NTP, Syslog e seu papel em servidores de
+aplicação.
+</li>
+<li>
+Balanceamento e alta disponibilidade: load balancers, health checks,
+failover e replicação simples.
+</li>
+<li>
+Ferramentas de diagnóstico: Wireshark, tcpdump, netcat, nmap, curl,
+telnet, ss/netstat.
+</li>
+<li>
+Monitoração e logs: métricas básicas, alertas, e como configurar health
+endpoints em APIs.
+</li>
+<li>
+Conceitos de VLANs e segmentação de rede (básico) para separar ambientes
+(produção/teste).
+</li>
+<li>
+Considerações sobre performance de rede: latência, throughput, MTU, e
+impacto em integrações SOAP/REST.
+</li>
+<li>
+Boas práticas para deploy: segurança de portas, políticas de backup,
+atualizações e hardening do servidor.
+</li>
+</ul>
+
+<p class="muted">
+Observação: esta lista foi adaptada para priorizar itens relevantes a
+deploy e integrações ERP.
+</p>
+</section>
+
+<section class="card" style="margin-top:18px">
+<div class="section-title">
+<h2>Dicas de estudo e produtividade</h2>
+<span class="badge">Rápido</span>
+</div>
+
+<ul class="check">
+<li>
+Estude 1-2 horas por dia, 5 dias por semana; dedique 1 dia por semana a
+hands-on (código + deploy).
+</li>
+<li>
+Documente cada projeto no README e grave demo curta (2 minutos) para o
+portfólio.
+</li>
+<li>
+Procure estágios/freelas pequenos já no Mês 3 para validar conhecimentos
+reais.
+</li>
+<li>Use issues no GitHub como checklist de tarefas e milestones.</li>
+</ul>
+</section>
+
+<section class="card" style="margin-top:18px">
+<div class="section-title">
+<h2>Recursos recomendados</h2>
+<span class="badge">Leitura & cursos</span>
+</div>
+
+<ul class="check">
+<li>Documentação Node.js, TypeScript e Express.</li>
+<li>Guia de SQL para Oracle/Postgres (prática com queries e procedures).</li>
+<li>Tutoriais sobre node-soap, axios, xml2js para mapeamento SOAP↔JSON.</li>
+<li>Guias de Docker e PM2; GitHub Actions para CI/CD.</li>
+</ul>
+</section>
+</main>
+
+<footer>
+    <h3>Fonte / resumo:</h3>
+    <p>Conteúdo inspirado no curso ADS da Estácio e materiais de referência sobre
+        stacks/back-end.</p>
+</footer>
+</body>
+</html>
