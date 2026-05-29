@@ -218,6 +218,175 @@
 
   </section>
 
+  <section class="card" style="margin-top:18px">
+    <h2>3.1. Linguagens da Camada de Aplicação e os Parsers de Software</h2>
+    <div  class="caixa-info">
+        <h2>Como os Computadores Entendem HTML, SQL e Outras Linguagens?</h2>
+        <span class="badge"><strong>Parser e Interpretação</strong></span>
+    </div>
+
+    <p>
+        Quando escrevemos um arquivo <strong>HTML</strong>, <strong>SQL</strong>,
+        <strong>CSS</strong> ou <strong>JavaScript</strong>, o conteúdo gravado no disco
+        é apenas texto. O computador não entende diretamente comandos como
+        <code>&lt;h1&gt;</code>, <code>SELECT</code> ou <code>function()</code>.
+    </p>
+
+    <p>
+        Para que esses comandos sejam compreendidos, existe um componente chamado
+        <strong>Parser</strong> (Analisador Sintático), responsável por ler o texto,
+        verificar se a sintaxe está correta e transformá-lo em estruturas internas
+        que podem ser executadas pelo software.
+    </p>
+
+    <div class="caixa-info">
+        <strong>Resumo:</strong> O Parser funciona como um tradutor entre a linguagem
+        escrita pelo desenvolvedor e as estruturas internas utilizadas pela máquina.
+    </div>
+
+    <h3>O que é um Parser?</h3>
+
+    <p>
+        Um parser é um componente de software responsável por:
+    </p>
+
+    <ul class="check">
+        <li>Ler o conteúdo de um arquivo ou comando.</li>
+        <li>Verificar se a sintaxe está correta.</li>
+        <li>Identificar palavras-chave e estruturas da linguagem.</li>
+        <li>Transformar o texto em estruturas internas compreensíveis pela aplicação.</li>
+        <li>Permitir que o código seja executado ou renderizado.</li>
+    </ul>
+
+    <h3>Exemplo com HTML</h3>
+
+    <pre class="code">
+      &lt;h1&gt;Olá Mundo&lt;/h1&gt;
+    </pre>
+
+    <p>
+        O navegador (Chrome, Edge ou Firefox) possui internamente um
+        <strong>Parser HTML</strong>, que interpreta essa estrutura e gera os elementos
+        visuais exibidos na tela.
+    </p>
+
+    <div class="fluxo">
+      Arquivo HTML
+              ↓
+      Parser HTML
+              ↓
+      DOM (Document Object Model)
+              ↓
+      Renderização da Página
+    </div>
+
+    <h3>Exemplo com SQL</h3>
+
+    <pre class="code">
+      SELECT * FROM CLIENTES;
+    </pre>
+
+    <p>
+        Bancos de dados como Oracle, PostgreSQL, SQL Server e MySQL possuem um
+        <strong>Parser SQL</strong>, responsável por validar e interpretar os comandos
+        enviados pelas aplicações.
+    </p>
+
+    <div class="fluxo">
+      Comando SQL
+              ↓
+      Parser SQL
+              ↓
+      Plano de Execução
+              ↓
+      Consulta ao Banco de Dados
+    </div>
+
+    <h3>Onde os Parsers Estão Armazenados?</h3>
+
+    <p>
+        Diferentemente dos protocolos TCP/IP, que podem estar implementados em
+        sistemas operacionais, firmwares e equipamentos de rede, os parsers
+        ficam implementados dentro dos próprios softwares que utilizam a linguagem.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Linguagem / Tecnologia</th>
+                <th>Software que possui o Parser</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>HTML</td>
+                <td>Chrome, Edge, Firefox, Safari</td>
+            </tr>
+            <tr>
+                <td>CSS</td>
+                <td>Navegadores Web</td>
+            </tr>
+            <tr>
+                <td>JavaScript</td>
+                <td>Motor V8 (Chrome e Node.js)</td>
+            </tr>
+            <tr>
+                <td>SQL</td>
+                <td>Oracle, PostgreSQL, MySQL, SQL Server</td>
+            </tr>
+            <tr>
+                <td>XML</td>
+                <td>Bibliotecas e Aplicações XML</td>
+            </tr>
+            <tr>
+                <td>JSON</td>
+                <td>Bibliotecas JSON e Navegadores</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Parser x Protocolos de Rede</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Função</th>
+                <th>Onde normalmente está implementado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TCP/IP</td>
+                <td>Comunicação entre dispositivos</td>
+                <td>Sistema Operacional, Firmware e Hardware de Rede</td>
+            </tr>
+            <tr>
+                <td>HTTP</td>
+                <td>Comunicação Web</td>
+                <td>Servidores Web e Navegadores</td>
+            </tr>
+            <tr>
+                <td>Parser HTML</td>
+                <td>Interpretar páginas HTML</td>
+                <td>Navegadores</td>
+            </tr>
+            <tr>
+                <td>Parser SQL</td>
+                <td>Interpretar comandos SQL</td>
+                <td>SGBDs (Oracle, PostgreSQL, etc.)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="caixa-alerta">
+        <strong>Conclusão:</strong> Arquivos HTML, SQL, CSS e JavaScript são apenas
+        textos armazenados em disco. Quem realmente entende e executa esses comandos
+        são os parsers implementados nos softwares responsáveis por processar cada
+        linguagem.
+    </div>
+  </section>
+
   <section>
     <h2>4. Processo de encapsulamento TCP/IP</h2>
     <p>Quando o Sistema Final A envia informações ao Sistema Final B, os dados descem pelas camadas do modelo TCP/IP. Em cada camada, são adicionadas informações de controle, como cabeçalhos e, no caso da camada de enlace, também trailer.</p>
