@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual Técnico - Modelo OSI e TCP/IP</title>
+  <style>
+    :root {
+      --azul: #073f7d;
+      --azul-escuro: #052b55;
+      --laranja: #d65f08;
+      --cinza: #f4f6f8;
+      --texto: #263238;
+      --borda: #d8dee6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--texto);
+      background: #eef2f6;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--azul-escuro), var(--azul));
+      color: white;
+      padding: 36px 24px;
+      text-align: center;
+      border-bottom: 6px solid var(--laranja);
+    }
+    header h1 { margin: 0; font-size: 34px; }
+    header p { margin: 10px auto 0; max-width: 900px; font-size: 17px; }
+    main {
+      max-width: 1180px;
+      margin: 28px auto;
+      background: white;
+      padding: 34px;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+    h2 {
+      color: var(--azul);
+      border-left: 6px solid var(--laranja);
+      padding-left: 12px;
+      margin-top: 34px;
+    }
+    h3 { color: var(--azul-escuro); }
+    .imagem-referencia {
+      text-align: center;
+      background: var(--cinza);
+      padding: 18px;
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      margin: 24px 0;
+    }
+    .imagem-referencia img {
+      max-width: 100%;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: white;
+    }
+    .legenda { font-size: 14px; color: #546e7a; margin-top: 8px; }
+    .caixa-info {
+      background: #f8fbff;
+      border: 1px solid #c9d8ea;
+      border-left: 6px solid var(--azul);
+      padding: 16px 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+    }
+    .caixa-alerta {
+      background: #fff8f0;
+      border: 1px solid #ffd3a6;
+      border-left: 6px solid var(--laranja);
+      padding: 16px 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 15px;
+    }
+    th {
+      background: var(--azul);
+      color: white;
+      text-align: left;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid var(--borda);
+      vertical-align: top;
+    }
+    tr:nth-child(even) { background: #f9fbfd; }
+    code {
+      background: #eef3f8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #0b3d75;
+    }
+    .fluxo {
+      background: #0b3d75;
+      color: white;
+      padding: 18px;
+      border-radius: 10px;
+      font-family: Consolas, monospace;
+      overflow-x: auto;
+      margin: 18px 0;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .card {
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+      padding: 18px;
+      background: #ffffff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    .card h3 { margin-top: 0; color: var(--laranja); }
+    footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--borda);
+      color: #607d8b;
+      font-size: 14px;
+      text-align: center;
+    }
+    @media print {
+      body { background: white; }
+      main { box-shadow: none; margin: 0; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Estacio de Sá - ADS - Redes e Internet</h1>
+  <p>Referência prática para compreender camadas de rede, encapsulamento, transmissão de dados e relacionamento entre o modelo OSI e a arquitetura TCP/IP.</p>
+</header>
+
+<main>
+  <section>
+    <h2>1. Objetivo do manual</h2>
+    <p>Este manual apresenta, de forma técnica e didática, os principais conceitos sobre o <strong>Modelo de Referência OSI</strong> e a <strong>Arquitetura TCP/IP</strong>. A imagem anexada demonstra as sete camadas do modelo OSI e suas funções principais.</p>
+
+    <div class="imagem-referencia">
+      <img src="modelo_osi_referencia.png" alt="Imagem de referência do modelo OSI com suas sete camadas">
+      <div class="legenda">Figura 1 — Modelo OSI com funções associadas a cada camada.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Modelo de Referência OSI</h2>
+    <p>O modelo OSI, do inglês <em>Open Systems Interconnection</em>, é uma referência conceitual usada para organizar a comunicação em redes de computadores em sete camadas.</p>
+
+    <div class="caixa-info">
+      <strong>Conceito principal:</strong> cada camada utiliza os serviços da camada inferior e oferece serviços para a camada superior.
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Camada OSI</th>
+          <th>Função principal</th>
+          <th>Exemplos/Observações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>7. Aplicação</td><td>Permite que aplicações acessem recursos de rede.</td><td>HTTP, FTP, SMTP, DNS.</td></tr>
+        <tr><td>6. Apresentação</td><td>Traduz, criptografa e comprime dados.</td><td>Codificação, criptografia, compressão.</td></tr>
+        <tr><td>5. Sessão</td><td>Estabelece, gerencia e encerra sessões.</td><td>Controle de diálogo entre aplicações.</td></tr>
+        <tr><td>4. Transporte</td><td>Garante comunicação fim a fim entre processos.</td><td>TCP e UDP.</td></tr>
+        <tr><td>3. Rede</td><td>Encaminha pacotes da origem ao destino.</td><td>IP, roteamento e endereçamento lógico.</td></tr>
+        <tr><td>2. Enlace</td><td>Organiza bits em quadros e realiza entrega nó a nó.</td><td>Ethernet, Wi-Fi, MAC.</td></tr>
+        <tr><td>1. Física</td><td>Transmite bits através do meio físico.</td><td>Cabos, fibra óptica, rádio e sinais.</td></tr>
+      </tbody>
+    </table>
+
+    <div>
+      <img src="ModelosOSI" alt="ModelosOSI">
+    </div>
+
+
+  </section>
+
+  <section>
+    <h2>3. Estrutura TCP/IP</h2>
+    <p>A arquitetura TCP/IP é o modelo prático utilizado na Internet. Ela é geralmente representada em quatro camadas principais.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Camada TCP/IP</th>
+          <th>Equivalência aproximada no OSI</th>
+          <th>Protocolos comuns</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Aplicação</td><td>Aplicação, Apresentação e Sessão</td><td>HTTP, HTTPS, DNS, SMTP, FTP, DHCP</td></tr>
+        <tr><td>Transporte</td><td>Transporte</td><td>TCP, UDP</td></tr>
+        <tr><td>Internet</td><td>Rede</td><td>IP, ICMP, ARP</td></tr>
+        <tr><td>Acesso à Rede</td><td>Enlace e Física</td><td>Ethernet, Wi-Fi, PPP</td></tr>
+      </tbody>
+    </table>
+
+    <div class="caixa-alerta">
+      <strong>Atenção:</strong> o modelo OSI é mais conceitual e didático, enquanto o TCP/IP é a base prática da comunicação utilizada na Internet.
+    </div>
+
+    <div>
+      <img src="CamadasTCP-IP" alt="CamadasTCP-IP">
+    </div>
+
+  </section>
+
+  <section>
+    <h2>4. Processo de encapsulamento TCP/IP</h2>
+    <p>Quando o Sistema Final A envia informações ao Sistema Final B, os dados descem pelas camadas do modelo TCP/IP. Em cada camada, são adicionadas informações de controle, como cabeçalhos e, no caso da camada de enlace, também trailer.</p>
+
+    <div class="fluxo">
+        Dados da Aplicação<br>
+        ↓ + Cabeçalho TCP/UDP<br>
+        Segmento<br>
+        ↓ + Cabeçalho IP<br>
+        Pacote ou Datagrama IP<br>
+        ↓ + Cabeçalho e Trailer de Enlace<br>
+        Quadro / Frame<br>
+        ↓<br>
+        Bits transmitidos pelo meio físico
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Camada</th>
+          <th>PDU formada</th>
+          <th>Descrição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Aplicação</td><td>Mensagem</td><td>A aplicação gera os dados que serão enviados.</td></tr>
+        <tr><td>2</td><td>Transporte</td><td>Segmento</td><td>O TCP adiciona informações de porta, controle, sequência e confiabilidade.</td></tr>
+        <tr><td>3</td><td>Internet/Rede</td><td>Pacote ou Datagrama</td><td>O IP adiciona endereços de origem e destino para roteamento.</td></tr>
+        <tr><td>4</td><td>Enlace</td><td>Quadro/Frame</td><td>A camada de enlace adiciona informações para entrega nó a nó.</td></tr>
+        <tr><td>5</td><td>Física</td><td>Bits</td><td>Os bits são convertidos em sinais elétricos, ópticos ou eletromagnéticos.</td></tr>
+      </tbody>
+    </table>
+
+    <div>
+      <img src="EncapsulamentoTCPIP" alt="EncapsulamentoTCPIP">
+    </div>
+
+  </section>
+
+  <section>
+    <h2>5. Desencapsulamento no destino</h2>
+    <p>No Sistema Final B ocorre o processo inverso: os dados sobem pelas camadas e cada camada remove e interpreta o cabeçalho correspondente.</p>
+
+    <div class="fluxo">
+Bits recebidos<br>
+↓<br>
+Quadro / Frame<br>
+↓ remove cabeçalho e trailer de enlace<br>
+Pacote IP<br>
+↓ remove cabeçalho IP<br>
+Segmento TCP/UDP<br>
+↓ remove cabeçalho de transporte<br>
+Mensagem entregue à aplicação
+    </div>
+  </section>
+
+  <section>
+    <h2>6. Diferença entre TCP e UDP</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>TCP</h3>
+        <p>Protocolo orientado à conexão. Oferece entrega confiável, controle de fluxo, controle de erros, ordenação e retransmissão.</p>
+        <p><strong>Exemplos:</strong> HTTP/HTTPS, FTP, SSH e e-mail.</p>
+      </div>
+      <div class="card">
+        <h3>UDP</h3>
+        <p>Protocolo não orientado à conexão. Possui cabeçalho simples, menor sobrecarga e não garante entrega ou retransmissão.</p>
+        <p><strong>Exemplos:</strong> DNS, VoIP, streaming e jogos online.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Instruções práticas para interpretação</h2>
+    <ol>
+      <li>Identifique se a questão está usando o modelo OSI ou TCP/IP.</li>
+      <li>No envio, os dados descem pelas camadas; no recebimento, sobem.</li>
+      <li>Lembre-se das PDUs: mensagem, segmento, pacote/datagrama, quadro e bits.</li>
+      <li>Associe roteadores à camada de rede/internet.</li>
+      <li>Associe switches e endereços MAC à camada de enlace.</li>
+      <li>Associe cabos, fibra e ondas à camada física.</li>
+      <li>Associe TCP/UDP à camada de transporte.</li>
+      <li>Associe HTTP, DNS, FTP e SMTP à camada de aplicação.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>8. Resumo rápido</h2>
+    <table>
+      <thead>
+        <tr><th>Conceito</th><th>Resposta curta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Camada que faz roteamento</td><td>Rede / Internet</td></tr>
+        <tr><td>PDU do TCP</td><td>Segmento</td></tr>
+        <tr><td>PDU do IP</td><td>Pacote ou datagrama</td></tr>
+        <tr><td>PDU do enlace</td><td>Quadro ou frame</td></tr>
+        <tr><td>PDU da física</td><td>Bits</td></tr>
+        <tr><td>DNS</td><td>Converte nomes de domínio em endereços IP</td></tr>
+        <tr><td>IEEE 802</td><td>Família de padrões para redes locais, como Ethernet, Wi-Fi e VLANs</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <section>
+    <h2>9. Arquitetura IEEE 802 e principais padrões utilizados</h2>
+    <p>
+      A arquitetura <strong>IEEE 802</strong> define um conjunto de padrões utilizados em redes locais
+      e metropolitanas, principalmente nas tecnologias de acesso à rede. Dentro da comparação com os
+      modelos OSI e TCP/IP, os padrões IEEE 802 estão relacionados principalmente às camadas de
+      <strong>Enlace</strong> e <strong>Física</strong>.
+    </p>
+
+    <div class="caixa-info">
+      <strong>Importante:</strong> enquanto o modelo TCP/IP define protocolos como TCP, UDP e IP,
+      a família IEEE 802 define padrões de transmissão local, como Ethernet, Wi-Fi, VLANs,
+      endereçamento MAC e controle de acesso ao meio.
+    </div>
+
+    <h3>9.1 Relação com o Modelo OSI</h3>
+    <p>
+      No modelo OSI, a camada de enlace pode ser dividida em duas subcamadas:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Subcamada</th>
+          <th>Nome</th>
+          <th>Função</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LLC</td>
+          <td>Logical Link Control</td>
+          <td>Realiza o controle lógico do enlace e a interface com a camada de rede.</td>
+        </tr>
+        <tr>
+          <td>MAC</td>
+          <td>Media Access Control</td>
+          <td>Controla o acesso ao meio físico e utiliza endereços MAC para comunicação local.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>9.2 Principais padrões IEEE 802</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Padrão</th>
+          <th>Nome / Tecnologia</th>
+          <th>Função principal</th>
+          <th>Exemplo de uso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>IEEE 802.1</td>
+          <td>Gerência, pontes e VLANs</td>
+          <td>Define padrões de interconexão, VLANs e controle de tráfego em redes locais.</td>
+          <td>VLAN com 802.1Q em switches gerenciáveis.</td>
+        </tr>
+        <tr>
+          <td>IEEE 802.2</td>
+          <td>LLC</td>
+          <td>Define a subcamada de controle lógico do enlace.</td>
+          <td>Interface lógica entre enlace e camada de rede.</td>
+        </tr>
+        <tr>
+          <td>IEEE 802.3</td>
+          <td>Ethernet</td>
+          <td>Define redes cabeadas Ethernet, quadros, acesso ao meio e características físicas.</td>
+          <td>Redes LAN com cabos UTP, switches e placas de rede.</td>
+        </tr>
+        <tr>
+          <td>IEEE 802.5</td>
+          <td>Token Ring</td>
+          <td>Define redes em anel com passagem de token.</td>
+          <td>Tecnologia histórica, pouco utilizada atualmente.</td>
+        </tr>
+        <tr>
+          <td>IEEE 802.11</td>
+          <td>Wi-Fi / WLAN</td>
+          <td>Define redes locais sem fio.</td>
+          <td>Redes Wi-Fi domésticas, corporativas e públicas.</td>
+        </tr>
+        <tr>
+          <td>IEEE 802.15</td>
+          <td>WPAN</td>
+          <td>Define redes pessoais sem fio de curto alcance.</td>
+          <td>Bluetooth e dispositivos IoT próximos.</td>
+        </tr>
+        <tr>
+          <td>IEEE 802.16</td>
+          <td>WiMAX</td>
+          <td>Define redes metropolitanas sem fio de maior alcance.</td>
+          <td>Acesso banda larga sem fio em áreas metropolitanas.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>9.3 Padrões mais encontrados na prática</h3>
+    <div class="grid">
+      <div class="card">
+        <h3>IEEE 802.3 — Ethernet</h3>
+        <p>
+          É um dos padrões mais utilizados em redes cabeadas. Está presente em redes com switches,
+          placas de rede, cabos de par trançado e conexões LAN corporativas.
+        </p>
+        <p><strong>Exemplos:</strong> Fast Ethernet, Gigabit Ethernet, 10 Gigabit Ethernet.</p>
+      </div>
+
+      <div class="card">
+        <h3>IEEE 802.11 — Wi-Fi</h3>
+        <p>
+          Define redes locais sem fio. É utilizado em notebooks, celulares, tablets, roteadores
+          wireless e pontos de acesso corporativos.
+        </p>
+        <p><strong>Exemplos:</strong> 802.11n, 802.11ac, 802.11ax.</p>
+      </div>
+
+      <div class="card">
+        <h3>IEEE 802.1Q — VLAN</h3>
+        <p>
+          Permite criar redes locais virtuais em switches, separando logicamente o tráfego
+          mesmo quando os dispositivos utilizam a mesma infraestrutura física.
+        </p>
+        <p><strong>Exemplo:</strong> separar rede administrativa, rede de visitantes e rede de servidores.</p>
+      </div>
+    </div>
+
+    <h3>9.4 Comparação com TCP/IP</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo / Padrão</th>
+          <th>Foco principal</th>
+          <th>Exemplos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TCP/IP</td>
+          <td>Comunicação fim a fim e interligação entre redes.</td>
+          <td>HTTP, TCP, UDP, IP, DNS.</td>
+        </tr>
+        <tr>
+          <td>IEEE 802</td>
+          <td>Comunicação em redes locais e acesso ao meio físico.</td>
+          <td>Ethernet, Wi-Fi, VLAN, Bluetooth.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>9.4 Comparação com TCP/IP</h3>
+
+
+    <div class="caixa-alerta">
+      <strong>Resumo:</strong> os padrões IEEE 802 são fundamentais para que os dados possam trafegar
+      em redes locais. Eles atuam principalmente na parte de acesso à rede, enquanto o TCP/IP organiza
+      a comunicação entre aplicações, transporte, endereçamento e roteamento entre redes.
+    </div>
+  </section>
+
+  <section>
+    <div class="caixa-info">
+      <img src="TransmissaoDados-FinalA-FinalB" alt="TransmissaoDados-FinalA-FinalB">
+    </div>
+  </section>
+
+
+  <footer>
+    Manual técnico desenvolvido para apoio ao estudo de redes de computadores, modelo OSI e arquitetura TCP/IP.
+  </footer>
+</main>
+</body>
+</html>
