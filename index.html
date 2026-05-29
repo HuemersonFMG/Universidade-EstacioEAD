@@ -2,25 +2,121 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Projetos Faculdade</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos Faculdade Estácio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #003366, #005bbb);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+
+        p {
+            margin-bottom: 35px;
+            color: #e6eef8;
+            font-size: 18px;
+        }
+
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            flex: 1 1 280px;
+            max-width: 360px;
+            min-height: 120px;
+            padding: 25px;
+            background: #ffffff;
+            color: #003366;
+            text-decoration: none;
+            border-radius: 14px;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-6px);
+            background: #ffb703;
+            color: #002244;
+        }
+
+        footer {
+            margin-top: 35px;
+            font-size: 14px;
+            color: #dce8f5;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .btn {
+                min-height: 90px;
+                font-size: 17px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Projetos Faculdade Estácio</h1>
+    <main class="container">
+        <h1>Projetos Faculdade Estácio</h1>
+        <p>Portal de materiais, estudos e projetos do curso de Análise e Desenvolvimento de Sistemas.</p>
 
-    <ul>
-        <li>
-            <a href="./PlanoAulaEstacio/">
+        <div class="menu">
+            <a class="btn" href="./PlanoAulaEstacio/">
                 📚 Plano Aula Estácio
             </a>
-        </li>
 
-        <li>
-            <a href="https://huemersonfmg.github.io/Universidade-EstacioEAD/RedesInternet/EstacioADS-Redes.html">
-                🌐 Redes de Computadores (OSI, TCP/IP e IEEE 802)
+            <a class="btn" href="./RedesInternet/EstacioADS-Redes.html">
+                🌐 Redes de Computadores<br>OSI, TCP/IP e IEEE 802
             </a>
-        </li>
-    </ul>
+        </div>
+
+        <footer>
+            Huemerson FMG — ADS Estácio EAD
+        </footer>
+    </main>
 
 </body>
 </html>
