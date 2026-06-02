@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADS Estácio — Elementos da Camada de Transporte</title>
+
+  <style>
+    :root{
+      --azul-escuro:#062b4f;
+      --azul:#074b8f;
+      --azul-claro:#e9f3ff;
+      --laranja:#d96400;
+      --laranja-claro:#fff3e8;
+      --cinza:#f4f6f8;
+      --texto:#263238;
+      --borda:#d8dee6;
+      --verde:#147a3f;
+      --vermelho:#b3261e;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--texto);
+      background:#eef2f6;
+      line-height:1.6;
+    }
+
+    header{
+      background:linear-gradient(135deg,var(--azul-escuro),var(--azul));
+      color:white;
+      padding:34px 22px;
+      border-bottom:6px solid var(--laranja);
+    }
+
+    .header-content{
+      max-width:1180px;
+      margin:auto;
+    }
+
+    header h1{
+      margin:0;
+      font-size:34px;
+    }
+
+    header p{
+      max-width:940px;
+      margin:10px 0 0;
+      font-size:17px;
+      color:#e8f2ff;
+    }
+
+    .layout{
+      max-width:1180px;
+      margin:28px auto;
+      padding:0 18px;
+    }
+
+    .card{
+      background:white;
+      border-radius:14px;
+      padding:28px;
+      margin-bottom:20px;
+      box-shadow:0 8px 24px rgba(0,0,0,.10);
+      border:1px solid var(--borda);
+    }
+
+    h2{
+      color:var(--azul);
+      border-left:6px solid var(--laranja);
+      padding-left:12px;
+      margin-top:0;
+    }
+
+    h3{
+      color:var(--azul-escuro);
+      margin-top:22px;
+    }
+
+    .caixa-info{
+      background:#f8fbff;
+      border:1px solid #c9d8ea;
+      border-left:6px solid var(--azul);
+      padding:16px 18px;
+      border-radius:8px;
+      margin:18px 0;
+    }
+
+    .caixa-alerta{
+      background:var(--laranja-claro);
+      border:1px solid #ffd3a6;
+      border-left:6px solid var(--laranja);
+      padding:16px 18px;
+      border-radius:8px;
+      margin:18px 0;
+    }
+
+    .caixa-erro{
+      background:#fff1f1;
+      border:1px solid #ffc4c4;
+      border-left:6px solid var(--vermelho);
+      padding:16px 18px;
+      border-radius:8px;
+      margin:18px 0;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:16px;
+      margin-top:16px;
+    }
+
+    .mini-card{
+      background:white;
+      border:1px solid var(--borda);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 4px 12px rgba(0,0,0,.06);
+    }
+
+    .mini-card h3{
+      margin-top:0;
+      color:var(--laranja);
+    }
+
+    .fluxo{
+      background:#082f5f;
+      color:white;
+      padding:18px;
+      border-radius:10px;
+      font-family:Consolas,"Courier New",monospace;
+      overflow-x:auto;
+      margin:18px 0;
+      white-space:nowrap;
+    }
+
+    .diagrama{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      flex-wrap:wrap;
+      background:var(--cinza);
+      border:1px solid var(--borda);
+      border-radius:12px;
+      padding:20px;
+      margin:18px 0;
+    }
+
+    .node{
+      background:white;
+      border:2px solid var(--azul);
+      border-radius:12px;
+      padding:16px 18px;
+      min-width:165px;
+      text-align:center;
+      font-weight:bold;
+      color:var(--azul-escuro);
+    }
+
+    .node.orange{
+      border-color:var(--laranja);
+      background:#fff8f0;
+    }
+
+    .arrow{
+      color:var(--laranja);
+      font-size:28px;
+      font-weight:bold;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:18px 0;
+      font-size:15px;
+    }
+
+    th{
+      background:var(--azul);
+      color:white;
+      text-align:left;
+    }
+
+    th,td{
+      padding:12px;
+      border:1px solid var(--borda);
+      vertical-align:top;
+    }
+
+    tr:nth-child(even){
+      background:#f9fbfd;
+    }
+
+    code{
+      background:#eef3f8;
+      color:#0b3d75;
+      padding:2px 6px;
+      border-radius:4px;
+      font-family:Consolas,"Courier New",monospace;
+    }
+
+    ul.check{
+      list-style:none;
+      padding-left:0;
+    }
+
+    ul.check li{
+      margin:10px 0;
+      padding-left:30px;
+      position:relative;
+    }
+
+    ul.check li::before{
+      content:"✓";
+      position:absolute;
+      left:0;
+      top:0;
+      color:var(--verde);
+      font-weight:bold;
+    }
+
+    footer{
+      text-align:center;
+      color:#607d8b;
+      padding:28px;
+      font-size:14px;
+    }
+
+    @media(max-width:900px){
+      header h1{font-size:28px}
+      .arrow{transform:rotate(90deg)}
+      .fluxo{white-space:normal}
+    }
+
+    @media print{
+      body{background:white}
+      .card{box-shadow:none;page-break-inside:avoid}
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <h1>Elementos da Camada de Transporte</h1>
+    <p>
+      Manual de apoio ao curso de Análise e Desenvolvimento de Sistemas — Estácio.
+      Conteúdo prático sobre endereçamento de processos, portas TCP/UDP, multiplexação,
+      demultiplexação, cabeçalhos da camada de transporte e nomenclatura dos dados em cada camada.
+    </p>
+  </div>
+</header>
+
+<div class="layout">
+  <main>
+
+    <section class="card">
+      <h2>1. Entendendo o problema</h2>
+
+      <p>
+        Quando um programa solicita algo a um servidor, a mensagem não deve chegar apenas ao
+        computador de destino. Ela precisa chegar à <strong>aplicação correta</strong> dentro
+        daquele computador.
+      </p>
+
+      <div class="caixa-alerta">
+        <strong>Dúvida comum:</strong> se um servidor executa várias aplicações ao mesmo tempo,
+        como o sistema sabe para qual aplicação entregar cada mensagem?
+      </div>
+
+      <p>
+        Essa é justamente uma das funções da <strong>camada de transporte</strong>: identificar
+        qual processo ou aplicação deve receber os dados.
+      </p>
+
+      <div class="diagrama">
+        <div class="node">Servidor<br><small>Mesmo IP</small></div>
+        <div class="arrow">→</div>
+        <div class="node orange">Site Web<br><small>Porta 80/443</small></div>
+        <div class="node orange">Banco<br><small>Porta 1521/5432</small></div>
+        <div class="node orange">E-mail<br><small>Porta 25/587</small></div>
+      </div>
+
+      <div class="caixa-info">
+        <strong>Resumo simples:</strong> o endereço IP identifica o computador. A porta identifica
+        a aplicação dentro desse computador.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. Endereçamento na camada de transporte</h2>
+
+      <p>
+        Na camada de rede, o endereço IP indica o <strong>hospedeiro</strong> de destino.
+        Porém, dentro desse hospedeiro podem existir vários processos ativos.
+      </p>
+
+      <p>
+        Por isso, a camada de transporte usa um endereço próprio para identificar a aplicação.
+        Nos protocolos <strong>TCP</strong> e <strong>UDP</strong>, esse endereço é chamado de
+        <strong>porta</strong>.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Camada</th>
+            <th>Endereço usado</th>
+            <th>Identifica o quê?</th>
+            <th>Exemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Internet / Rede</td>
+            <td>Endereço IP</td>
+            <td>O computador ou hospedeiro na rede.</td>
+            <td>192.168.0.10</td>
+          </tr>
+          <tr>
+            <td>Transporte</td>
+            <td>Porta TCP/UDP</td>
+            <td>A aplicação ou processo dentro do computador.</td>
+            <td>443, 80, 53, 25, 3306</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="fluxo">
+IP = endereço do prédio
+Porta = número da sala dentro do prédio
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3. Como cada camada denomina os dados trocados?</h2>
+
+      <p>
+        Em redes, os dados recebem nomes diferentes conforme descem ou sobem pelas camadas.
+        Esses nomes são chamados de <strong>PDU</strong> (<em>Protocol Data Unit</em>),
+        ou seja, unidade de dados do protocolo.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Modelo / Camada</th>
+            <th>Nome dos dados</th>
+            <th>Exemplo prático</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Aplicação</td>
+            <td>Mensagem ou dados</td>
+            <td>Requisição HTTP, e-mail, JSON, HTML.</td>
+          </tr>
+          <tr>
+            <td>Transporte - TCP</td>
+            <td>Segmento TCP</td>
+            <td>Dados da aplicação com cabeçalho TCP, portas e controle.</td>
+          </tr>
+          <tr>
+            <td>Transporte - UDP</td>
+            <td>Datagrama UDP</td>
+            <td>Dados da aplicação com cabeçalho UDP simples.</td>
+          </tr>
+          <tr>
+            <td>Internet / Rede - IP</td>
+            <td>Pacote ou datagrama IP</td>
+            <td>Segmento TCP ou datagrama UDP encapsulado com endereço IP.</td>
+          </tr>
+          <tr>
+            <td>Enlace</td>
+            <td>Quadro ou frame</td>
+            <td>Pacote IP encapsulado em Ethernet ou Wi-Fi.</td>
+          </tr>
+          <tr>
+            <td>Física</td>
+            <td>Bits</td>
+            <td>Sequência de 0s e 1s transmitida por cabo, fibra ou ondas.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="fluxo">
+Mensagem → Segmento/Datagrama → Pacote IP → Quadro → Bits
+      </div>
+
+      <div class="caixa-info">
+        <strong>Para lembrar:</strong> a camada de transporte trabalha principalmente com
+        <strong>segmentos TCP</strong> ou <strong>datagramas UDP</strong>.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>4. Exemplo prático: acessando um site</h2>
+
+      <p>
+        Quando você acessa um site no navegador, como <code>https://www.exemplo.com</code>,
+        o navegador precisa saber para qual servidor enviar a mensagem e em qual porta o serviço
+        web está aguardando conexões.
+      </p>
+
+      <div class="fluxo">
+Navegador → DNS descobre o IP → Conecta no IP + Porta 443 → Servidor Web responde
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Elemento</th>
+            <th>Exemplo</th>
+            <th>Função</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nome do serviço</td>
+            <td>https://www.exemplo.com</td>
+            <td>Nome amigável usado pelo usuário.</td>
+          </tr>
+          <tr>
+            <td>Endereço IP</td>
+            <td>203.0.113.10</td>
+            <td>Identifica o servidor na rede.</td>
+          </tr>
+          <tr>
+            <td>Porta</td>
+            <td>443</td>
+            <td>Identifica a aplicação HTTPS dentro do servidor.</td>
+          </tr>
+          <tr>
+            <td>Processo</td>
+            <td>Servidor Web</td>
+            <td>Aplicação que recebe e responde a requisição.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>5. O que são portas TCP e UDP?</h2>
+
+      <p>
+        Uma <strong>porta</strong> é um número usado pela camada de transporte para entregar
+        os dados à aplicação correta.
+      </p>
+
+      <p>
+        Imagine um servidor com um único endereço IP, mas executando vários serviços:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Serviço</th>
+            <th>Protocolo</th>
+            <th>Porta comum</th>
+            <th>Função</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HTTP</td>
+            <td>TCP</td>
+            <td>80</td>
+            <td>Acesso a páginas web sem criptografia.</td>
+          </tr>
+          <tr>
+            <td>HTTPS</td>
+            <td>TCP</td>
+            <td>443</td>
+            <td>Acesso seguro a páginas e APIs.</td>
+          </tr>
+          <tr>
+            <td>DNS</td>
+            <td>UDP/TCP</td>
+            <td>53</td>
+            <td>Resolução de nomes de domínio.</td>
+          </tr>
+          <tr>
+            <td>SMTP</td>
+            <td>TCP</td>
+            <td>25 / 587</td>
+            <td>Envio de e-mails.</td>
+          </tr>
+          <tr>
+            <td>SSH</td>
+            <td>TCP</td>
+            <td>22</td>
+            <td>Acesso remoto seguro a servidores.</td>
+          </tr>
+          <tr>
+            <td>Oracle</td>
+            <td>TCP</td>
+            <td>1521</td>
+            <td>Conexão com banco de dados Oracle.</td>
+          </tr>
+          <tr>
+            <td>PostgreSQL</td>
+            <td>TCP</td>
+            <td>5432</td>
+            <td>Conexão com banco de dados PostgreSQL.</td>
+          </tr>
+          <tr>
+            <td>MySQL</td>
+            <td>TCP</td>
+            <td>3306</td>
+            <td>Conexão com banco de dados MySQL.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="caixa-alerta">
+        <strong>Importante:</strong> as portas comuns são convenções. Um serviço pode ser configurado
+        em outra porta, mas isso precisa ser conhecido pelo cliente.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>6. Como o cliente sabe a porta do servidor?</h2>
+
+      <p>
+        Para que uma aplicação envie dados corretamente, ela precisa saber qual endereço de transporte
+        deve usar no destino. Em TCP e UDP, isso significa saber a <strong>porta</strong>.
+      </p>
+
+      <h3>Forma 1: portas padronizadas</h3>
+
+      <p>
+        Alguns serviços usam portas conhecidas há muitos anos. Assim, os usuários e os softwares
+        já sabem qual porta utilizar.
+      </p>
+
+      <div class="fluxo">
+HTTP → porta 80
+HTTPS → porta 443
+DNS → porta 53
+SMTP → porta 25/587
+      </div>
+
+      <p>
+        Isso permite que um navegador saiba que, ao acessar um site HTTPS, normalmente deve usar
+        a porta <strong>443</strong>.
+      </p>
+
+      <h3>Forma 2: endereço informado pelo usuário ou sistema</h3>
+
+      <p>
+        Em alguns casos, a porta precisa ser informada manualmente ou configurada no sistema.
+      </p>
+
+      <div class="fluxo">
+http://localhost:3000
+IP do servidor: 10.0.0.5
+Porta da API: 3000
+      </div>
+
+      <p>
+        Esse é um exemplo comum em aplicações Node.js, React, APIs locais e ambientes de teste.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>7. Servidor de nomes e servidor de diretórios</h2>
+
+      <p>
+        Um esquema alternativo para localizar serviços é utilizar um processo especial chamado
+        <strong>servidor de nomes</strong> ou <strong>servidor de diretórios</strong>.
+      </p>
+
+      <p>
+        A ideia é simples: em vez do cliente decorar o endereço do serviço, ele pergunta a um
+        servidor especializado onde aquele serviço está.
+      </p>
+
+      <div class="diagrama">
+        <div class="node">Cliente</div>
+        <div class="arrow">→</div>
+        <div class="node orange">Servidor de Nomes<br><small>Onde está o serviço?</small></div>
+        <div class="arrow">→</div>
+        <div class="node">Retorna<br><small>IP + Porta</small></div>
+      </div>
+
+      <h3>Exemplo prático com DNS</h3>
+
+      <p>
+        O DNS é um exemplo conhecido de sistema de nomes. Ele traduz um nome, como
+        <code>www.google.com</code>, para um endereço IP.
+      </p>
+
+      <div class="fluxo">
+www.google.com → DNS → endereço IP do servidor
+      </div>
+
+      <p>
+        Em alguns sistemas corporativos, também pode existir um diretório de serviços,
+        responsável por indicar onde estão APIs, bancos, microsserviços ou servidores internos.
+      </p>
+
+      <div class="caixa-info">
+        <strong>Resumo:</strong> servidor de nomes ou diretórios ajuda a localizar serviços
+        sem que o cliente precise conhecer todos os endereços manualmente.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>8. Multiplexação e demultiplexação</h2>
+
+      <p>
+        A <strong>multiplexação</strong> e a <strong>demultiplexação</strong> permitem que várias
+        aplicações usem a rede ao mesmo tempo, mantendo a entrega correta dos dados para cada processo.
+      </p>
+
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Multiplexação</h3>
+          <p>
+            Acontece no hospedeiro de origem. A camada de transporte reúne dados vindos de várias
+            aplicações, adiciona cabeçalhos com as portas corretas e envia os segmentos para a camada de rede.
+          </p>
+        </div>
+
+        <div class="mini-card">
+          <h3>Demultiplexação</h3>
+          <p>
+            Acontece no hospedeiro de destino. A camada de transporte examina a porta de destino
+            no cabeçalho e entrega os dados para a aplicação correta.
+          </p>
+        </div>
+      </div>
+
+      <div class="caixa-info">
+        <strong>Resumo simples:</strong> multiplexar é juntar vários fluxos para enviar pela rede.
+        Demultiplexar é separar o que chegou e entregar a cada aplicação correta.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>9. Multiplexação na origem</h2>
+
+      <p>
+        No computador de origem, várias aplicações podem gerar dados ao mesmo tempo: navegador,
+        e-mail, transferência de arquivos, chamadas de vídeo, jogos e outras.
+      </p>
+
+      <p>
+        A camada de transporte recebe essas porções de dados, identifica cada uma pela porta de origem
+        e pela porta de destino, cria os segmentos ou datagramas e entrega tudo para a camada de rede.
+      </p>
+
+      <h3>Passos da multiplexação</h3>
+
+      <ul class="check">
+        <li>Receber dados de diferentes aplicações.</li>
+        <li>Identificar a porta usada por cada processo.</li>
+        <li>Adicionar cabeçalho TCP ou UDP com portas e informações de controle.</li>
+        <li>Criar segmentos TCP ou datagramas UDP.</li>
+        <li>Passar os dados para a camada de rede/IP.</li>
+      </ul>
+
+      <div class="fluxo">
+Browser + E-mail + FTP → TCP adiciona portas → Segmentos → IP → Rede
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>10. Demultiplexação no destino</h2>
+
+      <p>
+        No hospedeiro destino, a camada de transporte recebe dados vindos da camada de rede.
+        Ela examina os campos do cabeçalho de transporte, principalmente a
+        <strong>porta de destino</strong>, para saber qual aplicação deve receber aqueles dados.
+      </p>
+
+      <div class="fluxo">
+Segmento recebido → Examina porta de destino → Entrega ao processo correto
+      </div>
+
+      <p>
+        Por exemplo, se o segmento chega com porta de destino <code>443</code>, ele será entregue
+        ao processo responsável pelo serviço HTTPS. Se chega com porta <code>25</code> ou
+        <code>587</code>, será entregue ao serviço de e-mail SMTP.
+      </p>
+
+      <div class="caixa-alerta">
+        <strong>Ponto-chave:</strong> a demultiplexação é o processo de entregar os dados recebidos
+        à porta correta, ou seja, à aplicação correta.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>11. Exemplo de Eduardo usando vários programas</h2>
+
+      <p>
+        Imagine que Eduardo esteja usando a Internet para três atividades ao mesmo tempo:
+      </p>
+
+      <ul class="check">
+        <li>Navegar na web pelo browser.</li>
+        <li>Acessar seu e-mail.</li>
+        <li>Fazer download de arquivos por um programa específico.</li>
+      </ul>
+
+      <p>
+        Todos esses programas podem usar o protocolo <strong>TCP</strong> ao mesmo tempo.
+        Para diferenciar cada programa, o TCP utiliza portas.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Programa usado por Eduardo</th>
+            <th>Porta local de origem</th>
+            <th>Destino provável</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Browser web</td>
+            <td>11278</td>
+            <td>Servidor web na porta 443 ou 80.</td>
+          </tr>
+          <tr>
+            <td>Cliente de e-mail</td>
+            <td>25786</td>
+            <td>Servidor de e-mail SMTP, IMAP ou POP3.</td>
+          </tr>
+          <tr>
+            <td>Transferência de arquivos</td>
+            <td>3709</td>
+            <td>Servidor de arquivos, FTP, SFTP ou serviço equivalente.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="caixa-info">
+        <strong>Observação:</strong> servidores normalmente usam portas conhecidas.
+        Programas clientes costumam usar portas temporárias ou aleatórias.
+      </div>
+
+      <div class="fluxo">
+Browser porta 11278
+E-mail porta 25786
+Arquivos porta 3709
+↓
+TCP identifica cada fluxo separadamente
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>12. Como o TCP sabe quem é quem?</h2>
+
+      <p>
+        Para usar o TCP, um processo precisa se associar a uma porta. Quando um programa cliente
+        inicia uma comunicação, o sistema operacional normalmente escolhe uma porta temporária para ele.
+      </p>
+
+      <p>
+        Quando o browser de Eduardo envia uma solicitação para um servidor web, o TCP inclui no
+        cabeçalho informações como:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Exemplo</th>
+            <th>O que significa?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>IP de origem</td>
+            <td>192.168.0.20</td>
+            <td>Computador de Eduardo.</td>
+          </tr>
+          <tr>
+            <td>Porta de origem</td>
+            <td>11278</td>
+            <td>Browser web de Eduardo.</td>
+          </tr>
+          <tr>
+            <td>IP de destino</td>
+            <td>203.0.113.10</td>
+            <td>Servidor web acessado.</td>
+          </tr>
+          <tr>
+            <td>Porta de destino</td>
+            <td>443</td>
+            <td>Serviço HTTPS do servidor.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        Quando o servidor responde, ele envia a resposta de volta para o IP e porta de origem.
+        Assim, o computador de Eduardo sabe que aquela resposta pertence ao browser, e não ao e-mail
+        ou ao programa de transferência de arquivos.
+      </p>
+
+      <div class="fluxo">
+Resposta do servidor → IP 192.168.0.20 + porta 11278 → Browser de Eduardo
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>13. Cabeçalhos da camada de transporte</h2>
+
+      <p>
+        Toda mensagem da camada de transporte carrega informações de controle em seu
+        <strong>cabeçalho</strong>. Esse cabeçalho ajuda a entregar os dados à aplicação correta.
+      </p>
+
+      <p>
+        Entre os campos mais importantes estão a <strong>porta de origem</strong> e a
+        <strong>porta de destino</strong>.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Campo do cabeçalho</th>
+            <th>Função</th>
+            <th>Exemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Porta de origem</td>
+            <td>Identifica a aplicação que enviou os dados.</td>
+            <td>11278</td>
+          </tr>
+          <tr>
+            <td>Porta de destino</td>
+            <td>Identifica a aplicação que deve receber os dados.</td>
+            <td>443</td>
+          </tr>
+          <tr>
+            <td>Controle de sequência</td>
+            <td>Ajuda a ordenar os dados no TCP.</td>
+            <td>Segmento 1, 2, 3...</td>
+          </tr>
+          <tr>
+            <td>Checksum</td>
+            <td>Ajuda a detectar erros nos dados.</td>
+            <td>Verificação de integridade.</td>
+          </tr>
+          <tr>
+            <td>Flags de controle</td>
+            <td>Usadas pelo TCP para controlar conexão.</td>
+            <td>SYN, ACK, FIN.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="fluxo">
+Dados da Aplicação
+↓
+Cabeçalho TCP/UDP + Dados
+↓
+Segmento TCP ou Datagrama UDP
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>14. Exemplo completo: navegador acessando uma API</h2>
+
+      <p>
+        Vamos imaginar seu navegador acessando uma API em Node.js.
+      </p>
+
+      <div class="fluxo">
+Navegador → HTTPS → IP do servidor → Porta 443 → API Node.js → Resposta JSON
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>O que acontece?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Usuário acessa o sistema</td>
+            <td>O navegador recebe uma URL, como <code>https://meusistema.com/api/pedido</code>.</td>
+          </tr>
+          <tr>
+            <td>2. DNS resolve o nome</td>
+            <td>O domínio é convertido para o endereço IP do servidor.</td>
+          </tr>
+          <tr>
+            <td>3. Transporte usa a porta</td>
+            <td>Por ser HTTPS, o navegador tenta acessar a porta <code>443</code>.</td>
+          </tr>
+          <tr>
+            <td>4. Servidor recebe a requisição</td>
+            <td>A mensagem chega ao processo correto que está escutando naquela porta.</td>
+          </tr>
+          <tr>
+            <td>5. API responde</td>
+            <td>A aplicação processa a requisição e retorna dados, normalmente em JSON.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="caixa-alerta">
+        <strong>Ponto-chave:</strong> sem portas, o servidor até poderia receber os pacotes,
+        mas não saberia qual aplicação deveria processá-los.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>15. Analogia prática</h2>
+
+      <p>
+        Uma forma simples de entender é comparar com um prédio comercial:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Rede</th>
+            <th>Analogia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Endereço IP</td>
+            <td>Endereço do prédio.</td>
+          </tr>
+          <tr>
+            <td>Porta TCP/UDP</td>
+            <td>Número da sala dentro do prédio.</td>
+          </tr>
+          <tr>
+            <td>Aplicação</td>
+            <td>Empresa que trabalha naquela sala.</td>
+          </tr>
+          <tr>
+            <td>Mensagem</td>
+            <td>Correspondência enviada para uma empresa específica.</td>
+          </tr>
+          <tr>
+            <td>Multiplexação</td>
+            <td>Várias empresas enviando correspondências pelo mesmo prédio.</td>
+          </tr>
+          <tr>
+            <td>Demultiplexação</td>
+            <td>A portaria separando as correspondências e entregando para cada sala correta.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="fluxo">
+IP leva até o prédio.
+Porta leva até a sala correta.
+Demultiplexação entrega para a empresa correta.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>16. Resumo para prova</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Conceito</th>
+            <th>Resposta rápida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Endereçamento de transporte</td>
+            <td>Identifica a aplicação ou processo que deve receber os dados.</td>
+          </tr>
+          <tr>
+            <td>Porta</td>
+            <td>Endereço de transporte usado por TCP e UDP.</td>
+          </tr>
+          <tr>
+            <td>IP</td>
+            <td>Identifica o hospedeiro na rede.</td>
+          </tr>
+          <tr>
+            <td>Porta de destino</td>
+            <td>Indica qual aplicação deve receber a mensagem.</td>
+          </tr>
+          <tr>
+            <td>Porta de origem</td>
+            <td>Indica qual aplicação enviou a mensagem.</td>
+          </tr>
+          <tr>
+            <td>Multiplexação</td>
+            <td>Na origem, junta dados de várias aplicações, adiciona cabeçalhos e envia pela rede.</td>
+          </tr>
+          <tr>
+            <td>Demultiplexação</td>
+            <td>No destino, examina a porta de destino e entrega os dados ao processo correto.</td>
+          </tr>
+          <tr>
+            <td>Servidor de nomes</td>
+            <td>Ajuda a localizar o endereço correspondente a um nome de serviço.</td>
+          </tr>
+          <tr>
+            <td>DNS</td>
+            <td>Exemplo de sistema de nomes que traduz domínios em endereços IP.</td>
+          </tr>
+          <tr>
+            <td>Cabeçalho de transporte</td>
+            <td>Contém informações como portas, checksum e controles do TCP/UDP.</td>
+          </tr>
+          <tr>
+            <td>PDU da aplicação</td>
+            <td>Mensagem ou dados.</td>
+          </tr>
+          <tr>
+            <td>PDU do transporte</td>
+            <td>Segmento TCP ou datagrama UDP.</td>
+          </tr>
+          <tr>
+            <td>PDU da rede</td>
+            <td>Pacote ou datagrama IP.</td>
+          </tr>
+          <tr>
+            <td>PDU do enlace</td>
+            <td>Quadro ou frame.</td>
+          </tr>
+          <tr>
+            <td>PDU da física</td>
+            <td>Bits.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="caixa-alerta">
+        <strong>Frase-chave:</strong> IP identifica o hospedeiro; porta identifica a aplicação;
+        multiplexação junta fluxos na origem; demultiplexação separa e entrega no destino.
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  Manual técnico de apoio — ADS Estácio EAD | Elementos da Camada de Transporte
+</footer>
+
+</body>
+</html>
