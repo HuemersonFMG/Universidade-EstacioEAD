@@ -24,7 +24,7 @@
 
         .container {
             width: 100%;
-            max-width: 900px;
+            max-width: 1200px;
             background: rgba(255, 255, 255, 0.12);
             padding: 40px;
             border-radius: 18px;
@@ -38,10 +38,24 @@
             font-size: 36px;
         }
 
-        p {
-            margin-bottom: 35px;
+        .descricao {
+            margin-bottom: 15px;
             color: #e6eef8;
             font-size: 18px;
+        }
+
+        .link-site {
+            margin-bottom: 35px;
+        }
+
+        .link-site a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .link-site a:hover {
+            text-decoration: underline;
         }
 
         .menu {
@@ -54,25 +68,40 @@
         .btn {
             flex: 1 1 280px;
             max-width: 360px;
-            min-height: 120px;
+            min-height: 140px;
             padding: 25px;
             background: #ffffff;
             color: #003366;
             text-decoration: none;
             border-radius: 14px;
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: 0.3s;
             box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+
+            display: flex;
+            flex-direction: column; /* <-- faz os textos ficarem um abaixo do outro */
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn:hover {
             transform: translateY(-6px);
             background: #ffb703;
             color: #002244;
+        }
+
+        .btn-titulo {
+            margin: 0;
+            color: #005bbb;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .btn-subtitulo {
+            margin: 0;
+            color: #4b6b8d;
+            font-size: 15px;
+            font-weight: normal;
         }
 
         footer {
@@ -91,8 +120,15 @@
             }
 
             .btn {
-                min-height: 90px;
+                min-height: 110px;
+            }
+
+            .btn-titulo {
                 font-size: 17px;
+            }
+
+            .btn-subtitulo {
+                font-size: 13px;
             }
         }
     </style>
@@ -100,27 +136,47 @@
 <body>
 
     <main class="container">
+
         <h1>Projetos Faculdade Estácio</h1>
-        <p>Portal de materiais, estudos e projetos do curso de Análise e Desenvolvimento de Sistemas.</p>
-        <a href="https://huemersonfmg.github.io/Universidade-EstacioEAD/">https://huemersonfmg.github.io/Universidade-EstacioEAD/</a> <br>
+
+        <p class="descricao">
+            Portal de materiais, estudos e projetos do curso de Análise e Desenvolvimento de Sistemas.
+        </p>
+
+        <p class="link-site">
+            <a href="https://huemersonfmg.github.io/Universidade-EstacioEAD/" target="_blank">
+                https://huemersonfmg.github.io/Universidade-EstacioEAD/
+            </a>
+        </p>
 
         <div class="menu">
-            <a class="btn" href="./PlanoAulaEstacio/">
-                📚 Plano Aula Estácio
+
+            <a class="btn" href="./PlanoAulaEstacio/index.html">
+                <p class="btn-titulo">📚 Plano Aula Estácio</p>
+                <p class="btn-subtitulo">ADS - 100% EAD</p>
             </a>
 
             <a class="btn" href="./RedesInternet/EstacioADS-Redes.html">
-                🌐 Redes de Computadores<br>OSI, TCP/IP e IEEE 802
+                <p class="btn-titulo">🌐 Redes de Computadores</p>
+                <p class="btn-subtitulo">OSI, TCP/IP e IEEE 802</p>
             </a>
 
             <a class="btn" href="./CamadasAplicacaoTransporte/EstacioADS-AplicacaoTransporte.html">
-                🌐 ADS Estácio — Camadas de Aplicação e Transporte<br>HTTP - HTTPS - TCP - UDP
+                <p class="btn-titulo">🌐 Camadas de Aplicação e Transporte</p>
+                <p class="btn-subtitulo">HTTP • HTTPS • TCP • UDP</p>
             </a>
+
+            <a class="btn" href="./CamadasAplicacaoTransporte/ElementosCamadaTransporte.html">
+                <p class="btn-titulo">🌐 Elementos da Camada de Transporte</p>
+                <p class="btn-subtitulo">Portas TCP/UDP • Multiplexação</p>
+            </a>
+
         </div>
 
         <footer>
             Huemerson FMG — ADS Estácio de Sá EAD
         </footer>
+
     </main>
 
 </body>
