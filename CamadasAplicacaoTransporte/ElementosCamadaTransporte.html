@@ -37,7 +37,7 @@
     }
 
     .header-content{
-      max-width:1180px;
+      width:98%;
       margin:auto;
     }
 
@@ -47,14 +47,14 @@
     }
 
     header p{
-      max-width:940px;
+      width:98%;
       margin:10px 0 0;
       font-size:17px;
       color:#e8f2ff;
     }
 
     .layout{
-      max-width:1180px;
+      width:98%;
       margin:28px auto;
       padding:0 18px;
     }
@@ -241,6 +241,101 @@
       body{background:white}
       .card{box-shadow:none;page-break-inside:avoid}
     }
+
+    /*RESUMO ESTUDOS ADICIONAIS*/
+    .resumo-questoes-redes {
+      width: 100%;
+      margin: 30px auto;
+      padding: 28px;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+      font-family: Arial, Helvetica, sans-serif;
+      color: #2f3b4a;
+      line-height: 1.6;
+    }
+
+    .resumo-questoes-redes h2 {
+      margin-top: 0;
+      color: #123c69;
+      font-size: 28px;
+      border-bottom: 3px solid #1d5fd3;
+      padding-bottom: 10px;
+    }
+
+    .resumo-questoes-redes h3 {
+      color: #1d5fd3;
+      margin-top: 26px;
+      font-size: 22px;
+    }
+
+    .resumo-questoes-redes .alerta {
+      background: #fff4d6;
+      border-left: 5px solid #f0b429;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+    }
+
+    .resumo-questoes-redes .erro {
+      background: #ffe8e8;
+      border-left: 5px solid #d93025;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 14px 0;
+    }
+
+    .resumo-questoes-redes .certo {
+      background: #e8f5e9;
+      border-left: 5px solid #2e7d32;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 14px 0;
+    }
+
+    .resumo-questoes-redes table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .resumo-questoes-redes th {
+      background: #1d5fd3;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .resumo-questoes-redes td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      vertical-align: top;
+    }
+
+    .resumo-questoes-redes tr:nth-child(even) {
+      background: #f7f9fc;
+    }
+
+    .resumo-questoes-redes .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      color: white;
+      background: #1d5fd3;
+    }
+
+    .resumo-questoes-redes ul {
+      padding-left: 22px;
+    }
+
+    .resumo-questoes-redes strong {
+      color: #123c69;
+    }
+
   </style>
 </head>
 
@@ -807,7 +902,7 @@ TCP identifica cada fluxo separadamente
       </p>
 
       <div class="fluxo">
-Resposta do servidor → IP 192.168.0.20 + porta 11278 → Browser de Eduardo
+        Resposta do servidor → IP 192.168.0.20 + porta 11278 → Browser de Eduardo
       </div>
     </section>
 
@@ -862,11 +957,11 @@ Resposta do servidor → IP 192.168.0.20 + porta 11278 → Browser de Eduardo
       </table>
 
       <div class="fluxo">
-Dados da Aplicação
-↓
-Cabeçalho TCP/UDP + Dados
-↓
-Segmento TCP ou Datagrama UDP
+        Dados da Aplicação
+        ↓
+        Cabeçalho TCP/UDP + Dados
+        ↓
+        Segmento TCP ou Datagrama UDP
       </div>
     </section>
 
@@ -878,7 +973,7 @@ Segmento TCP ou Datagrama UDP
       </p>
 
       <div class="fluxo">
-Navegador → HTTPS → IP do servidor → Porta 443 → API Node.js → Resposta JSON
+        Navegador → HTTPS → IP do servidor → Porta 443 → API Node.js → Resposta JSON
       </div>
 
       <table>
@@ -961,14 +1056,189 @@ Navegador → HTTPS → IP do servidor → Porta 443 → API Node.js → Respost
       </table>
 
       <div class="fluxo">
-IP leva até o prédio.
-Porta leva até a sala correta.
-Demultiplexação entrega para a empresa correta.
+        IP leva até o prédio.
+        Porta leva até a sala correta.
+        Demultiplexação entrega para a empresa correta.
       </div>
     </section>
 
+    <section class="resumo-questoes-redes">
+      <h2>16 - Resumo - Estudos adicionais - Complemento</h2>
+
+      <div class="alerta">
+        <strong>Foco principal:</strong> revisar os pontos em que estou tendo dúvidas,
+        principalmente <strong>NAT</strong>, <strong>ARP</strong>, <strong>tabela de repasse</strong>,
+        <strong>circuitos virtuais/datagramas</strong> e <strong>camadas OSI</strong>.
+      </div>
+
+      <h3>1. IPv4, TTL e IHL</h3>
+      <p>
+        O IPv4 possui campos importantes no cabeçalho. O <strong>TTL</strong> limita a vida útil do pacote
+        em quantidade de saltos, não em tempo real. Já o <strong>IHL</strong> informa o tamanho do cabeçalho
+        em palavras de 32 bits.
+      </p>
+
+      <div class="certo">
+        <strong>Lembre:</strong> TTL = quantidade de roteadores que o pacote ainda pode atravessar.
+        IHL = tamanho do cabeçalho IPv4.
+      </div>
+
+      <h3>2. DHCP</h3>
+      <p>
+        O <strong>DHCP</strong> é o protocolo que distribui automaticamente endereços IP e outras configurações
+        de rede para os dispositivos.
+      </p>
+
+      <p>
+        Não confundir com:
+        <strong>ARP</strong> = IP para MAC,
+        <strong>DNS</strong> = nome para IP,
+        <strong>NAT</strong> = IP privado para IP público.
+      </p>
+
+      <h3>3. Características do IPv4</h3>
+      <p>
+        O IPv4 possui limite de endereçamento, pois usa endereços de <strong>32 bits</strong>.
+        Também possui campo de versão no cabeçalho. Ele não usa classes G e H, e não elimina TTL,
+        flags ou fragment offset.
+      </p>
+
+      <h3>4 e 5. NAT</h3>
+      <div class="erro">
+        <strong>Ponto de atenção:</strong> nas questões sobre IP privado sendo convertido para IP público,
+        a resposta correta é <strong>NAT</strong>.
+      </div>
+
+      <p>
+        O <strong>NAT</strong> permite que vários dispositivos de uma rede interna usem um único IP público
+        ou um pequeno conjunto de IPs públicos para acessar a Internet.
+      </p>
+
+      <p>
+        Exemplo:
+      </p>
+
+      <pre>
+        192.168.30.128  →  NAT  →  IP público da empresa/provedor
+      </pre>
+
+      <h3>6. Comutação de pacotes, circuitos e datagramas</h3>
+      <p>
+        Na comutação por <strong>datagramas</strong>, pacotes diferentes podem seguir caminhos diferentes.
+        Isso acontece no modelo usado pelo IP.
+      </p>
+
+      <p>
+        Já na <strong>comutação de circuitos</strong>, primeiro é estabelecido um caminho dedicado.
+        O conceito de <strong>store-and-forward</strong> está associado à comutação de pacotes, não à comutação
+        de circuitos.
+      </p>
+
+      <h3>7. ARP</h3>
+      <p>
+        O <strong>ARP</strong> faz o mapeamento entre endereço de rede e endereço de enlace.
+        Em outras palavras, ele descobre o <strong>MAC</strong> correspondente a um determinado
+        <strong>IP</strong>.
+      </p>
+
+      <div class="certo">
+        <strong>Frase para memorizar:</strong> ARP = IP → MAC.
+      </div>
+
+      <h3>8. Tabela de repasse</h3>
+      <div class="erro">
+        <strong>Ponto de atenção:</strong> todos os roteadores não possuem a mesma tabela de repasse.
+        Cada roteador possui sua própria tabela.
+      </div>
+
+      <p>
+        A tabela de repasse, ou tabela de encaminhamento, é usada pelo roteador para decidir para onde
+        enviar um pacote. Ela é montada com base em informações processadas pelos algoritmos de roteamento.
+      </p>
+
+      <h3>9. Circuitos virtuais e datagramas</h3>
+      <p>
+        Em <strong>circuitos virtuais</strong>, é definido um caminho lógico para a conexão, e os roteadores
+        precisam manter informações sobre essa conexão.
+      </p>
+
+      <p>
+        Em redes de <strong>datagramas</strong>, não há conexão prévia. Cada pacote é tratado de forma
+        independente. Porém, redes de datagramas também precisam de algoritmos de roteamento.
+      </p>
+
+      <h3>10. Modelo OSI</h3>
+      <p>
+        A ordem das camadas do modelo OSI, da mais superior para a inferior, é:
+      </p>
+
+      <ol>
+        <li>Aplicação</li>
+        <li>Apresentação</li>
+        <li>Sessão</li>
+        <li>Transporte</li>
+        <li>Rede</li>
+        <li>Enlace</li>
+        <li>Física</li>
+      </ol>
+
+      <div class="certo">
+        <strong>Na questão:</strong> Apresentação → Transporte → Rede → Física.
+        Portanto: <strong>B C D A</strong>.
+      </div>
+
+      <h3>Resumo Final para Prova</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tema</th>
+            <th>O que lembrar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">DHCP</span></td>
+            <td>Distribui IP automaticamente para os dispositivos.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">ARP</span></td>
+            <td>Descobre o endereço MAC a partir de um endereço IP.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">NAT</span></td>
+            <td>Converte IP privado em IP público para acesso à Internet.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">TTL</span></td>
+            <td>Limita a quantidade de saltos de um pacote IPv4.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">IHL</span></td>
+            <td>Indica o tamanho do cabeçalho IPv4 em palavras de 32 bits.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">Datagrama</span></td>
+            <td>Pacotes podem seguir caminhos diferentes.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">Circuito Virtual</span></td>
+            <td>Todos os pacotes seguem o mesmo caminho lógico.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">Tabela de Repasse</span></td>
+            <td>Guarda informações usadas pelo roteador para encaminhar pacotes.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">OSI</span></td>
+            <td>Aplicação, Apresentação, Sessão, Transporte, Rede, Enlace e Física.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <section class="card">
-      <h2>16. Resumo para prova</h2>
+      <h2>17. Resumo para prova</h2>
 
       <table>
         <thead>
