@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comandos Git</title>
+
+    <style>
+        .grade {
+            background:#3412f8;
+            color:white;
+            padding:12px;
+            text-align:left;
+            border-radius: 10px;
+        }
+
+        .git-table{
+          width:100%;
+          border-collapse:collapse;
+          font-family:Arial,sans-serif;
+          font-size:14px;
+          margin:20px 0;
+        }
+
+        .git-table th{
+          background:#234b72;
+          color:white;
+          padding:12px;
+          text-align:left;
+        }
+
+        .git-table td{
+          border:1px solid #ddd;
+          padding:10px;
+          vertical-align:top;
+        }
+
+        .git-table tr:nth-child(even){
+          background:#f8f9fb;
+        }
+
+        .git-table code{
+          background:#1e1e1e;
+          color:#00ff88;
+          padding:4px 7px;
+          border-radius:5px;
+          display:inline-block;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        <h3 class="grade">Lista geral de Comandos Git</h3>
+    </div>
+    <div>
+        <table class="git-table">
+            <tr>
+                <th>Comando</th>
+                <th>O que faz</th>
+            </tr>
+
+            <tr>
+                <td><code>git status</code></td>
+                <td>Mostra arquivos modificados, novos, deletados e pendentes de commit.</td>
+            </tr>
+
+            <tr>
+                <td><code>git add .</code></td>
+                <td>Adiciona todas as alterações para o próximo commit.</td>
+            </tr>
+
+            <tr>
+                <td><code>git add nome-arquivo</code></td>
+                <td>Adiciona apenas um arquivo específico para o próximo commit.</td>
+            </tr>
+
+            <tr>
+                <td><code>git commit -m "mensagem"</code></td>
+                <td>Cria um commit com as alterações adicionadas.</td>
+            </tr>
+
+            <tr>
+                <td><code>git push</code></td>
+                <td>Envia os commits locais para o repositório remoto.</td>
+            </tr>
+
+            <tr>
+                <td><code>git pull</code></td>
+                <td>Baixa e aplica alterações do repositório remoto.</td>
+            </tr>
+
+            <tr>
+                <td><code>git clone URL</code></td>
+                <td>Copia um repositório remoto para sua máquina.</td>
+            </tr>
+
+            <tr>
+                <td><code>git log --oneline</code></td>
+                <td>Mostra o histórico resumido de commits.</td>
+            </tr>
+
+            <tr>
+                <td><code>git log --oneline -5</code></td>
+                <td>Mostra os últimos 5 commits.</td>
+            </tr>
+
+            <tr>
+                <td><code>git diff</code></td>
+                <td>Mostra as alterações feitas antes de adicionar ao commit.</td>
+            </tr>
+
+            <tr>
+                <td><code>git diff --staged</code></td>
+                <td>Mostra alterações já adicionadas com git add.</td>
+            </tr>
+
+            <tr>
+                <td><code>git branch</code></td>
+                <td>Lista as branches locais.</td>
+            </tr>
+
+            <tr>
+                <td><code>git branch nome-branch</code></td>
+                <td>Cria uma nova branch.</td>
+            </tr>
+
+            <tr>
+                <td><code>git checkout nome-branch</code></td>
+                <td>Troca para outra branch.</td>
+            </tr>
+
+            <tr>
+                <td><code>git checkout -b nome-branch</code></td>
+                <td>Cria e já entra em uma nova branch.</td>
+            </tr>
+
+            <tr>
+                <td><code>git switch nome-branch</code></td>
+                <td>Troca para outra branch usando comando moderno.</td>
+            </tr>
+
+            <tr>
+                <td><code>git switch -c nome-branch</code></td>
+                <td>Cria e entra em uma nova branch usando comando moderno.</td>
+            </tr>
+
+            <tr>
+                <td><code>git merge nome-branch</code></td>
+                <td>Mescla outra branch na branch atual.</td>
+            </tr>
+
+            <tr>
+                <td><code>git remote -v</code></td>
+                <td>Mostra os repositórios remotos configurados.</td>
+            </tr>
+
+            <tr>
+                <td><code>git remote add origin URL</code></td>
+                <td>Adiciona o repositório remoto chamado origin.</td>
+            </tr>
+
+            <tr>
+                <td><code>git push -u origin main</code></td>
+                <td>Envia a branch main e define o remoto padrão.</td>
+            </tr>
+
+            <tr>
+                <td><code>git restore nome-arquivo</code></td>
+                <td>Desfaz alterações locais de um arquivo ainda não commitado.</td>
+            </tr>
+
+            <tr>
+                <td><code>git restore --staged nome-arquivo</code></td>
+                <td>Remove arquivo da área de stage, mas mantém as alterações no arquivo.</td>
+            </tr>
+
+            <tr>
+                <td><code>git reset --soft HEAD~1</code></td>
+                <td>Desfaz o último commit, mantendo as alterações prontas para novo commit.</td>
+            </tr>
+
+            <tr>
+                <td><code>git reset --hard HEAD~1</code></td>
+                <td>Desfaz o último commit e apaga as alterações. Use com cuidado.</td>
+            </tr>
+
+            <tr>
+                <td><code>git stash</code></td>
+                <td>Guarda temporariamente alterações sem commit.</td>
+            </tr>
+
+            <tr>
+                <td><code>git stash list</code></td>
+                <td>Lista alterações guardadas no stash.</td>
+            </tr>
+
+            <tr>
+                <td><code>git stash pop</code></td>
+                <td>Restaura a última alteração guardada no stash.</td>
+            </tr>
+
+            <tr>
+                <td><code>git tag</code></td>
+                <td>Lista tags de versão do projeto.</td>
+            </tr>
+
+            <tr>
+                <td><code>git tag v1.6.0</code></td>
+                <td>Cria uma tag local de versão.</td>
+            </tr>
+
+            <tr>
+                <td><code>git push origin v1.6.0</code></td>
+                <td>Envia uma tag de versão para o repositório remoto.</td>
+            </tr>
+
+            <tr>
+                <td><code>git fetch</code></td>
+                <td>Baixa informações do remoto sem aplicar no código local.</td>
+            </tr>
+
+            <tr>
+                <td><code>git clean -fd</code></td>
+                <td>Remove arquivos e pastas não rastreados. Use com cuidado.</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
