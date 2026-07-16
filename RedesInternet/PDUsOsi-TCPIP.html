@@ -1,0 +1,273 @@
+<section class="modelos-rede">
+    <style>
+        .modelos-rede {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #263238;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .modelos-rede * {
+            box-sizing: border-box;
+        }
+
+        .modelos-rede h2 {
+            margin-top: 0;
+            color: #0d47a1;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .modelos-rede .introducao {
+            margin-bottom: 25px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .tabela-responsiva {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .tabela-osi {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+        }
+
+        .tabela-osi caption {
+            padding: 15px;
+            color: #37474f;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .tabela-osi th,
+        .tabela-osi td {
+            padding: 14px;
+            border: 1px solid #cfd8dc;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .tabela-osi thead th {
+            color: #ffffff;
+            background-color: #0d47a1;
+            text-align: center;
+        }
+
+        .tabela-osi tbody tr:nth-child(even) {
+            background-color: #f5f9ff;
+        }
+
+        .tabela-osi tbody tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        .numero-camada {
+            width: 80px;
+            font-weight: bold;
+            text-align: center !important;
+        }
+
+        .nome-camada {
+            font-weight: bold;
+            color: #0d47a1;
+        }
+
+        .pdu {
+            font-weight: bold;
+            color: #b71c1c;
+            text-align: center !important;
+        }
+
+        .tcp-ip {
+            font-weight: bold;
+            color: #1b5e20;
+        }
+
+        .observacao {
+            margin-top: 25px;
+            padding: 18px;
+            line-height: 1.6;
+            background-color: #fff8e1;
+            border-left: 5px solid #ffb300;
+            border-radius: 6px;
+        }
+
+        .observacao strong {
+            color: #e65100;
+        }
+
+        .explicacao-pdu {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+        }
+
+        .explicacao-pdu h3 {
+            margin-top: 0;
+            color: #1b5e20;
+        }
+
+        .explicacao-pdu p {
+            margin-bottom: 0;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .modelos-rede {
+                margin: 15px;
+                padding: 20px;
+            }
+
+            .modelos-rede h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+
+    <h2>PDUs das Camadas OSI e Equivalência com o Modelo TCP/IP</h2>
+
+    <p class="introducao">
+        Durante a comunicação em uma rede, os dados recebem diferentes nomes
+        conforme passam pelas camadas dos modelos de referência. Esses nomes são
+        chamados de <strong>PDUs — Protocol Data Units</strong>, ou Unidades de
+        Dados de Protocolo. A tabela abaixo apresenta as sete camadas do modelo
+        OSI, o PDU utilizado em cada camada e sua equivalência com o modelo TCP/IP.
+    </p>
+
+    <div class="tabela-responsiva">
+        <table class="tabela-osi">
+            <caption>
+                Comparação entre os modelos OSI e TCP/IP
+            </caption>
+
+            <thead>
+                <tr>
+                    <th>Camada OSI</th>
+                    <th>Nome</th>
+                    <th>Função principal</th>
+                    <th>PDU</th>
+                    <th>Camada TCP/IP equivalente</th>
+                    <th>Exemplos de protocolos e tecnologias</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="numero-camada">7</td>
+                    <td class="nome-camada">Aplicação</td>
+                    <td>
+                        Fornece serviços de rede diretamente para aplicações
+                        utilizadas pelo usuário.
+                    </td>
+                    <td class="pdu">Dados</td>
+                    <td class="tcp-ip" rowspan="3">Aplicação</td>
+                    <td>HTTP, HTTPS, FTP, SMTP, DNS, DHCP e SSH</td>
+                </tr>
+
+                <tr>
+                    <td class="numero-camada">6</td>
+                    <td class="nome-camada">Apresentação</td>
+                    <td>
+                        Realiza tradução, codificação, compactação e criptografia
+                        dos dados.
+                    </td>
+                    <td class="pdu">Dados</td>
+                    <td>SSL/TLS, JPEG, PNG, GIF, ASCII e UTF-8</td>
+                </tr>
+
+                <tr>
+                    <td class="numero-camada">5</td>
+                    <td class="nome-camada">Sessão</td>
+                    <td>
+                        Estabelece, mantém, controla e encerra sessões de
+                        comunicação entre dispositivos.
+                    </td>
+                    <td class="pdu">Dados</td>
+                    <td>NetBIOS, RPC, SIP e sessões de comunicação</td>
+                </tr>
+
+                <tr>
+                    <td class="numero-camada">4</td>
+                    <td class="nome-camada">Transporte</td>
+                    <td>
+                        Realiza a comunicação entre processos, controle de fluxo,
+                        controle de erros e segmentação dos dados.
+                    </td>
+                    <td class="pdu">
+                        Segmento no TCP<br>
+                        Datagrama no UDP
+                    </td>
+                    <td class="tcp-ip">Transporte</td>
+                    <td>TCP e UDP</td>
+                </tr>
+
+                <tr>
+                    <td class="numero-camada">3</td>
+                    <td class="nome-camada">Rede</td>
+                    <td>
+                        Executa o endereçamento lógico e escolhe a rota utilizada
+                        pelos dados até o destino.
+                    </td>
+                    <td class="pdu">Pacote</td>
+                    <td class="tcp-ip">Internet</td>
+                    <td>IPv4, IPv6, ICMP, IPsec e roteadores</td>
+                </tr>
+
+                <tr>
+                    <td class="numero-camada">2</td>
+                    <td class="nome-camada">Enlace de Dados</td>
+                    <td>
+                        Organiza os dados em quadros, utiliza endereços MAC e
+                        controla o acesso ao meio físico.
+                    </td>
+                    <td class="pdu">Quadro</td>
+                    <td class="tcp-ip" rowspan="2">
+                        Acesso à Rede
+                    </td>
+                    <td>Ethernet, Wi-Fi, PPP, VLAN, switches e endereços MAC</td>
+                </tr>
+
+                <tr>
+                    <td class="numero-camada">1</td>
+                    <td class="nome-camada">Física</td>
+                    <td>
+                        Transmite sinais elétricos, ópticos ou de rádio através
+                        do meio físico.
+                    </td>
+                    <td class="pdu">Bits</td>
+                    <td>
+                        Cabos, conectores, fibra óptica, ondas de rádio, hubs e
+                        repetidores
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="explicacao-pdu">
+        <h3>O que é um PDU?</h3>
+
+        <p>
+            PDU é o nome dado à unidade de informação processada em cada camada
+            de um modelo de rede. Embora o conteúdo original continue sendo o
+            dado produzido pela aplicação, cada camada adiciona informações de
+            controle, chamadas de cabeçalhos e, em alguns casos, trailers.
+        </p>
+    </div>
+
+    <div class="observacao">
+        <strong>Importante:</strong> nas camadas de Aplicação, Apresentação e
+        Sessão, o PDU é normalmente chamado apenas de <strong>dados</strong>.
+        Na camada de Transporte, o nome depende do protocolo: utiliza-se
+        <strong>segmento</strong> para TCP e <strong>datagrama</strong> para UDP.
+    </div>
+</section>
