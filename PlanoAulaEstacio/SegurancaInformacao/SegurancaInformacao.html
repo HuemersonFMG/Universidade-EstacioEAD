@@ -442,7 +442,7 @@
   <header>
     <div class="hero">
       <span class="eyebrow">Faculdade Estácio • Introdução à Segurança da Informação</span>
-      <h1>Manual Técnico de Funções Hash e Integridade de Dados</h1>
+      <h1>Funções Hash e Integridade de Dados</h1>
       <p class="subtitle">
         Guia de estudo baseado nas atividades do laboratório, com explicações passo a passo,
         exemplos práticos, erros comuns e pontos que exigem maior atenção.
@@ -979,6 +979,158 @@ HASH
 └── Senhas: Argon2, bcrypt, scrypt ou PBKDF2
         </div>
       </section>
+
+      <section class="manual">
+          <h2>13. Entendendo a Diferença entre Hash Mod 10 e Hash Criptográfico (SHA-256)</h2>
+
+          <p>
+              Durante o estudo sobre funções hash, é comum surgir a dúvida sobre a relação entre o
+              <strong>Hash Mod 10</strong>, utilizado em Estruturas de Dados, e os algoritmos modernos
+              de segurança, como o <strong>SHA-256</strong>. Embora ambos sejam chamados de "hash",
+              eles possuem objetivos completamente diferentes.
+          </p>
+
+          <h3>Hash Mod 10</h3>
+
+          <p>
+              O Hash Mod 10 é utilizado apenas para determinar a posição onde um dado será armazenado
+              em uma tabela hash. Nesse caso, o valor de entrada (chave) já existe e a função hash
+              apenas calcula:
+          </p>
+
+      <pre>Hash = Chave mod 10</pre>
+
+          <p>
+              Exemplo:
+          </p>
+
+      <pre>
+      52 mod 10 = 2
+
+      Hash = 2
+      Posição da tabela = 2
+      </pre>
+
+          <p>
+              O objetivo é distribuir os registros entre as posições da tabela para facilitar a
+              localização e acelerar as consultas. Como existem apenas 10 posições (0 a 9),
+              diferentes chaves podem gerar o mesmo resultado, ocasionando uma <strong>colisão</strong>.
+          </p>
+
+          <h3>Hash Criptográfico (SHA-256)</h3>
+
+          <p>
+              Diferentemente do Hash Mod 10, o SHA-256 não utiliza uma chave numérica nem realiza
+              uma simples divisão. O algoritmo lê todo o conteúdo do arquivo, byte por byte,
+              independentemente de seu tipo (TXT, PDF, JPG, MP4, ZIP, EXE etc.).
+          </p>
+
+          <p>
+              Em arquivos de texto, os caracteres são representados por bytes (ASCII ou UTF-8).
+              Em imagens, vídeos e documentos, o algoritmo também trabalha apenas com bytes,
+              sem interpretar o tipo do arquivo.
+          </p>
+
+          <p>
+              Esses bytes são processados em blocos de 512 bits (64 bytes), passando por diversas
+              operações matemáticas, como rotações de bits, operações XOR, funções booleanas e
+              somas módulo 2³², produzindo ao final um resumo criptográfico de 256 bits.
+          </p>
+
+          <h3>O tamanho do arquivo influencia?</h3>
+
+          <p>
+              Não. Um dos principais conceitos do SHA-256 é que o tamanho do hash permanece sempre
+              o mesmo, independentemente do tamanho do arquivo.
+          </p>
+
+          <table>
+              <thead>
+                  <tr>
+                      <th>Arquivo</th>
+                      <th>Tamanho</th>
+                      <th>SHA-256</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Olá.txt</td>
+                      <td>3 bytes</td>
+                      <td>256 bits (64 caracteres hexadecimais)</td>
+                  </tr>
+                  <tr>
+                      <td>Livro.pdf</td>
+                      <td>15 MB</td>
+                      <td>256 bits (64 caracteres hexadecimais)</td>
+                  </tr>
+                  <tr>
+                      <td>Filme.mp4</td>
+                      <td>50 GB</td>
+                      <td>256 bits (64 caracteres hexadecimais)</td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <p>
+              Portanto, um arquivo de poucos bytes e outro com dezenas de gigabytes produzem
+              hashes exatamente do mesmo tamanho.
+          </p>
+
+          <h3>Efeito Avalanche</h3>
+
+          <p>
+              Uma das características mais importantes dos algoritmos criptográficos é o chamado
+              <strong>Efeito Avalanche</strong>. Alterar apenas um único byte do arquivo é suficiente
+              para gerar um hash completamente diferente, tornando praticamente impossível identificar
+              qualquer semelhança entre os dois resultados.
+          </p>
+
+          <h3>Resumo</h3>
+
+          <table>
+              <thead>
+                  <tr>
+                      <th>Hash Mod 10</th>
+                      <th>SHA-256</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Usado em Estruturas de Dados.</td>
+                      <td>Usado em Segurança da Informação.</td>
+                  </tr>
+                  <tr>
+                      <td>Recebe uma chave numérica.</td>
+                      <td>Recebe qualquer arquivo ou sequência de bytes.</td>
+                  </tr>
+                  <tr>
+                      <td>Calcula a posição de armazenamento.</td>
+                      <td>Calcula um resumo criptográfico.</td>
+                  </tr>
+                  <tr>
+                      <td>Utiliza operações simples, como módulo.</td>
+                      <td>Utiliza centenas de operações matemáticas complexas.</td>
+                  </tr>
+                  <tr>
+                      <td>Permite colisões com facilidade.</td>
+                      <td>Colisões são extremamente improváveis.</td>
+                  </tr>
+                  <tr>
+                      <td>Não possui finalidade criptográfica.</td>
+                      <td>Garante integridade e autenticação dos dados.</td>
+                  </tr>
+              </tbody>
+          </table>
+
+          <div class="destaque">
+              <strong>Conclusão:</strong> O Hash Mod 10 é uma ferramenta didática utilizada para
+              compreender o funcionamento das tabelas hash e das estruturas de dados. Já o SHA-256
+              é um algoritmo criptográfico moderno que transforma qualquer sequência de bytes em um
+              resumo de tamanho fixo (256 bits), permitindo verificar a integridade de arquivos e
+              detectar qualquer alteração em seu conteúdo, mesmo que apenas um único byte seja modificado.
+          </div>
+      </section>
+
     </main>
   </div>
 
