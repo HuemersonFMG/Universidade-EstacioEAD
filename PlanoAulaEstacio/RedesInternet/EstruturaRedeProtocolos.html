@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Tabela explicativa dos protocolos e funções das camadas de Aplicação, Apresentação, Sessão e Transporte do modelo OSI."
+    >
+
+    <title>Protocolos e Funções das Camadas OSI</title>
+
+    <style>
+        :root {
+            --azul-escuro: #082b67;
+            --azul-principal: #0b57d0;
+            --azul-claro: #eaf2ff;
+            --azul-muito-claro: #f5f8ff;
+            --verde: #198754;
+            --verde-claro: #eaf8f0;
+            --laranja: #d97706;
+            --laranja-claro: #fff4e5;
+            --roxo: #6f42c1;
+            --roxo-claro: #f3ecff;
+            --vermelho: #b42318;
+            --vermelho-claro: #fff0ee;
+            --cinza-fundo: #f3f6fa;
+            --cinza-borda: #d7e0ea;
+            --cinza-texto: #526174;
+            --texto: #202b3c;
+            --branco: #ffffff;
+            --sombra: 0 10px 30px rgba(8, 43, 103, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef4ff 0%,
+                    #f7f9fc 45%,
+                    #edf6f2 100%
+                );
+            color: var(--texto);
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+            line-height: 1.6;
+        }
+
+        .pagina {
+            width: min(1180px, calc(100% - 32px));
+            margin: 32px auto;
+        }
+
+        .cabecalho {
+            position: relative;
+            overflow: hidden;
+            padding: 40px;
+            color: var(--branco);
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--azul-escuro),
+                    var(--azul-principal)
+                );
+            border-radius: 22px;
+            box-shadow: var(--sombra);
+        }
+
+        .cabecalho::after {
+            content: "";
+            position: absolute;
+            top: -90px;
+            right: -70px;
+            width: 260px;
+            height: 260px;
+            border: 45px solid rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+
+        .cabecalho-conteudo {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 6px 13px;
+            color: var(--azul-escuro);
+            background: var(--branco);
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .cabecalho h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.15;
+        }
+
+        .cabecalho p {
+            max-width: 760px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.05rem;
+        }
+
+        .conteudo {
+            margin-top: 26px;
+            padding: 30px;
+            background: var(--branco);
+            border: 1px solid var(--cinza-borda);
+            border-radius: 20px;
+            box-shadow: var(--sombra);
+        }
+
+        .introducao {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 22px;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: var(--azul-muito-claro);
+            border-left: 5px solid var(--azul-principal);
+            border-radius: 12px;
+        }
+
+        .introducao h2 {
+            margin: 0 0 7px;
+            color: var(--azul-escuro);
+            font-size: 1.35rem;
+        }
+
+        .introducao p {
+            margin: 0;
+            color: var(--cinza-texto);
+        }
+
+        .modelo {
+            padding: 10px 15px;
+            color: var(--branco);
+            background: var(--azul-principal);
+            border-radius: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .tabela-responsiva {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--cinza-borda);
+            border-radius: 16px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 920px;
+            border-collapse: collapse;
+            background: var(--branco);
+        }
+
+        caption {
+            padding: 18px;
+            color: var(--azul-escuro);
+            background: #f6f9fd;
+            border-bottom: 1px solid var(--cinza-borda);
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            padding: 16px;
+            color: var(--branco);
+            background: var(--azul-escuro);
+            font-size: 0.95rem;
+            letter-spacing: 0.2px;
+            text-align: left;
+        }
+
+        tbody td,
+        tbody th {
+            padding: 15px 16px;
+            border-bottom: 1px solid var(--cinza-borda);
+            vertical-align: top;
+            text-align: left;
+        }
+
+        tbody tr:last-child td,
+        tbody tr:last-child th {
+            border-bottom: none;
+        }
+
+        tbody tr:hover td,
+        tbody tr:hover th.protocolo {
+            background: #f3f7ff;
+        }
+
+        .camada {
+            width: 155px;
+            min-width: 155px;
+            color: var(--branco);
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .camada-7 {
+            background: var(--azul-principal);
+        }
+
+        .camada-6 {
+            background: var(--roxo);
+        }
+
+        .camada-5 {
+            background: var(--laranja);
+        }
+
+        .camada-4 {
+            background: var(--verde);
+        }
+
+        .numero-camada {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .protocolo {
+            width: 210px;
+            min-width: 190px;
+            color: var(--azul-escuro);
+            background: #fafcff;
+            font-weight: 700;
+        }
+
+        .descricao {
+            color: #344257;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .tag-aplicacao {
+            color: var(--azul-escuro);
+            background: var(--azul-claro);
+        }
+
+        .tag-seguranca {
+            color: var(--roxo);
+            background: var(--roxo-claro);
+        }
+
+        .tag-sessao {
+            color: var(--laranja);
+            background: var(--laranja-claro);
+        }
+
+        .tag-transporte {
+            color: var(--verde);
+            background: var(--verde-claro);
+        }
+
+        .observacao {
+            margin-top: 26px;
+            padding: 22px;
+            background: var(--laranja-claro);
+            border-left: 5px solid var(--laranja);
+            border-radius: 12px;
+        }
+
+        .observacao h2 {
+            margin: 0 0 10px;
+            color: #8a4b00;
+            font-size: 1.25rem;
+        }
+
+        .observacao p {
+            margin: 8px 0;
+        }
+
+        .fluxo {
+            margin-top: 26px;
+            padding: 24px;
+            background: var(--cinza-fundo);
+            border-radius: 16px;
+        }
+
+        .fluxo h2 {
+            margin: 0 0 18px;
+            color: var(--azul-escuro);
+            font-size: 1.35rem;
+            text-align: center;
+        }
+
+        .fluxo-itens {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .bloco-fluxo {
+            min-width: 145px;
+            padding: 14px;
+            background: var(--branco);
+            border: 1px solid var(--cinza-borda);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(8, 43, 103, 0.06);
+            text-align: center;
+        }
+
+        .bloco-fluxo strong {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--azul-escuro);
+        }
+
+        .seta {
+            color: var(--azul-principal);
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 26px;
+        }
+
+        .cartao {
+            padding: 20px;
+            border: 1px solid var(--cinza-borda);
+            border-radius: 14px;
+        }
+
+        .cartao h3 {
+            margin: 0 0 9px;
+            color: var(--azul-escuro);
+        }
+
+        .cartao p {
+            margin: 0;
+            color: var(--cinza-texto);
+        }
+
+        .cartao-http {
+            background: var(--vermelho-claro);
+            border-left: 5px solid var(--vermelho);
+        }
+
+        .cartao-https {
+            background: var(--verde-claro);
+            border-left: 5px solid var(--verde);
+        }
+
+        footer {
+            padding: 24px 10px;
+            color: var(--cinza-texto);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
+            .pagina {
+                width: min(100% - 18px, 1180px);
+                margin: 12px auto;
+            }
+
+            .cabecalho {
+                padding: 28px 22px;
+                border-radius: 15px;
+            }
+
+            .conteudo {
+                padding: 18px 12px;
+                border-radius: 15px;
+            }
+
+            .introducao {
+                grid-template-columns: 1fr;
+            }
+
+            .modelo {
+                width: fit-content;
+            }
+
+            .resumo {
+                grid-template-columns: 1fr;
+            }
+
+            .fluxo-itens {
+                flex-direction: column;
+            }
+
+            .seta {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media print {
+            body {
+                background: var(--branco);
+            }
+
+            .pagina {
+                width: 100%;
+                margin: 0;
+            }
+
+            .cabecalho,
+            .conteudo {
+                box-shadow: none;
+            }
+
+            .tabela-responsiva {
+                overflow: visible;
+            }
+
+            table {
+                min-width: auto;
+            }
+
+            thead th {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="pagina">
+
+        <header class="cabecalho">
+            <div class="cabecalho-conteudo">
+                <span class="etiqueta">Fundamentos de Redes</span>
+
+                <h1>
+                    Protocolos e funções das camadas OSI
+                </h1>
+
+                <p>
+                    Guia de estudo sobre os protocolos e as funções das
+                    camadas de Aplicação, Apresentação, Sessão e Transporte
+                    do modelo OSI.
+                </p>
+            </div>
+        </header>
+
+        <section class="conteudo">
+
+            <div class="introducao">
+                <div>
+                    <h2>Como interpretar a tabela</h2>
+
+                    <p>
+                        A coluna <strong>Camada OSI</strong> apresenta a
+                        posição no modelo. A coluna
+                        <strong>Protocolos / Funções</strong> identifica os
+                        principais elementos relacionados à camada, e a
+                        coluna <strong>Tipo / Finalidade</strong> explica a
+                        função de cada um.
+                    </p>
+                </div>
+
+                <div class="modelo">
+                    Modelo OSI
+                </div>
+            </div>
+
+            <div class="tabela-responsiva">
+                <table>
+                    <caption>
+                        Camadas 7 a 4 do modelo OSI
+                    </caption>
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Camada OSI</th>
+
+                            <th scope="col">
+                                Protocolos / Funções
+                            </th>
+
+                            <th scope="col">
+                                Tipo / Finalidade
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- CAMADA 7 -->
+                        <tr>
+                            <th
+                                rowspan="8"
+                                scope="rowgroup"
+                                class="camada camada-7"
+                            >
+                                <span class="numero-camada">7</span>
+                                Aplicação
+                            </th>
+
+                            <th scope="row" class="protocolo">
+                                HTTP
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação utilizado
+                                para transferir páginas Web entre navegador
+                                e servidor.
+
+                                <br>
+
+                                <span class="tag tag-aplicacao">
+                                    Comunicação Web
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                HTTPS
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação utilizado
+                                para transferir páginas Web de forma segura,
+                                utilizando HTTP sobre TLS.
+
+                                <br>
+
+                                <span class="tag tag-seguranca">
+                                    Web segura
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                FTP
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação utilizado
+                                para transferência de arquivos entre
+                                computadores.
+
+                                <br>
+
+                                <span class="tag tag-aplicacao">
+                                    Transferência de arquivos
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                SMTP
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação utilizado
+                                para envio de mensagens de e-mail.
+
+                                <br>
+
+                                <span class="tag tag-aplicacao">
+                                    Envio de e-mail
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                POP3
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação utilizado
+                                para receber e baixar e-mails para o
+                                computador do usuário.
+
+                                <br>
+
+                                <span class="tag tag-aplicacao">
+                                    Recebimento de e-mail
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                IMAP
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação utilizado
+                                para acessar e sincronizar e-mails
+                                diretamente no servidor.
+
+                                <br>
+
+                                <span class="tag tag-aplicacao">
+                                    Sincronização de e-mail
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                DNS
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação responsável
+                                pela resolução de nomes de domínio em
+                                endereços IP.
+
+                                <br>
+
+                                <span class="tag tag-aplicacao">
+                                    Nome para IP
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                DHCP
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo da camada de Aplicação responsável
+                                por distribuir automaticamente endereços IP
+                                e demais configurações de rede aos
+                                dispositivos.
+
+                                <br>
+
+                                <span class="tag tag-aplicacao">
+                                    Configuração automática
+                                </span>
+                            </td>
+                        </tr>
+
+                        <!-- CAMADA 6 -->
+                        <tr>
+                            <th
+                                rowspan="4"
+                                scope="rowgroup"
+                                class="camada camada-6"
+                            >
+                                <span class="numero-camada">6</span>
+                                Apresentação
+                            </th>
+
+                            <th scope="row" class="protocolo">
+                                TLS
+                                <small>(SSL legado)</small>
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo de segurança responsável por
+                                criptografar, autenticar e garantir a
+                                integridade dos dados transmitidos entre
+                                aplicações.
+
+                                <br>
+
+                                <span class="tag tag-seguranca">
+                                    Segurança da comunicação
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                Criptografia
+                            </th>
+
+                            <td class="descricao">
+                                Função responsável por proteger os dados
+                                contra leitura por pessoas não autorizadas.
+
+                                <br>
+
+                                <span class="tag tag-seguranca">
+                                    Confidencialidade
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                Compressão
+                            </th>
+
+                            <td class="descricao">
+                                Função responsável por reduzir o tamanho dos
+                                dados antes da transmissão.
+
+                                <br>
+
+                                <span class="tag tag-seguranca">
+                                    Redução de dados
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                Codificação
+                            </th>
+
+                            <td class="descricao">
+                                Função responsável por converter os dados
+                                para um formato compreensível entre
+                                diferentes sistemas, como ASCII, UTF-8,
+                                JPEG e MPEG.
+
+                                <br>
+
+                                <span class="tag tag-seguranca">
+                                    Formatação de dados
+                                </span>
+                            </td>
+                        </tr>
+
+                        <!-- CAMADA 5 -->
+                        <tr>
+                            <th
+                                rowspan="3"
+                                scope="rowgroup"
+                                class="camada camada-5"
+                            >
+                                <span class="numero-camada">5</span>
+                                Sessão
+                            </th>
+
+                            <th scope="row" class="protocolo">
+                                TLS Handshake
+                            </th>
+
+                            <td class="descricao">
+                                Estabelece e negocia uma sessão segura entre
+                                cliente e servidor, definindo algoritmos,
+                                certificados e chaves criptográficas.
+
+                                <br>
+
+                                <span class="tag tag-sessao">
+                                    Sessão segura
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                NetBIOS Session
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo responsável pelo estabelecimento
+                                e gerenciamento de sessões em redes locais.
+                                Atualmente é considerado uma tecnologia
+                                legada.
+
+                                <br>
+
+                                <span class="tag tag-sessao">
+                                    Sessões de rede
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                RPC
+                                <small>
+                                    (Remote Procedure Call)
+                                </small>
+                            </th>
+
+                            <td class="descricao">
+                                Permite que um programa execute
+                                procedimentos em outro computador da rede
+                                como se fossem executados localmente.
+
+                                <br>
+
+                                <span class="tag tag-sessao">
+                                    Execução remota
+                                </span>
+                            </td>
+                        </tr>
+
+                        <!-- CAMADA 4 -->
+                        <tr>
+                            <th
+                                rowspan="2"
+                                scope="rowgroup"
+                                class="camada camada-4"
+                            >
+                                <span class="numero-camada">4</span>
+                                Transporte
+                            </th>
+
+                            <th scope="row" class="protocolo">
+                                TCP
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo orientado à conexão e confiável,
+                                responsável pelo controle de fluxo,
+                                sequenciamento, confirmações, retransmissão
+                                e recuperação de perdas.
+
+                                O PDU do TCP é o
+                                <strong>segmento</strong>.
+
+                                <br>
+
+                                <span class="tag tag-transporte">
+                                    Transporte confiável
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="protocolo">
+                                UDP
+                            </th>
+
+                            <td class="descricao">
+                                Protocolo não orientado à conexão, com menor
+                                sobrecarga e sem garantia de entrega,
+                                ordenação ou retransmissão.
+
+                                É utilizado em aplicações que priorizam
+                                velocidade e baixa latência, como streaming,
+                                jogos e VoIP.
+
+                                O PDU do UDP é o
+                                <strong>datagrama</strong>.
+
+                                <br>
+
+                                <span class="tag tag-transporte">
+                                    Transporte rápido
+                                </span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <aside class="observacao">
+                <h2>Observação sobre TLS e SSL</h2>
+
+                <p>
+                    O <strong>TLS</strong> não se encaixa perfeitamente em
+                    apenas uma camada do modelo OSI. Ele opera entre a
+                    aplicação e o transporte, exercendo funções associadas
+                    às camadas de <strong>Apresentação</strong> e
+                    <strong>Sessão</strong>.
+                </p>
+
+                <p>
+                    O termo <strong>SSL</strong> ainda aparece em materiais
+                    antigos e expressões populares, mas suas versões são
+                    obsoletas. Atualmente, a comunicação segura utiliza
+                    <strong>TLS</strong>.
+                </p>
+            </aside>
+
+            <section class="fluxo">
+                <h2>Exemplo de comunicação HTTPS</h2>
+
+                <div class="fluxo-itens">
+                    <div class="bloco-fluxo">
+                        <strong>HTTP</strong>
+                        Dados da aplicação
+                    </div>
+
+                    <span class="seta">→</span>
+
+                    <div class="bloco-fluxo">
+                        <strong>TLS</strong>
+                        Proteção criptográfica
+                    </div>
+
+                    <span class="seta">→</span>
+
+                    <div class="bloco-fluxo">
+                        <strong>TCP</strong>
+                        Segmentos confiáveis
+                    </div>
+
+                    <span class="seta">→</span>
+
+                    <div class="bloco-fluxo">
+                        <strong>IP</strong>
+                        Pacotes
+                    </div>
+
+                    <span class="seta">→</span>
+
+                    <div class="bloco-fluxo">
+                        <strong>Ethernet</strong>
+                        Quadros e bits
+                    </div>
+                </div>
+            </section>
+
+            <section class="resumo">
+                <article class="cartao cartao-http">
+                    <h3>HTTP</h3>
+
+                    <p>
+                        Transfere dados Web sem fornecer criptografia,
+                        autenticação do servidor ou proteção de integridade
+                        por conta própria.
+                    </p>
+                </article>
+
+                <article class="cartao cartao-https">
+                    <h3>HTTPS</h3>
+
+                    <p>
+                        Utiliza HTTP sobre TLS para proporcionar
+                        confidencialidade, integridade e autenticação na
+                        comunicação entre cliente e servidor.
+                    </p>
+                </article>
+            </section>
+
+        </section>
+
+        <footer>
+            <p>Material de apoio — Fundamentos de Redes de Computadores - Faculdade Estacio de Sá</p>
+            <p>Aluno: Huemerson Leonardo Garcia</p>
+        </footer>
+
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual técnico introdutório sobre Segurança da Informação, funções hash, integridade, colisões e aplicações práticas.">
+  <title>Manual Técnico - Introdução à Segurança da Informação</title>
+  <style>
+    :root {
+      --azul-escuro: #0b2748;
+      --azul: #0f4c81;
+      --azul-claro: #eaf3fb;
+      --verde: #1f7a4d;
+      --verde-claro: #e9f7ef;
+      --amarelo: #d89a00;
+      --amarelo-claro: #fff8df;
+      --vermelho: #b83232;
+      --vermelho-claro: #fdecec;
+      --cinza-900: #1d2733;
+      --cinza-700: #4b5968;
+      --cinza-500: #7a8794;
+      --cinza-300: #d6dde5;
+      --cinza-100: #f5f7fa;
+      --branco: #ffffff;
+      --sombra: 0 12px 32px rgba(11, 39, 72, 0.10);
+      --raio: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--cinza-900);
+      background: linear-gradient(180deg, #f4f8fc 0%, #ffffff 300px);
+      line-height: 1.65;
+    }
+
+    header {
+      background:
+        linear-gradient(135deg, rgba(11,39,72,.96), rgba(15,76,129,.92)),
+        radial-gradient(circle at top right, #4aa3df 0%, transparent 40%);
+      color: var(--branco);
+      padding: 64px 24px 52px;
+      border-bottom: 6px solid #20a464;
+    }
+
+    .hero {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      font-size: .86rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.08;
+    }
+
+    .subtitle {
+      max-width: 900px;
+      margin: 20px 0 0;
+      color: #dfeefb;
+      font-size: 1.15rem;
+    }
+
+    .author {
+      margin-top: 22px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .layout {
+      width: min(1180px, calc(100% - 32px));
+      margin: 34px auto 70px;
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 20px;
+      background: var(--branco);
+      border: 1px solid var(--cinza-300);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+      padding: 22px;
+    }
+
+    nav h2 {
+      margin-top: 0;
+      font-size: 1.05rem;
+      color: var(--azul-escuro);
+    }
+
+    nav a {
+      display: block;
+      padding: 10px 12px;
+      margin: 4px 0;
+      color: var(--cinza-700);
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 600;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background: var(--azul-claro);
+      color: var(--azul);
+      outline: none;
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      margin-bottom: 28px;
+      padding: 30px;
+      background: var(--branco);
+      border: 1px solid var(--cinza-300);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+      scroll-margin-top: 24px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: var(--azul-escuro);
+      font-size: 1.75rem;
+      line-height: 1.25;
+    }
+
+    h3 {
+      margin: 26px 0 10px;
+      color: var(--azul);
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    strong {
+      color: var(--azul-escuro);
+    }
+
+    .intro-grid,
+    .cards,
+    .quiz-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .intro-grid {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 20px;
+    }
+
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .quiz-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      padding: 20px;
+      border: 1px solid var(--cinza-300);
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .tag.info {
+      color: var(--azul);
+      background: var(--azul-claro);
+    }
+
+    .tag.ok {
+      color: var(--verde);
+      background: var(--verde-claro);
+    }
+
+    .tag.warn {
+      color: #8b6100;
+      background: var(--amarelo-claro);
+    }
+
+    .tag.error {
+      color: var(--vermelho);
+      background: var(--vermelho-claro);
+    }
+
+    .callout {
+      margin: 18px 0;
+      padding: 18px 20px;
+      border-left: 5px solid var(--azul);
+      border-radius: 10px;
+      background: var(--azul-claro);
+    }
+
+    .callout.ok {
+      border-left-color: var(--verde);
+      background: var(--verde-claro);
+    }
+
+    .callout.warn {
+      border-left-color: var(--amarelo);
+      background: var(--amarelo-claro);
+    }
+
+    .callout.error {
+      border-left-color: var(--vermelho);
+      background: var(--vermelho-claro);
+    }
+
+    .formula {
+      margin: 18px 0;
+      padding: 18px;
+      overflow-x: auto;
+      border-radius: 12px;
+      background: #0f1f31;
+      color: #ecf6ff;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 1rem;
+    }
+
+    table {
+      width: 100%;
+      margin: 18px 0;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+      font-size: .96rem;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border: 1px solid var(--cinza-300);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--azul-escuro);
+      color: var(--branco);
+    }
+
+    tbody tr:nth-child(even) {
+      background: var(--cinza-100);
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #edf2f7;
+      color: #9b1c31;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 12px;
+      align-items: center;
+      margin: 22px 0;
+    }
+
+    .flow-box {
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px;
+      text-align: center;
+      border: 1px solid var(--cinza-300);
+      border-radius: 14px;
+      background: #fbfdff;
+    }
+
+    .arrow {
+      font-size: 1.7rem;
+      color: var(--azul);
+      font-weight: 900;
+    }
+
+    .difficulty {
+      border-left: 5px solid var(--amarelo);
+    }
+
+    .difficulty h3 {
+      color: #8b6100;
+    }
+
+    .question {
+      padding: 18px;
+      border: 1px solid var(--cinza-300);
+      border-radius: 14px;
+      background: #fcfdff;
+    }
+
+    .question h3 {
+      margin-top: 0;
+    }
+
+    .answer {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--verde-claro);
+      color: #155c39;
+      font-weight: 700;
+    }
+
+    .checklist {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      position: relative;
+      padding: 10px 0 10px 34px;
+      border-bottom: 1px solid #e7ebef;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--verde-claro);
+      color: var(--verde);
+      font-weight: 900;
+    }
+
+    footer {
+      padding: 30px 20px 50px;
+      text-align: center;
+      color: var(--cinza-700);
+    }
+
+    .small {
+      color: var(--cinza-500);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 920px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      .intro-grid,
+      .cards,
+      .quiz-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        transform: rotate(90deg);
+        text-align: center;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .layout {
+        display: block;
+        width: 100%;
+        margin: 0;
+      }
+
+      section {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      header {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <span class="eyebrow">Faculdade Estácio • Introdução à Segurança da Informação</span>
+      <h1>Manual Técnico de Funções Hash e Integridade de Dados</h1>
+      <p class="subtitle">
+        Guia de estudo baseado nas atividades do laboratório, com explicações passo a passo,
+        exemplos práticos, erros comuns e pontos que exigem maior atenção.
+      </p>
+      <p class="author">Aluno: Huemerson Leonardo Garcia</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav aria-label="Sumário do manual">
+      <h2>Conteúdo</h2>
+      <a href="#visao-geral">1. Visão geral</a>
+      <a href="#fundamentos">2. Fundamentos de segurança</a>
+      <a href="#hash">3. O que é uma função hash</a>
+      <a href="#modulo">4. Hash módulo 10</a>
+      <a href="#colisoes">5. Colisões</a>
+      <a href="#propriedades">6. Propriedades de segurança</a>
+      <a href="#integridade">7. Integridade de mensagens</a>
+      <a href="#algoritmos">8. SHA, MD5 e famílias</a>
+      <a href="#senhas">9. Hash de senhas</a>
+      <a href="#dificuldades">10. Dificuldades identificadas</a>
+      <a href="#laboratorio">11. Roteiro do laboratório</a>
+      <a href="#revisao">12. Revisão para prova</a>
+    </nav>
+
+    <main>
+      <section id="visao-geral">
+        <h2>1. Visão geral</h2>
+        <p>
+          Segurança da Informação é o conjunto de práticas, tecnologias e controles usados
+          para proteger dados contra acesso indevido, alteração, destruição, perda ou indisponibilidade.
+          As funções hash aparecem principalmente quando precisamos comprovar que uma informação
+          permaneceu íntegra.
+        </p>
+
+        <div class="intro-grid">
+          <article class="card">
+            <span class="tag info">Confidencialidade</span>
+            <h3>Quem pode ver?</h3>
+            <p>Impede que pessoas não autorizadas tenham acesso ao conteúdo.</p>
+          </article>
+
+          <article class="card">
+            <span class="tag ok">Integridade</span>
+            <h3>O conteúdo foi alterado?</h3>
+            <p>Permite identificar mudanças acidentais ou maliciosas nos dados.</p>
+          </article>
+
+          <article class="card">
+            <span class="tag warn">Disponibilidade</span>
+            <h3>O serviço está acessível?</h3>
+            <p>Garante que sistemas e informações estejam disponíveis quando necessários.</p>
+          </article>
+        </div>
+
+        <div class="callout">
+          <strong>Ponto-chave:</strong> hash está ligado principalmente à
+          <strong>integridade</strong>. Criptografia está ligada principalmente à
+          <strong>confidencialidade</strong>.
+        </div>
+      </section>
+
+      <section id="fundamentos">
+        <h2>2. Fundamentos da Segurança da Informação</h2>
+
+        <h3>Tríade CIA</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Princípio</th>
+              <th>Objetivo</th>
+              <th>Exemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Confidencialidade</td>
+              <td>Restringir o acesso ao conteúdo.</td>
+              <td>Criptografia de arquivos e controle de acesso.</td>
+            </tr>
+            <tr>
+              <td>Integridade</td>
+              <td>Detectar alterações nos dados.</td>
+              <td>Comparação de hashes antes e depois da transmissão.</td>
+            </tr>
+            <tr>
+              <td>Disponibilidade</td>
+              <td>Manter sistemas e informações acessíveis.</td>
+              <td>Redundância, backup e proteção contra indisponibilidade.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Outros conceitos importantes</h3>
+        <div class="cards">
+          <article class="card">
+            <h3>Autenticidade</h3>
+            <p>Confirma que uma pessoa, sistema ou mensagem é realmente quem afirma ser.</p>
+          </article>
+          <article class="card">
+            <h3>Não repúdio</h3>
+            <p>Impede que o autor de uma ação negue posteriormente que a realizou.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="hash">
+        <h2>3. O que é uma função hash?</h2>
+        <p>
+          Uma função hash recebe dados de tamanho variável e produz um resumo de tamanho fixo.
+          Esse resumo é chamado de <strong>hash</strong>, <strong>digest</strong> ou
+          <strong>resumo criptográfico</strong>.
+        </p>
+
+        <div class="formula">
+Entrada de qualquer tamanho → Função hash → Saída de tamanho fixo
+        </div>
+
+        <p>Exemplo conceitual:</p>
+
+        <div class="formula">
+"Ola Mundo" → SHA-256 → 80693d4f85fd6dc2...
+        </div>
+
+        <h3>Características fundamentais</h3>
+        <ul class="checklist">
+          <li>A mesma entrada sempre produz o mesmo hash.</li>
+          <li>Uma pequena mudança na entrada altera fortemente o resultado.</li>
+          <li>O hash possui tamanho fixo.</li>
+          <li>Não deve ser viável recuperar a entrada original a partir do hash.</li>
+          <li>Deve ser difícil encontrar duas entradas diferentes com o mesmo hash.</li>
+        </ul>
+
+        <div class="callout warn">
+          <strong>Não confunda:</strong> hash não é criptografia. A criptografia possui uma chave
+          e pode ser revertida por quem tem autorização. O hash é projetado para ser unidirecional.
+        </div>
+      </section>
+
+      <section id="modulo">
+        <h2>4. Entendendo a função hash módulo 10</h2>
+        <p>
+          No exercício, foi utilizada a função:
+        </p>
+
+        <div class="formula">
+hash(n) = n mod 10
+        </div>
+
+        <p>
+          O operador <code>mod</code> retorna o resto da divisão. Quando fazemos
+          <code>n mod 10</code>, basta observar o último algarismo do número.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Cálculo</th>
+              <th>Posição hash</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>8</td><td>8 mod 10</td><td>8</td></tr>
+            <tr><td>13</td><td>13 mod 10</td><td>3</td></tr>
+            <tr><td>24</td><td>24 mod 10</td><td>4</td></tr>
+            <tr><td>36</td><td>36 mod 10</td><td>6</td></tr>
+            <tr><td>49</td><td>49 mod 10</td><td>9</td></tr>
+            <tr><td>52</td><td>52 mod 10</td><td>2</td></tr>
+            <tr><td>62</td><td>62 mod 10</td><td>2</td></tr>
+            <tr><td>71</td><td>71 mod 10</td><td>1</td></tr>
+            <tr><td>83</td><td>83 mod 10</td><td>3</td></tr>
+            <tr><td>97</td><td>97 mod 10</td><td>7</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout ok">
+          <strong>Dica de prova:</strong> em <code>mod 10</code>, números com o mesmo último
+          algarismo irão para a mesma posição.
+        </div>
+      </section>
+
+      <section id="colisoes">
+        <h2>5. O que é uma colisão?</h2>
+        <p>
+          Uma colisão ocorre quando duas entradas diferentes geram o mesmo valor hash.
+        </p>
+
+        <div class="formula">
+hash(52) = 2
+hash(62) = 2
+
+hash(13) = 3
+hash(83) = 3
+        </div>
+
+        <p>Logo, os pares que colidem são:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Números</th>
+              <th>Situação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2</td>
+              <td>52 e 62</td>
+              <td>Colisão</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>13 e 83</td>
+              <td>Colisão</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout error">
+          <strong>Erro comum:</strong> achar que colisão significa que o algoritmo falhou.
+          Como o conjunto de entradas possíveis é maior que o conjunto de saídas, colisões
+          matematicamente podem existir. A segurança exige que seja extremamente difícil
+          encontrá-las de forma prática.
+        </div>
+      </section>
+
+      <section id="propriedades">
+        <h2>6. Propriedades de segurança das funções hash</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Propriedade</th>
+              <th>O que já é conhecido?</th>
+              <th>Objetivo do atacante</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Resistência à pré-imagem</td>
+              <td>O valor hash</td>
+              <td>Descobrir uma mensagem que produza aquele hash.</td>
+            </tr>
+            <tr>
+              <td>Resistência à segunda pré-imagem</td>
+              <td>Uma mensagem específica m1</td>
+              <td>Encontrar outra mensagem m2 com o mesmo hash de m1.</td>
+            </tr>
+            <tr>
+              <td>Resistência à colisão</td>
+              <td>Nenhuma mensagem específica</td>
+              <td>Encontrar quaisquer duas mensagens diferentes com o mesmo hash.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout">
+          <strong>Como identificar a segunda pré-imagem:</strong> quando o enunciado diz
+          “dada uma mensagem m1, encontrar outra m2 diferente, com
+          <code>hash(m1) = hash(m2)</code>”.
+        </div>
+
+        <h3>Unidirecionalidade</h3>
+        <p>
+          Significa que é fácil calcular o hash a partir da entrada, mas não deve ser
+          computacionalmente viável fazer o caminho inverso.
+        </p>
+
+        <div class="formula">
+Mensagem → Hash          (fácil)
+
+Hash → Mensagem original (computacionalmente inviável)
+        </div>
+      </section>
+
+      <section id="integridade">
+        <h2>7. Verificação de integridade em uma transmissão</h2>
+
+        <div class="flow">
+          <div class="flow-box">
+            <strong>1. Remetente</strong>
+            <span>Calcula o hash do arquivo.</span>
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-box">
+            <strong>2. Transmissão</strong>
+            <span>Envia o arquivo e o resumo.</span>
+          </div>
+          <div class="arrow">→</div>
+          <div class="flow-box">
+            <strong>3. Receptor</strong>
+            <span>Calcula o hash novamente e compara.</span>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Comparação</th>
+              <th>Interpretação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hash enviado = Hash calculado</td>
+              <td>O conteúdo recebido corresponde ao conteúdo original.</td>
+            </tr>
+            <tr>
+              <td>Hash enviado ≠ Hash calculado</td>
+              <td>O conteúdo foi alterado, corrompido ou substituído.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout warn">
+          <strong>Limitação importante:</strong> o hash sozinho detecta alteração, mas não
+          confirma necessariamente quem enviou a mensagem. Para autenticação e não repúdio,
+          utilizam-se mecanismos como HMAC e assinatura digital.
+        </div>
+      </section>
+
+      <section id="algoritmos">
+        <h2>8. MD5, SHA-1 e SHA-2</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Algoritmo</th>
+              <th>Tamanho comum do hash</th>
+              <th>Situação</th>
+              <th>Uso recomendado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>MD5</td>
+              <td>128 bits</td>
+              <td>Inseguro contra colisões</td>
+              <td>Apenas compatibilidade legada ou verificação não criptográfica.</td>
+            </tr>
+            <tr>
+              <td>SHA-1</td>
+              <td>160 bits</td>
+              <td>Inseguro contra colisões</td>
+              <td>Não recomendado para segurança.</td>
+            </tr>
+            <tr>
+              <td>SHA-256</td>
+              <td>256 bits</td>
+              <td>Amplamente utilizado</td>
+              <td>Integridade, assinaturas e aplicações modernas.</td>
+            </tr>
+            <tr>
+              <td>SHA-512</td>
+              <td>512 bits</td>
+              <td>Amplamente utilizado</td>
+              <td>Aplicações que adotam a família SHA-2.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout error">
+          <strong>Correção importante para prova:</strong> SHA-1 não utiliza 256 bits.
+          Ele produz um resumo de 160 bits. A família SHA-2 inclui variantes como
+          SHA-224, SHA-256, SHA-384 e SHA-512.
+        </div>
+      </section>
+
+      <section id="senhas">
+        <h2>9. Uso de hash no armazenamento de senhas</h2>
+        <p>
+          Senhas não devem ser armazenadas em texto puro. O sistema deve armazenar um valor
+          derivado da senha, utilizando algoritmos próprios para esse objetivo.
+        </p>
+
+        <div class="formula">
+Usuário digita a senha
+        ↓
+Algoritmo de derivação de senha + salt
+        ↓
+Valor armazenado no banco de dados
+        </div>
+
+        <h3>Por que não usar somente SHA-256?</h3>
+        <p>
+          SHA-256 é rápido. Essa velocidade é útil para integridade, mas também facilita
+          tentativas massivas de adivinhação de senhas. Para senhas, preferem-se algoritmos
+          deliberadamente mais lentos e ajustáveis.
+        </p>
+
+        <div class="cards">
+          <article class="card">
+            <span class="tag ok">Recomendados</span>
+            <h3>Algoritmos para senhas</h3>
+            <p>Argon2, bcrypt, scrypt e PBKDF2.</p>
+          </article>
+          <article class="card">
+            <span class="tag warn">Atenção</span>
+            <h3>Salt</h3>
+            <p>Valor aleatório adicionado antes do processamento para dificultar ataques com tabelas pré-calculadas.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="dificuldades">
+        <h2>10. Dificuldades identificadas nas atividades</h2>
+
+        <article class="card difficulty">
+          <h3>1. Entender o operador módulo</h3>
+          <p>
+            A dificuldade principal foi perceber que <code>n mod 10</code> representa o resto
+            da divisão por 10. Para resolver rapidamente, observe o último algarismo.
+          </p>
+        </article>
+
+        <article class="card difficulty">
+          <h3>2. Diferenciar colisão e segunda pré-imagem</h3>
+          <p>
+            Em colisão, busca-se qualquer par de mensagens. Na segunda pré-imagem, uma mensagem
+            inicial já foi fornecida e procura-se outra com o mesmo hash.
+          </p>
+        </article>
+
+        <article class="card difficulty">
+          <h3>3. Confundir hash com criptografia</h3>
+          <p>
+            Hash não serve para esconder e depois recuperar o conteúdo. Criptografia é reversível
+            mediante chave; hash é unidirecional.
+          </p>
+        </article>
+
+        <article class="card difficulty">
+          <h3>4. Associar hash à confidencialidade</h3>
+          <p>
+            A finalidade mais direta do hash é integridade. A confidencialidade depende de criptografia
+            e controle de acesso.
+          </p>
+        </article>
+
+        <article class="card difficulty">
+          <h3>5. Interpretar afirmações imprecisas</h3>
+          <p>
+            Algumas questões simplificam conceitos, como dizer que SHA-2 “utiliza 512 bits”.
+            Tecnicamente, SHA-2 é uma família com diferentes tamanhos. Em prova, analise o contexto,
+            mas mantenha o conceito correto.
+          </p>
+        </article>
+
+        <article class="card difficulty">
+          <h3>6. Entender quando o laboratório terminou</h3>
+          <p>
+            A simulação pode permanecer parada após o envio porque está apenas demonstrando o resultado.
+            A conclusão costuma ocorrer depois de comparar os hashes, testar uma alteração na mensagem
+            e retornar ao ambiente virtual da disciplina.
+          </p>
+        </article>
+      </section>
+
+      <section id="laboratorio">
+        <h2>11. Roteiro prático para o laboratório de hash</h2>
+
+        <ol>
+          <li>Selecione o algoritmo SHA-2 no simulador.</li>
+          <li>Digite uma mensagem simples, como <code>Ola Mundo</code>.</li>
+          <li>Anote ou observe o hash mostrado no computador de origem.</li>
+          <li>Clique em <strong>Enviar</strong>.</li>
+          <li>Compare o hash exibido no computador de destino.</li>
+          <li>Confirme que os hashes são iguais quando a mensagem não é alterada.</li>
+          <li>Exclua a mensagem no destino, se necessário.</li>
+          <li>Altere apenas um caractere, por exemplo: <code>Ola Mundo!</code>.</li>
+          <li>Envie novamente e observe que o hash mudou completamente.</li>
+          <li>Registre a conclusão: pequenas mudanças produzem resumos muito diferentes.</li>
+        </ol>
+
+        <div class="callout ok">
+          <strong>Resultado esperado:</strong> o laboratório demonstra determinismo,
+          integridade e efeito avalanche.
+        </div>
+      </section>
+
+      <section id="revisao">
+        <h2>12. Revisão rápida para prova</h2>
+
+        <div class="quiz-grid">
+          <article class="question">
+            <h3>O que é hash?</h3>
+            <p>Transformação de dados variáveis em um resumo de tamanho fixo.</p>
+            <div class="answer">Resposta-chave: algoritmo unidirecional.</div>
+          </article>
+
+          <article class="question">
+            <h3>Qual princípio é verificado?</h3>
+            <p>A comparação de hashes detecta mudanças em dados.</p>
+            <div class="answer">Resposta-chave: integridade.</div>
+          </article>
+
+          <article class="question">
+            <h3>O que é colisão?</h3>
+            <p>Duas entradas diferentes produzem o mesmo hash.</p>
+            <div class="answer">Exemplo: 52 e 62 em mod 10.</div>
+          </article>
+
+          <article class="question">
+            <h3>O hash pode ser revertido?</h3>
+            <p>Uma função hash criptográfica deve ser resistente à pré-imagem.</p>
+            <div class="answer">Resposta-chave: não deve ser viável.</div>
+          </article>
+
+          <article class="question">
+            <h3>SHA-1 ainda é seguro?</h3>
+            <p>Não. Existem ataques de colisão conhecidos.</p>
+            <div class="answer">Prefira algoritmos modernos.</div>
+          </article>
+
+          <article class="question">
+            <h3>Como armazenar senhas?</h3>
+            <p>Com algoritmo próprio para senhas e salt.</p>
+            <div class="answer">Exemplos: Argon2 ou bcrypt.</div>
+          </article>
+        </div>
+
+        <h3>Mapa mental final</h3>
+        <div class="formula">
+HASH
+├── Entrada variável
+├── Saída fixa
+├── Unidirecional
+├── Verifica integridade
+├── Pode haver colisão
+├── Efeito avalanche
+├── SHA-256 / SHA-512
+└── Senhas: Argon2, bcrypt, scrypt ou PBKDF2
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <strong>Manual de estudo — Introdução à Segurança da Informação</strong>
+    <p class="small">
+      Material elaborado com base nas atividades práticas de funções hash e integridade de dados.
+    </p>
+  </footer>
+</body>
+</html>
