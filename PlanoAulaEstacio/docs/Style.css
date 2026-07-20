@@ -192,3 +192,46 @@
     height: 46px;
     font-size: 14px;
     } }
+
+    .menu-disciplinas {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+
+    .menu-disciplinas li {
+        margin-bottom: 15px;
+    }
+
+    .btn-disciplina {
+        display: block;
+        width: 100%;
+        padding: 16px 20px;
+        background: linear-gradient(135deg, #0d5ea8, #0b3d6b);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 12px;
+        border-left: 6px solid #ffc107;
+        box-shadow: 0 4px 10px rgba(0,0,0,.15);
+        transition: all .25s ease;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .btn-disciplina span {
+        display: block;
+        margin-top: 6px;
+        font-size: 14px;
+        font-weight: normal;
+        color: #dbeeff;
+    }
+
+    .btn-disciplina:hover {
+        background: linear-gradient(135deg, #1976d2, #0d5ea8);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,.25);
+    }
+
+    .btn-disciplina:active {
+        transform: scale(.98);
+    }
