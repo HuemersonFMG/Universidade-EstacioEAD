@@ -9,7 +9,7 @@
     font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
-    .a {
+    * {
     box-sizing: border-box;
     }
 
@@ -235,3 +235,220 @@
     .btn-disciplina:active {
         transform: scale(.98);
     }
+
+    .highlight3 {
+        background-color: #afc9f8;
+        padding: 1px;
+        padding-left: 20px;
+        border-left: 4px solid #4a1af7;
+        margin: 0.5px 0;
+    }
+
+/* =========================================================
+   CABEÇALHO: INFORMAÇÕES ACIMA E BOTÕES ABAIXO
+   ========================================================= */
+
+.cabecalho-principal {
+    display: block;
+    padding: 24px 28px 30px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    background:
+        linear-gradient(90deg, rgba(6,182,212,.05), transparent 45%),
+        linear-gradient(180deg, #071127 0%, #08142a 100%);
+}
+
+.cabecalho-conteudo {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.painel-aluno {
+    width: 100%;
+    padding: 24px;
+    border: 1px solid rgba(148,163,184,.20);
+    border-left: 5px solid var(--accent);
+    border-radius: var(--radius);
+    background:
+        linear-gradient(135deg, rgba(6,182,212,.09), rgba(124,58,237,.05)),
+        var(--card);
+    box-shadow: 0 12px 32px rgba(2,6,23,.42);
+}
+
+.painel-introducao {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.painel-titulo {
+    min-width: 0;
+}
+
+.painel-titulo h1 {
+    margin: 0;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+    line-height: 1.25;
+}
+
+.painel-titulo .lead {
+    max-width: 780px;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+.dados-aluno {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 26px;
+}
+
+.bloco-informacao,
+.dados-acesso {
+    min-width: 0;
+}
+
+.bloco-informacao h2 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.bloco-informacao h2 span {
+    font-weight: 600;
+}
+
+.bloco-informacao p,
+.dados-acesso p {
+    margin: 6px 0;
+}
+
+.dados-acesso {
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.025);
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.separador,
+.links-rapidos span {
+    margin: 0 7px;
+    color: var(--accent);
+}
+
+.area-disciplinas {
+    width: 100%;
+}
+
+.titulo-disciplinas {
+    margin-bottom: 16px;
+}
+
+.titulo-disciplinas h2 {
+    margin: 0 0 4px;
+    font-size: 1.2rem;
+}
+
+.titulo-disciplinas p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.menu-disciplinas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-disciplinas li {
+    margin: 0;
+    min-width: 0;
+}
+
+.btn-disciplina {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 86px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #0d5ea8, #0b3d6b);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    border-left: 6px solid #ffc107;
+    box-shadow: 0 4px 10px rgba(0,0,0,.15);
+    transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.btn-titulo {
+    display: block;
+    margin: 0;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.btn-subtitulo {
+    display: block;
+    margin-top: 7px;
+    color: #dbeeff;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+.btn-disciplina:hover {
+    background: linear-gradient(135deg, #1976d2, #0d5ea8);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
+
+.btn-disciplina:active {
+    transform: scale(.99);
+}
+
+@media (max-width: 820px) {
+    .cabecalho-principal {
+        padding: 16px;
+    }
+
+    .painel-aluno {
+        padding: 18px;
+    }
+
+    .dados-aluno,
+    .menu-disciplinas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .painel-introducao {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .painel-titulo h1 {
+        font-size: 1.25rem;
+    }
+
+    .btn-disciplina {
+        min-height: auto;
+    }
+}
