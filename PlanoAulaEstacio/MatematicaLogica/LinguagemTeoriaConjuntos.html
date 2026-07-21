@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual avançado de Matemática e Lógica sobre a linguagem da Teoria dos Conjuntos.">
+  <title>Teoria dos Conjuntos | Matemática e Lógica</title>
+
+  <style>
+    :root {
+      --azul-900: #102a43;
+      --azul-800: #163a5f;
+      --azul-700: #1f4e79;
+      --azul-600: #2367a2;
+      --azul-500: #2f80c9;
+      --azul-100: #eaf4ff;
+      --azul-050: #f5faff;
+      --verde-700: #18794e;
+      --verde-100: #eaf8f1;
+      --amarelo-700: #9a6700;
+      --amarelo-100: #fff7d6;
+      --vermelho-700: #b42318;
+      --vermelho-100: #fff0ee;
+      --roxo-700: #6842a8;
+      --roxo-100: #f3edff;
+      --cinza-900: #1f2933;
+      --cinza-700: #52606d;
+      --cinza-500: #7b8794;
+      --cinza-300: #cbd2d9;
+      --cinza-200: #e4e7eb;
+      --cinza-100: #f0f4f8;
+      --branco: #ffffff;
+      --sombra: 0 12px 30px rgba(16, 42, 67, 0.12);
+      --raio: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(180deg, #eef7ff 0%, #ffffff 30%);
+      color: var(--cinza-900);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .topo {
+      position: relative;
+      overflow: hidden;
+      color: var(--branco);
+      background:
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,.18), transparent 24%),
+        radial-gradient(circle at 10% 90%, rgba(255,255,255,.12), transparent 30%),
+        linear-gradient(135deg, var(--azul-900), var(--azul-600));
+      padding: 72px 24px 64px;
+    }
+
+    .topo::after {
+      content: "{ ∈ ⊂ ∅ }";
+      position: absolute;
+      right: 4%;
+      bottom: -20px;
+      font-size: clamp(5rem, 14vw, 11rem);
+      font-weight: 800;
+      opacity: .08;
+      white-space: nowrap;
+    }
+
+    .topo-conteudo {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .disciplina {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: .82rem;
+    }
+
+    .topo h1 {
+      max-width: 850px;
+      margin: 18px 0 12px;
+      font-size: clamp(2.2rem, 5vw, 4.6rem);
+      line-height: 1.08;
+    }
+
+    .topo p {
+      max-width: 790px;
+      margin: 0;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: #e8f4ff;
+    }
+
+    .layout {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 22px 70px;
+      display: grid;
+      grid-template-columns: 285px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .menu {
+      position: sticky;
+      top: 18px;
+      background: var(--branco);
+      border: 1px solid var(--cinza-200);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra);
+      padding: 20px;
+    }
+
+    .menu h2 {
+      margin: 0 0 14px;
+      color: var(--azul-900);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .menu nav {
+      display: grid;
+      gap: 6px;
+    }
+
+    .menu a {
+      display: block;
+      padding: 9px 11px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--cinza-700);
+      font-size: .94rem;
+      transition: .2s ease;
+    }
+
+    .menu a:hover {
+      color: var(--azul-700);
+      background: var(--azul-100);
+      transform: translateX(3px);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .secao {
+      background: var(--branco);
+      border: 1px solid var(--cinza-200);
+      border-radius: var(--raio);
+      box-shadow: 0 8px 24px rgba(16,42,67,.08);
+      padding: clamp(22px, 4vw, 42px);
+      margin-bottom: 26px;
+      scroll-margin-top: 20px;
+    }
+
+    .secao h2 {
+      margin: 0 0 18px;
+      color: var(--azul-900);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      line-height: 1.2;
+    }
+
+    .secao h3 {
+      margin: 30px 0 12px;
+      color: var(--azul-700);
+      font-size: 1.25rem;
+    }
+
+    .secao p {
+      margin: 10px 0;
+    }
+
+    .intro-grid,
+    .cards,
+    .exemplo-grid,
+    .comparacao-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .intro-grid {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 24px;
+    }
+
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 20px;
+    }
+
+    .exemplo-grid,
+    .comparacao-grid {
+      grid-template-columns: repeat(2, 1fr);
+      margin-top: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--cinza-200);
+      border-radius: 15px;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+    }
+
+    .card h3,
+    .card h4 {
+      margin-top: 0;
+    }
+
+    .numero {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--azul-100);
+      color: var(--azul-700);
+      font-weight: 800;
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+    }
+
+    .formula {
+      display: block;
+      overflow-x: auto;
+      margin: 16px 0;
+      padding: 18px 20px;
+      border-left: 5px solid var(--azul-500);
+      border-radius: 10px;
+      background: var(--azul-050);
+      color: var(--azul-900);
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+
+    .destaque,
+    .atencao,
+    .erro,
+    .dica {
+      margin: 20px 0;
+      padding: 18px 20px;
+      border-radius: 14px;
+      border-left: 5px solid;
+    }
+
+    .destaque {
+      background: var(--verde-100);
+      border-color: var(--verde-700);
+    }
+
+    .atencao {
+      background: var(--amarelo-100);
+      border-color: var(--amarelo-700);
+    }
+
+    .erro {
+      background: var(--vermelho-100);
+      border-color: var(--vermelho-700);
+    }
+
+    .dica {
+      background: var(--roxo-100);
+      border-color: var(--roxo-700);
+    }
+
+    .destaque strong,
+    .atencao strong,
+    .erro strong,
+    .dica strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .tabela-responsiva {
+      width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      border: 1px solid var(--cinza-200);
+      border-radius: 14px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 680px;
+      border-collapse: collapse;
+      background: var(--branco);
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--cinza-200);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--azul-800);
+      color: var(--branco);
+      font-size: .93rem;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fbfe;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    code {
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: var(--cinza-100);
+      color: var(--azul-900);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .95em;
+    }
+
+    .diagrama {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      padding: 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f5faff, #edf6ff);
+      border: 1px dashed #9fc6e8;
+      overflow: hidden;
+    }
+
+    .conjunto-x {
+      position: relative;
+      width: 330px;
+      height: 225px;
+      border: 4px solid var(--azul-600);
+      border-radius: 50%;
+      background: rgba(47,128,201,.08);
+    }
+
+    .conjunto-y {
+      position: absolute;
+      width: 175px;
+      height: 120px;
+      left: 70px;
+      top: 50px;
+      border: 4px solid var(--verde-700);
+      border-radius: 50%;
+      background: rgba(24,121,78,.12);
+    }
+
+    .rotulo-x,
+    .rotulo-y {
+      position: absolute;
+      font-weight: 800;
+    }
+
+    .rotulo-x {
+      right: 25px;
+      top: 18px;
+      color: var(--azul-700);
+    }
+
+    .rotulo-y {
+      left: 18px;
+      top: 14px;
+      color: var(--verde-700);
+    }
+
+    .elemento {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--branco);
+      border: 2px solid var(--cinza-300);
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(0,0,0,.08);
+    }
+
+    .e1 { left: 38px; top: 40px; }
+    .e2 { left: 78px; top: 82px; }
+    .e3 { left: 125px; top: 52px; }
+    .e4 { right: 50px; bottom: 45px; }
+    .e5 { right: 85px; top: 42px; }
+
+    .passos {
+      counter-reset: passo;
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .passos li {
+      counter-increment: passo;
+      position: relative;
+      padding: 4px 0 18px 55px;
+      min-height: 46px;
+    }
+
+    .passos li::before {
+      content: counter(passo);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--azul-700);
+      color: var(--branco);
+      font-weight: 800;
+    }
+
+    .questao {
+      border: 1px solid var(--cinza-200);
+      border-radius: 14px;
+      padding: 20px;
+      margin: 16px 0;
+      background: #fbfdff;
+    }
+
+    .questao summary {
+      cursor: pointer;
+      color: var(--azul-800);
+      font-weight: 800;
+    }
+
+    .resposta {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--cinza-300);
+    }
+
+    .rodape {
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--cinza-700);
+      background: var(--cinza-100);
+      border-top: 1px solid var(--cinza-200);
+    }
+
+    .voltar {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--azul-700);
+      color: var(--branco);
+      text-decoration: none;
+      box-shadow: var(--sombra);
+      font-size: 1.3rem;
+      z-index: 10;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .menu {
+        position: static;
+      }
+
+      .menu nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topo {
+        padding: 54px 20px 48px;
+      }
+
+      .layout {
+        padding: 18px 12px 55px;
+      }
+
+      .secao {
+        border-radius: 14px;
+        padding: 22px 17px;
+      }
+
+      .menu nav,
+      .cards,
+      .exemplo-grid,
+      .comparacao-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .conjunto-x {
+        transform: scale(.83);
+      }
+
+      .voltar {
+        right: 14px;
+        bottom: 14px;
+      }
+    }
+
+    @media print {
+      .menu,
+      .voltar {
+        display: none;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .layout {
+        display: block;
+        max-width: none;
+      }
+
+      .secao {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body id="inicio">
+  <header class="topo">
+    <div class="topo-conteudo">
+      <span class="disciplina">Matemática e Lógica</span>
+      <h1>Linguagem da Teoria dos Conjuntos</h1>
+      <p>
+        Manual avançado e resumido para compreender conjuntos, elementos, pertinência,
+        representação explícita e implícita, inclusão, conjunto vazio e aplicações práticas.
+      </p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="menu">
+      <h2>Conteúdo do manual</h2>
+      <nav>
+        <a href="#conceito">1. Conceito de conjunto</a>
+        <a href="#representacao">2. Representação explícita</a>
+        <a href="#regras">3. Regras fundamentais</a>
+        <a href="#pertinencia">4. Pertinência</a>
+        <a href="#conjuntos-elementos">5. Conjuntos como elementos</a>
+        <a href="#implicita">6. Representação implícita</a>
+        <a href="#inclusao">7. Inclusão</a>
+        <a href="#vazio">8. Conjunto vazio</a>
+        <a href="#simbolos">9. Tabela de símbolos</a>
+        <a href="#exemplos">10. Exemplos resolvidos</a>
+        <a href="#exercicios">11. Exercícios</a>
+        <a href="#resumo">12. Resumo final</a>
+      </nav>
+    </aside>
+
+    <main>
+      <section class="secao" id="conceito">
+        <h2>1. O que é um conjunto?</h2>
+
+        <p>
+          Um <strong>conjunto</strong> é uma coleção bem definida de objetos. Esses objetos são
+          chamados de <strong>elementos</strong> do conjunto.
+        </p>
+
+        <p>
+          A ideia aparece naturalmente no cotidiano. Podemos falar no conjunto dos livros de uma
+          estante, dos alunos de uma turma, dos produtos de um pedido ou dos computadores conectados
+          a uma rede.
+        </p>
+
+        <div class="intro-grid">
+          <article class="card">
+            <span class="numero">A</span>
+            <h3>Exemplo cotidiano</h3>
+            <p>Conjunto das frutas em uma cesta:</p>
+            <span class="formula">F = {maçã; banana; laranja}</span>
+          </article>
+
+          <article class="card">
+            <span class="numero">B</span>
+            <h3>Exemplo numérico</h3>
+            <p>Conjunto dos números pares positivos menores que 10:</p>
+            <span class="formula">P = {2; 4; 6; 8}</span>
+          </article>
+
+          <article class="card">
+            <span class="numero">C</span>
+            <h3>Exemplo geométrico</h3>
+            <p>Conjunto de todos os pontos pertencentes a uma circunferência.</p>
+          </article>
+        </div>
+
+        <div class="destaque">
+          <strong>Ideia central</strong>
+          Um conjunto deve permitir decidir, com clareza, se determinado objeto pertence ou não a ele.
+        </div>
+      </section>
+
+      <section class="secao" id="representacao">
+        <h2>2. Representação explícita de conjuntos</h2>
+
+        <p>
+          Na representação explícita, os elementos são listados entre chaves. Em português,
+          recomenda-se usar ponto e vírgula para separar os elementos, principalmente quando há
+          números decimais.
+        </p>
+
+        <span class="formula">A = {elemento 1; elemento 2; elemento 3}</span>
+
+        <div class="atencao">
+          <strong>Por que usar ponto e vírgula?</strong>
+          A escrita <code>{1,2, 1,3}</code> pode causar dúvida: seriam quatro números inteiros ou dois
+          números decimais? A forma <code>{1,2; 1,3}</code> deixa claro que existem dois elementos.
+        </div>
+
+        <h3>Exemplo: números ímpares</h3>
+        <span class="formula">B = {1; 3; 5; 7; 9}</span>
+        <p>Esse é o conjunto dos números ímpares positivos menores que 10.</p>
+
+        <h3>Exemplo: progressão aritmética</h3>
+        <span class="formula">C = {1,1; 1,3; 1,5; 1,7; 1,9}</span>
+        <p>
+          Esses elementos formam os cinco primeiros termos de uma progressão aritmética com termo
+          inicial 1,1 e razão 0,2.
+        </p>
+
+        <h3>Exemplo: conjunto infinito</h3>
+        <span class="formula">D = {1; 4; 9; 16; 25; 36; ...}</span>
+        <p>
+          As reticências indicam que a sequência continua. Nesse caso, os elementos são os quadrados
+          dos números inteiros positivos.
+        </p>
+
+        <div class="erro">
+          <strong>Cuidado com sequências ambíguas</strong>
+          Uma lista como <code>{4; 13; 34; 73; 136; ...}</code> pode admitir várias leis de formação.
+          Quando a regra não é evidente, a representação implícita é mais adequada.
+        </div>
+      </section>
+
+      <section class="secao" id="regras">
+        <h2>3. Regras fundamentais dos conjuntos</h2>
+
+        <div class="cards">
+          <article class="card">
+            <h3>A ordem não altera o conjunto</h3>
+            <span class="formula">{1; 3; 5} = {5; 1; 3}</span>
+            <p>
+              Os elementos podem ser escritos em qualquer ordem. Colocá-los em ordem crescente é uma
+              escolha de organização, não uma exigência matemática.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Elementos repetidos não contam novamente</h3>
+            <span class="formula">{1; 1; 2; 2; 3} = {1; 2; 3}</span>
+            <p>
+              Um conjunto registra quais elementos estão presentes, e não quantas vezes cada um foi
+              mencionado.
+            </p>
+          </article>
+        </div>
+
+        <div class="dica">
+          <strong>Analogia prática</strong>
+          Imagine uma caixa com etiquetas. Não importa a ordem em que as etiquetas foram colocadas e
+          não é necessário registrar a mesma etiqueta duas vezes.
+        </div>
+      </section>
+
+      <section class="secao" id="pertinencia">
+        <h2>4. Símbolo de pertinência</h2>
+
+        <p>
+          O símbolo <strong>∈</strong> indica que um objeto é elemento de um conjunto. O símbolo
+          <strong>∉</strong> indica que o objeto não pertence ao conjunto.
+        </p>
+
+        <span class="formula">x ∈ P → “x pertence a P”</span>
+        <span class="formula">x ∉ P → “x não pertence a P”</span>
+
+        <h3>Exemplo</h3>
+        <p>Considere o conjunto:</p>
+        <span class="formula">P = {4; 5; 10; 12; 18}</span>
+
+        <div class="tabela-responsiva">
+          <table>
+            <thead>
+              <tr>
+                <th>Afirmação</th>
+                <th>Leitura</th>
+                <th>Resultado</th>
+                <th>Justificativa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12 ∈ P</td>
+                <td>12 pertence a P</td>
+                <td>Verdadeiro</td>
+                <td>O número 12 aparece entre os elementos de P.</td>
+              </tr>
+              <tr>
+                <td>5 ∉ P</td>
+                <td>5 não pertence a P</td>
+                <td>Falso</td>
+                <td>O número 5 está presente em P.</td>
+              </tr>
+              <tr>
+                <td>7 ∉ P</td>
+                <td>7 não pertence a P</td>
+                <td>Verdadeiro</td>
+                <td>O número 7 não aparece em P.</td>
+              </tr>
+              <tr>
+                <td>16 ∈ P</td>
+                <td>16 pertence a P</td>
+                <td>Falso</td>
+                <td>O número 16 não é elemento de P.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="atencao">
+          <strong>Pertinência relaciona elemento e conjunto</strong>
+          Em uma expressão como <code>5 ∈ P</code>, o objeto à esquerda é um elemento e o objeto à
+          direita é um conjunto.
+        </div>
+      </section>
+
+      <section class="secao" id="conjuntos-elementos">
+        <h2>5. Quando um conjunto é elemento de outro conjunto</h2>
+
+        <p>
+          Um conjunto também pode aparecer como elemento de outro conjunto. Nesse caso, é importante
+          observar as chaves.
+        </p>
+
+        <span class="formula">A = {1; 2; {3; 4}; 5; 6}</span>
+
+        <p>
+          O conjunto <code>{3; 4}</code> foi colocado inteiro dentro de A. Portanto, ele é um único
+          elemento de A.
+        </p>
+
+        <div class="comparacao-grid">
+          <article class="card">
+            <h3>Afirmações verdadeiras</h3>
+            <p><strong>1 ∈ A</strong> — o número 1 está diretamente em A.</p>
+            <p><strong>{3; 4} ∈ A</strong> — esse conjunto está diretamente em A.</p>
+            <p><strong>7 ∉ A</strong> — o número 7 não aparece em A.</p>
+          </article>
+
+          <article class="card">
+            <h3>Afirmações que exigem atenção</h3>
+            <p><strong>3 ∉ A</strong> — o número 3 está dentro de <code>{3; 4}</code>, não diretamente em A.</p>
+            <p><strong>{1} ∉ A</strong> — A contém o número 1, mas não contém o conjunto <code>{1}</code>.</p>
+            <p><strong>{1; 2} ∉ A</strong> — 1 e 2 aparecem separados, e não como um único conjunto.</p>
+          </article>
+        </div>
+
+        <div class="dica">
+          <strong>Analogia da sacola de compras</strong>
+          Uma caixa de ovos colocada dentro da sacola pertence à sacola. Os ovos pertencem diretamente
+          à caixa. Essa diferença ajuda a entender conjuntos aninhados.
+        </div>
+      </section>
+
+      <section class="secao" id="implicita">
+        <h2>6. Representação implícita de conjuntos</h2>
+
+        <p>
+          Na representação implícita, não listamos todos os elementos. Em vez disso, informamos uma
+          propriedade que deve ser satisfeita.
+        </p>
+
+        <span class="formula">A = {x | p(x)}</span>
+
+        <p>
+          Lê-se: “A é o conjunto dos objetos x tais que a propriedade p(x) é verdadeira”.
+        </p>
+
+        <h3>Exemplo 1: solução de uma equação</h3>
+        <span class="formula">F = {x ∈ ℝ | x² = 9}</span>
+        <p>
+          Procuramos números reais cujo quadrado seja 9. As soluções são −3 e 3.
+        </p>
+        <span class="formula">F = {-3; 3}</span>
+
+        <h3>Exemplo 2: números inteiros com quadrado menor que 9</h3>
+        <span class="formula">G = {x ∈ ℤ | x² &lt; 9}</span>
+
+        <ol class="passos">
+          <li>O símbolo ℤ indica que x deve ser um número inteiro.</li>
+          <li>A condição exige que o quadrado de x seja menor que 9.</li>
+          <li>Os inteiros que satisfazem essa condição são −2, −1, 0, 1 e 2.</li>
+        </ol>
+
+        <span class="formula">G = {-2; -1; 0; 1; 2}</span>
+
+        <h3>Exemplo prático: produtos com preço inferior a R$ 50</h3>
+        <span class="formula">M = {x | x é um produto e preço(x) &lt; 50}</span>
+        <p>
+          A propriedade seleciona somente os produtos cujo preço é inferior a cinquenta reais.
+          Essa mesma ideia aparece em filtros de planilhas, sistemas e bancos de dados.
+        </p>
+      </section>
+
+      <section class="secao" id="inclusao">
+        <h2>7. Relação de inclusão entre conjuntos</h2>
+
+        <p>
+          Dizemos que um conjunto Y está contido em X quando todo elemento de Y também é elemento de X.
+        </p>
+
+        <span class="formula">Y ⊂ X</span>
+        <span class="formula">X ⊃ Y</span>
+
+        <p>
+          As duas expressões representam a mesma relação, apenas observada em sentidos diferentes:
+          Y está contido em X, ou X contém Y.
+        </p>
+
+        <div class="diagrama" aria-label="Diagrama de inclusão entre os conjuntos Y e X">
+          <div class="conjunto-x">
+            <span class="rotulo-x">X</span>
+            <span class="elemento e4">4</span>
+            <span class="elemento e5">5</span>
+
+            <div class="conjunto-y">
+              <span class="rotulo-y">Y</span>
+              <span class="elemento e1">1</span>
+              <span class="elemento e2">2</span>
+              <span class="elemento e3">3</span>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          No diagrama, todos os elementos de Y estão dentro da região de X. Por isso, Y é subconjunto
+          de X.
+        </p>
+
+        <h3>Exemplos</h3>
+        <span class="formula">{1; 5} ⊂ {1; 2; 5; 6}</span>
+        <span class="formula">{1} ⊂ {0; 1; 6}</span>
+
+        <div class="erro">
+          <strong>Não confunda pertinência com inclusão</strong>
+          <code>1 ∈ X</code> relaciona um elemento com um conjunto.
+          <code>{1} ⊂ X</code> relaciona dois conjuntos.
+        </div>
+
+        <div class="tabela-responsiva">
+          <table>
+            <thead>
+              <tr>
+                <th>Expressão</th>
+                <th>Tipo de relação</th>
+                <th>Leitura</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1 ∈ {1; 2; 3}</td>
+                <td>Pertinência</td>
+                <td>O número 1 pertence ao conjunto.</td>
+              </tr>
+              <tr>
+                <td>{1} ⊂ {1; 2; 3}</td>
+                <td>Inclusão</td>
+                <td>O conjunto formado por 1 está contido no conjunto maior.</td>
+              </tr>
+              <tr>
+                <td>{1; 4} ⊄ {1; 2; 3}</td>
+                <td>Não inclusão</td>
+                <td>O elemento 4 impede que o primeiro conjunto esteja contido no segundo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="secao" id="vazio">
+        <h2>8. O conjunto vazio</h2>
+
+        <p>
+          O conjunto vazio é o conjunto que não possui elementos. Ele pode ser representado por:
+        </p>
+
+        <span class="formula">∅ ou { }</span>
+
+        <p>
+          Uma sacola sem nenhum produto é uma boa analogia para o conjunto vazio.
+        </p>
+
+        <div class="atencao">
+          <strong>∅ não é igual a {∅}</strong>
+          <code>∅</code> não possui elementos. Já <code>{∅}</code> possui um elemento: o próprio
+          conjunto vazio.
+        </div>
+
+        <h3>O vazio como subconjunto</h3>
+        <p>O conjunto vazio é subconjunto de qualquer conjunto:</p>
+
+        <span class="formula">∅ ⊂ X</span>
+
+        <p>
+          Isso ocorre porque não existe nenhum elemento do conjunto vazio que viole a condição de
+          também pertencer a X.
+        </p>
+
+        <div class="destaque">
+          <strong>Interpretação lógica</strong>
+          A frase “todo elemento de ∅ também pertence a X” é considerada verdadeira porque não existe
+          elemento em ∅ que produza um contraexemplo.
+        </div>
+      </section>
+
+      <section class="secao" id="simbolos">
+        <h2>9. Tabela dos principais símbolos</h2>
+
+        <div class="tabela-responsiva">
+          <table>
+            <thead>
+              <tr>
+                <th>Símbolo</th>
+                <th>Nome</th>
+                <th>Leitura</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>∈</td>
+                <td>Pertinência</td>
+                <td>Pertence a</td>
+                <td>3 ∈ {1; 2; 3}</td>
+              </tr>
+              <tr>
+                <td>∉</td>
+                <td>Não pertinência</td>
+                <td>Não pertence a</td>
+                <td>5 ∉ {1; 2; 3}</td>
+              </tr>
+              <tr>
+                <td>⊂</td>
+                <td>Inclusão</td>
+                <td>Está contido em</td>
+                <td>{1; 2} ⊂ {1; 2; 3}</td>
+              </tr>
+              <tr>
+                <td>⊄</td>
+                <td>Não inclusão</td>
+                <td>Não está contido em</td>
+                <td>{1; 4} ⊄ {1; 2; 3}</td>
+              </tr>
+              <tr>
+                <td>⊃</td>
+                <td>Continência</td>
+                <td>Contém</td>
+                <td>{1; 2; 3} ⊃ {1; 2}</td>
+              </tr>
+              <tr>
+                <td>=</td>
+                <td>Igualdade</td>
+                <td>É igual a</td>
+                <td>{1; 2} = {2; 1}</td>
+              </tr>
+              <tr>
+                <td>≠</td>
+                <td>Desigualdade</td>
+                <td>É diferente de</td>
+                <td>{1; 2} ≠ {1; 3}</td>
+              </tr>
+              <tr>
+                <td>∅</td>
+                <td>Conjunto vazio</td>
+                <td>Conjunto sem elementos</td>
+                <td>A = ∅</td>
+              </tr>
+              <tr>
+                <td>|</td>
+                <td>Tal que</td>
+                <td>Indica uma condição</td>
+                <td>{x | x &gt; 0}</td>
+              </tr>
+              <tr>
+                <td>ℕ, ℤ, ℝ</td>
+                <td>Conjuntos numéricos</td>
+                <td>Naturais, inteiros e reais</td>
+                <td>x ∈ ℤ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="secao" id="exemplos">
+        <h2>10. Exemplos práticos resolvidos</h2>
+
+        <div class="exemplo-grid">
+          <article class="card">
+            <h3>Exemplo 1 — alunos aprovados</h3>
+            <p>Considere:</p>
+            <span class="formula">A = {Ana; Bruno; Carla}</span>
+            <p><strong>Bruno ∈ A:</strong> verdadeiro.</p>
+            <p><strong>Diego ∈ A:</strong> falso.</p>
+          </article>
+
+          <article class="card">
+            <h3>Exemplo 2 — setores da empresa</h3>
+            <span class="formula">E = {TI; Fiscal; Faturamento; Compras}</span>
+            <p>O setor Fiscal pertence a E.</p>
+            <p>O conjunto <code>{TI; Compras}</code> está contido em E.</p>
+          </article>
+
+          <article class="card">
+            <h3>Exemplo 3 — números pares</h3>
+            <span class="formula">P = {x ∈ ℕ | x é par e x &lt; 10}</span>
+            <p>Logo:</p>
+            <span class="formula">P = {0; 2; 4; 6; 8}</span>
+          </article>
+
+          <article class="card">
+            <h3>Exemplo 4 — conjunto aninhado</h3>
+            <span class="formula">T = {1; {2; 3}; 4}</span>
+            <p><strong>{2; 3} ∈ T:</strong> verdadeiro.</p>
+            <p><strong>2 ∈ T:</strong> falso.</p>
+          </article>
+        </div>
+
+        <h3>Como analisar uma afirmação</h3>
+        <ol class="passos">
+          <li>Observe o símbolo usado: pertinência ou inclusão.</li>
+          <li>Identifique se o objeto à esquerda é elemento ou conjunto.</li>
+          <li>Compare cuidadosamente os elementos e as chaves.</li>
+          <li>Procure um elemento que confirme ou negue a afirmação.</li>
+        </ol>
+      </section>
+
+      <section class="secao" id="exercicios">
+        <h2>11. Exercícios de fixação</h2>
+
+        <p>
+          Tente resolver antes de abrir cada resposta.
+        </p>
+
+        <details class="questao">
+          <summary>1. Dado A = {2; 4; 6; 8}, determine se 6 ∈ A.</summary>
+          <div class="resposta">
+            <strong>Resposta:</strong> verdadeiro, pois 6 aparece diretamente entre os elementos de A.
+          </div>
+        </details>
+
+        <details class="questao">
+          <summary>2. Dado A = {2; 4; 6; 8}, determine se {2; 4} ∈ A.</summary>
+          <div class="resposta">
+            <strong>Resposta:</strong> falso. A contém os números 2 e 4 separadamente, mas não contém
+            o conjunto <code>{2; 4}</code> como um elemento.
+          </div>
+        </details>
+
+        <details class="questao">
+          <summary>3. Dado A = {2; 4; 6; 8}, determine se {2; 4} ⊂ A.</summary>
+          <div class="resposta">
+            <strong>Resposta:</strong> verdadeiro. Todos os elementos de <code>{2; 4}</code> também
+            pertencem a A.
+          </div>
+        </details>
+
+        <details class="questao">
+          <summary>4. Escreva explicitamente B = {x ∈ ℤ | x² &lt; 5}.</summary>
+          <div class="resposta">
+            <strong>Resposta:</strong> <code>B = {-2; -1; 0; 1; 2}</code>.
+          </div>
+        </details>
+
+        <details class="questao">
+          <summary>5. O conjunto vazio pertence a qualquer conjunto?</summary>
+          <div class="resposta">
+            <strong>Resposta:</strong> não necessariamente. O que sempre podemos afirmar é que
+            <code>∅</code> é subconjunto de qualquer conjunto. Para dizer que <code>∅ ∈ X</code>,
+            o vazio precisa aparecer explicitamente como elemento de X.
+          </div>
+        </details>
+      </section>
+
+      <section class="secao" id="resumo">
+        <h2>12. Resumo final</h2>
+
+        <div class="tabela-responsiva">
+          <table>
+            <thead>
+              <tr>
+                <th>Conceito</th>
+                <th>Resumo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Conjunto</td>
+                <td>Coleção bem definida de objetos.</td>
+              </tr>
+              <tr>
+                <td>Elemento</td>
+                <td>Objeto que faz parte de um conjunto.</td>
+              </tr>
+              <tr>
+                <td>Representação explícita</td>
+                <td>Lista os elementos entre chaves.</td>
+              </tr>
+              <tr>
+                <td>Representação implícita</td>
+                <td>Descreve os elementos por meio de uma propriedade.</td>
+              </tr>
+              <tr>
+                <td>Pertinência</td>
+                <td>Relaciona um elemento a um conjunto: ∈ ou ∉.</td>
+              </tr>
+              <tr>
+                <td>Inclusão</td>
+                <td>Relaciona dois conjuntos: ⊂, ⊄ ou ⊃.</td>
+              </tr>
+              <tr>
+                <td>Conjunto vazio</td>
+                <td>Conjunto sem elementos, representado por ∅ ou { }.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="destaque">
+          <strong>Regra mais importante para evitar erros</strong>
+          Sempre observe as chaves. Elas mostram se estamos tratando de um elemento simples ou de um
+          conjunto inteiro.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a class="voltar" href="#inicio" aria-label="Voltar ao início">↑</a>
+
+  <footer class="rodape">
+    <p>
+      Manual de Matemática e Lógica — Linguagem da Teoria dos Conjuntos
+    </p>
+  </footer>
+</body>
+</html>
