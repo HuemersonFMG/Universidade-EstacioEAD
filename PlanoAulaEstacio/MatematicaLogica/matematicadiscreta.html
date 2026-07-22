@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual de Matemática Discreta e Análise Combinatória</title>
+  <style>
+    :root{
+      --azul:#1855c9;
+      --azul-escuro:#12366f;
+      --azul-claro:#eaf2ff;
+      --verde:#16845b;
+      --verde-claro:#eaf8f1;
+      --amarelo:#f0b84b;
+      --amarelo-claro:#fff7df;
+      --vermelho:#c9454d;
+      --vermelho-claro:#fff0f1;
+      --roxo:#6d4ccf;
+      --roxo-claro:#f1edff;
+      --cinza-50:#f8fafc;
+      --cinza-100:#f1f5f9;
+      --cinza-200:#e2e8f0;
+      --cinza-600:#5d6775;
+      --cinza-900:#1f2937;
+      --branco:#ffffff;
+      --sombra:0 12px 30px rgba(24,85,201,.10);
+      --raio:18px;
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:"Segoe UI",Arial,sans-serif;
+      color:var(--cinza-900);
+      line-height:1.65;
+      background:linear-gradient(180deg,#edf4ff 0,#f8fafc 45%,#fff 100%);
+    }
+
+    header{
+      color:#fff;
+      text-align:center;
+      padding:60px 20px;
+      background:linear-gradient(135deg,var(--azul-escuro),var(--azul));
+    }
+
+    header .wrap{
+      max-width:980px;
+      margin:auto;
+    }
+
+    header h1{
+      margin:0 0 14px;
+      font-size:clamp(2rem,5vw,3.7rem);
+      line-height:1.12;
+    }
+
+    header p{
+      max-width:830px;
+      margin:auto;
+      font-size:1.12rem;
+      opacity:.96;
+    }
+
+    .selo{
+      display:inline-block;
+      margin-bottom:16px;
+      padding:7px 14px;
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      font-weight:700;
+    }
+
+    nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.96);
+      border-bottom:1px solid var(--cinza-200);
+      backdrop-filter:blur(10px);
+    }
+
+    nav .menu{
+      max-width:1220px;
+      margin:auto;
+      padding:12px 18px;
+      display:flex;
+      gap:10px;
+      overflow-x:auto;
+    }
+
+    nav a{
+      flex:0 0 auto;
+      text-decoration:none;
+      color:var(--azul-escuro);
+      font-weight:700;
+      padding:8px 12px;
+      border-radius:10px;
+    }
+
+    nav a:hover{background:var(--azul-claro)}
+
+    main{
+      width:min(1180px,calc(100% - 30px));
+      margin:34px auto 70px;
+    }
+
+    section{
+      margin-bottom:30px;
+      padding:28px;
+      background:#fff;
+      border:1px solid var(--cinza-200);
+      border-radius:var(--raio);
+      box-shadow:var(--sombra);
+    }
+
+    h2{
+      margin-top:0;
+      color:var(--azul-escuro);
+      font-size:clamp(1.5rem,3vw,2.2rem);
+      line-height:1.25;
+    }
+
+    h3{
+      margin-top:26px;
+      color:var(--azul);
+      font-size:1.25rem;
+    }
+
+    h4{
+      margin:0 0 8px;
+      color:var(--azul-escuro);
+    }
+
+    p{margin:10px 0}
+
+    .tema{border-top:7px solid var(--azul)}
+    .tema-combinatoria{border-top-color:var(--roxo)}
+
+    .grade{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .grade-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .cartao{
+      padding:20px;
+      border:1px solid var(--cinza-200);
+      border-radius:14px;
+      background:var(--cinza-50);
+    }
+
+    .cartao h3{margin-top:0}
+
+    .formula{
+      margin:16px 0;
+      padding:16px 18px;
+      overflow-x:auto;
+      text-align:center;
+      background:#f7fbff;
+      border-left:5px solid var(--azul);
+      border-radius:10px;
+      font-family:"Cambria Math","Times New Roman",serif;
+      font-size:1.28rem;
+      font-weight:700;
+    }
+
+    .formula.roxa{
+      background:var(--roxo-claro);
+      border-left-color:var(--roxo);
+    }
+
+    .exemplo,.atencao,.erro,.dica,.observacao{
+      margin:18px 0;
+      padding:18px;
+      border-radius:10px;
+    }
+
+    .exemplo{
+      background:var(--verde-claro);
+      border-left:5px solid var(--verde);
+    }
+
+    .atencao{
+      background:var(--amarelo-claro);
+      border-left:5px solid var(--amarelo);
+    }
+
+    .erro{
+      background:var(--vermelho-claro);
+      border-left:5px solid var(--vermelho);
+    }
+
+    .dica{
+      background:var(--azul-claro);
+      border-left:5px solid var(--azul);
+    }
+
+    .observacao{
+      background:var(--roxo-claro);
+      border-left:5px solid var(--roxo);
+    }
+
+    .passos{
+      list-style:none;
+      padding:0;
+      counter-reset:passo;
+    }
+
+    .passos li{
+      counter-increment:passo;
+      position:relative;
+      margin:14px 0;
+      padding:15px 18px 15px 58px;
+      background:var(--cinza-50);
+      border:1px solid var(--cinza-200);
+      border-radius:12px;
+    }
+
+    .passos li::before{
+      content:counter(passo);
+      position:absolute;
+      left:16px;
+      top:14px;
+      width:30px;
+      height:30px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:var(--azul);
+      border-radius:50%;
+      font-weight:800;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:18px 0;
+      background:#fff;
+    }
+
+    th,td{
+      padding:13px;
+      border:1px solid var(--cinza-200);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      color:#fff;
+      background:var(--azul-escuro);
+    }
+
+    tr:nth-child(even) td{background:#f8fafc}
+
+    code{
+      padding:2px 6px;
+      background:#edf2f7;
+      border-radius:5px;
+    }
+
+    .mini-titulo{
+      display:inline-block;
+      padding:5px 10px;
+      margin-bottom:12px;
+      border-radius:999px;
+      background:var(--azul-claro);
+      color:var(--azul-escuro);
+      font-weight:800;
+      font-size:.9rem;
+    }
+
+    .mini-titulo.roxo{
+      background:var(--roxo-claro);
+      color:#4d2faf;
+    }
+
+    .sumario{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .sumario a{
+      display:block;
+      padding:16px;
+      color:var(--cinza-900);
+      text-decoration:none;
+      background:var(--cinza-50);
+      border:1px solid var(--cinza-200);
+      border-radius:12px;
+      font-weight:700;
+    }
+
+    .sumario a:hover{
+      border-color:var(--azul);
+      background:var(--azul-claro);
+    }
+
+    .fluxo{
+      display:grid;
+      place-items:center;
+      gap:10px;
+      margin:22px 0;
+      text-align:center;
+    }
+
+    .fluxo .caixa{
+      width:min(560px,100%);
+      padding:14px 18px;
+      border:2px solid var(--roxo);
+      border-radius:12px;
+      background:var(--roxo-claro);
+      font-weight:800;
+    }
+
+    .fluxo .seta{
+      font-size:1.8rem;
+      color:var(--roxo);
+      line-height:1;
+    }
+
+    .duas-colunas{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      width:min(760px,100%);
+    }
+
+    .resposta{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:10px;
+      background:#fff;
+      border:1px dashed var(--verde);
+      font-weight:800;
+    }
+
+    footer{
+      padding:28px 20px;
+      text-align:center;
+      color:var(--cinza-600);
+      border-top:1px solid var(--cinza-200);
+      background:#fff;
+    }
+
+    @media(max-width:850px){
+      .grade,.grade-3,.sumario,.duas-colunas{grid-template-columns:1fr}
+      section{padding:20px}
+      th,td{padding:10px}
+    }
+
+    @media print{
+      nav{display:none}
+      body{background:#fff}
+      section{box-shadow:none;break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="selo">Manual de estudo completo</span>
+    <h1>Matemática Discreta e Análise Combinatória</h1>
+    <p>
+      Conteúdo introdutório e prático sobre valor absoluto, conjuntos, intervalos,
+      análise combinatória, gráficos, funções, cálculo proposicional e cálculo de predicados.
+    </p>
+  </div>
+</header>
+
+<nav>
+  <div class="menu">
+    <a href="#valor-absoluto">Valor absoluto</a>
+    <a href="#conjuntos">Conjuntos</a>
+    <a href="#combinatoria">Análise combinatória</a>
+    <a href="#anagramas">anagramas</a>
+    <a href="#graficos">Gráficos</a>
+    <a href="#funcoes">Funções</a>
+    <a href="#proposicional">Proposições</a>
+    <a href="#predicados">Predicados</a>
+    <a href="#estrelas-barras">estrelas-barras</a>
+    <a href="#resumo">Resumo</a>
+  </div>
+</nav>
+
+<main>
+
+<section>
+  <h2>Como usar este manual</h2>
+  <p>
+    Leia os capítulos na ordem ou use o menu superior para acessar diretamente o assunto desejado.
+    Os exemplos foram escolhidos para mostrar como identificar a fórmula correta e como resolver
+    cada exercício passo a passo.
+  </p>
+
+  <div class="sumario">
+    <a href="#valor-absoluto">1. Valor absoluto e intervalos</a>
+    <a href="#conjuntos">2. Teoria dos conjuntos</a>
+    <a href="#combinatoria">3. Análise combinatória</a>
+    <a href="#graficos">4. Gráficos e interpretação</a>
+    <a href="#funcoes">5. Funções</a>
+    <a href="#proposicional">6. Cálculo proposicional</a>
+    <a href="#predicados">7. Cálculo de predicados</a>
+  </div>
+</section>
+
+<section id="valor-absoluto" class="tema">
+  <span class="mini-titulo">Tema 1</span>
+  <h2>Valor absoluto e intervalos</h2>
+
+  <p>
+    O valor absoluto representa a distância de um número até o zero.
+    Como distância nunca é negativa, o resultado será sempre positivo ou igual a zero.
+  </p>
+
+  <div class="formula">|5| = 5 &nbsp;&nbsp;&nbsp; |−5| = 5 &nbsp;&nbsp;&nbsp; |0| = 0</div>
+
+  <h3>Como retirar as barras?</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Situação</th>
+        <th>Regra</th>
+        <th>Exemplo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Expressão positiva ou zero</td>
+        <td>Mantém a expressão</td>
+        <td>|x − 2| = x − 2, quando x ≥ 2</td>
+      </tr>
+      <tr>
+        <td>Expressão negativa</td>
+        <td>Troca o sinal de toda a expressão</td>
+        <td>|x − 2| = −(x − 2) = −x + 2, quando x &lt; 2</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="exemplo">
+    <strong>Exemplo:</strong>
+    <div class="formula">|x − 3| = 5</div>
+    <p>Existem duas possibilidades:</p>
+    <div class="formula">x − 3 = 5 ou x − 3 = −5</div>
+    <div class="formula">x = 8 ou x = −2</div>
+  </div>
+
+  <h3>Intervalos abertos e fechados</h3>
+
+  <div class="grade">
+    <div class="cartao">
+      <h4>Intervalo aberto</h4>
+      <p>Não inclui a extremidade.</p>
+      <div class="formula">(2,5) ou ]2,5[</div>
+      <p>Significa: 2 &lt; x &lt; 5.</p>
+    </div>
+
+    <div class="cartao">
+      <h4>Intervalo fechado</h4>
+      <p>Inclui a extremidade.</p>
+      <div class="formula">[2,5]</div>
+      <p>Significa: 2 ≤ x ≤ 5.</p>
+    </div>
+  </div>
+
+  <div class="atencao">
+    <strong>Lembrete:</strong> os sinais <code>&lt;</code> e <code>&gt;</code> geram extremidade aberta.
+    Os sinais <code>≤</code> e <code>≥</code> geram extremidade fechada.
+  </div>
+</section>
+
+<section id="conjuntos" class="tema">
+  <span class="mini-titulo">Tema 2</span>
+  <h2>Teoria dos conjuntos</h2>
+
+  <h3>O que é um conjunto?</h3>
+
+  <p>
+    Um conjunto é uma coleção de elementos, normalmente representada entre chaves.
+  </p>
+
+  <div class="formula">A = {1,2,3,4}</div>
+
+  <div class="grade-3">
+    <div class="cartao">
+      <h4>Pertence</h4>
+      <div class="formula">2 ∈ A</div>
+      <p>O número 2 está em A.</p>
+    </div>
+    <div class="cartao">
+      <h4>Não pertence</h4>
+      <div class="formula">7 ∉ A</div>
+      <p>O número 7 não está em A.</p>
+    </div>
+    <div class="cartao">
+      <h4>Conjunto vazio</h4>
+      <div class="formula">∅ ou { }</div>
+      <p>Não possui elementos.</p>
+    </div>
+  </div>
+
+  <h3>Operações entre conjuntos</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Operação</th>
+        <th>Significado</th>
+        <th>Exemplo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>União: A ∪ B</td>
+        <td>Elementos que estão em A ou em B</td>
+        <td>{1,2} ∪ {2,3} = {1,2,3}</td>
+      </tr>
+      <tr>
+        <td>Interseção: A ∩ B</td>
+        <td>Elementos comuns aos dois conjuntos</td>
+        <td>{1,2} ∩ {2,3} = {2}</td>
+      </tr>
+      <tr>
+        <td>Diferença: A − B</td>
+        <td>Elementos de A que não estão em B</td>
+        <td>{1,2,3} − {2,3} = {1}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="dica">
+    <strong>Macete:</strong> união junta tudo; interseção mantém apenas a parte em comum.
+  </div>
+</section>
+
+<section id="combinatoria" class="tema tema-combinatoria">
+  <span class="mini-titulo roxo">Tema 3</span>
+  <h2>Análise combinatória</h2>
+
+  <h3>O que é análise combinatória?</h3>
+
+  <p>
+    A análise combinatória é a parte da matemática usada para contar possibilidades
+    sem precisar listar uma por uma.
+  </p>
+
+  <div class="grade-3">
+    <div class="cartao">
+      <h4>Exemplo de pergunta</h4>
+      <p>Quantas senhas podem ser criadas?</p>
+    </div>
+    <div class="cartao">
+      <h4>Exemplo de pergunta</h4>
+      <p>Quantas equipes podem ser formadas?</p>
+    </div>
+    <div class="cartao">
+      <h4>Exemplo de pergunta</h4>
+      <p>Quantos anagramas uma palavra possui?</p>
+    </div>
+  </div>
+
+  <h3>Princípio Fundamental da Contagem</h3>
+
+  <p>
+    Quando uma atividade ocorre em etapas independentes, multiplicamos a quantidade
+    de opções de cada etapa.
+  </p>
+
+  <div class="exemplo">
+    <strong>Exemplo: roupas</strong>
+    <p>Uma pessoa possui 3 camisetas, 2 calças e 2 pares de tênis.</p>
+    <div class="formula roxa">3 × 2 × 2 = 12</div>
+    <div class="resposta">Ela pode montar 12 combinações diferentes.</div>
+  </div>
+
+  <h3>Fatorial</h3>
+
+  <p>
+    O fatorial de um número é o produto dele por todos os naturais positivos anteriores.
+  </p>
+
+  <div class="formula roxa">n! = n × (n−1) × (n−2) × ... × 2 × 1</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fatorial</th>
+        <th>Cálculo</th>
+        <th>Resultado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>0!</td><td>Definição</td><td>1</td></tr>
+      <tr><td>3!</td><td>3 × 2 × 1</td><td>6</td></tr>
+      <tr><td>4!</td><td>4 × 3 × 2 × 1</td><td>24</td></tr>
+      <tr><td>5!</td><td>5 × 4 × 3 × 2 × 1</td><td>120</td></tr>
+      <tr><td>7!</td><td>7 × 6 × 5 × 4 × 3 × 2 × 1</td><td>5040</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Permutação simples</h3>
+
+  <p>
+    Usamos permutação quando todos os elementos serão utilizados e a ordem importa.
+  </p>
+
+  <div class="formula roxa">Pₙ = n!</div>
+
+  <div class="exemplo">
+    <strong>Exemplo: cinco pessoas em uma fila</strong>
+    <div class="formula roxa">P₅ = 5! = 120</div>
+    <div class="resposta">Existem 120 maneiras de organizar as cinco pessoas.</div>
+  </div>
+
+  <h2 id="anagramas">Anagramas</h2>
+  <h3>Anagramas com letras diferentes</h3>
+
+  <p>
+    Anagrama é uma reorganização de todas as letras de uma palavra.
+    Quando todas as letras são diferentes, usamos apenas o fatorial da quantidade de letras.
+  </p>
+
+  <div class="exemplo">
+    <strong>Exemplo: LIVRO</strong>
+    <p>A palavra possui 5 letras diferentes.</p>
+    <div class="formula roxa">5! = 5 × 4 × 3 × 2 × 1 = 120</div>
+    <div class="resposta">A palavra LIVRO possui 120 anagramas.</div>
+  </div>
+
+  <h3>Permutação com repetição (Anagrama com letras repetidas)</h3>
+
+  <p>
+    Quando existem elementos repetidos, dividimos pelo fatorial das repetições.
+  </p>
+
+  <div class="formula roxa">P = n! ÷ (r₁! × r₂! × r₃! × ...)</div>
+
+  <div class="exemplo">
+    <strong>Exemplo: SUCESSO</strong>
+    <p>A palavra possui 7 letras e a letra S aparece 3 vezes.</p>
+    <div class="formula roxa">7! ÷ 3! = 5040 ÷ 6 = 840</div>
+    <div class="resposta">A palavra SUCESSO possui 840 anagramas.</div>
+  </div>
+
+  <div class="exemplo">
+    <strong>Exemplo: ARARA</strong>
+    <p>A aparece 3 vezes e R aparece 2 vezes.</p>
+    <div class="formula roxa">5! ÷ (3! × 2!) = 120 ÷ 12 = 10</div>
+    <div class="resposta">A palavra ARARA possui 10 anagramas.</div>
+  </div>
+
+  <h3>Arranjo simples</h3>
+
+  <p>
+    Usamos arranjo quando escolhemos apenas parte dos elementos e a ordem importa.
+  </p>
+
+  <div class="formula roxa">A(n,p) = n! ÷ (n−p)!</div>
+
+  <div class="exemplo">
+    <strong>Exemplo: presidente, vice e secretário</strong>
+    <p>Há 10 candidatos e serão escolhidos 3 cargos diferentes.</p>
+    <div class="formula roxa">A(10,3) = 10! ÷ 7!</div>
+    <div class="formula roxa">A(10,3) = 10 × 9 × 8 = 720</div>
+    <div class="resposta">Existem 720 formas de preencher os três cargos.</div>
+  </div>
+
+  <div class="observacao">
+    <strong>Por que é arranjo?</strong><br>
+    Porque trocar uma pessoa de presidente para vice cria uma situação diferente.
+    Portanto, a ordem dos cargos importa.
+  </div>
+
+  <h3>Combinação simples</h3>
+
+  <p>
+    Usamos combinação quando escolhemos apenas parte dos elementos e a ordem não importa.
+  </p>
+
+  <div class="formula roxa">C(n,p) = n! ÷ [p! × (n−p)!]</div>
+
+  <div class="exemplo">
+    <strong>Exemplo: caixa com doces</strong>
+    <p>Uma cafeteria oferece 10 tipos de doces e o cliente escolhe 3 doces distintos.</p>
+    <div class="formula roxa">C(10,3) = 10! ÷ (3! × 7!)</div>
+    <div class="formula roxa">C(10,3) = (10 × 9 × 8) ÷ (3 × 2 × 1)</div>
+    <div class="formula roxa">C(10,3) = 720 ÷ 6 = 120</div>
+    <div class="resposta">Podem ser formadas 120 caixas diferentes.</div>
+  </div>
+
+  <div class="observacao">
+    <strong>Por que é combinação?</strong><br>
+    Brigadeiro, beijinho e cajuzinho formam a mesma caixa,
+    independentemente da ordem em que foram escolhidos.
+  </div>
+
+  <div class="exemplo">
+    <strong>Exemplo: comissão</strong>
+    <p>Uma turma possui 12 alunos e será formada uma comissão com 4 alunos.</p>
+    <div class="formula roxa">C(12,4) = 12! ÷ (4! × 8!)</div>
+    <div class="formula roxa">C(12,4) = (12 × 11 × 10 × 9) ÷ (4 × 3 × 2 × 1)</div>
+    <div class="formula roxa">C(12,4) = 11880 ÷ 24 = 495</div>
+    <div class="resposta">Existem 495 comissões possíveis.</div>
+  </div>
+
+  <h3>Como descobrir qual fórmula usar?</h3>
+
+  <div class="fluxo">
+    <div class="caixa">Todos os elementos serão usados?</div>
+    <div class="seta">↓</div>
+    <div class="duas-colunas">
+      <div class="caixa">Sim → Permutação</div>
+      <div class="caixa">Não → pergunte se a ordem importa</div>
+    </div>
+    <div class="seta">↓</div>
+    <div class="duas-colunas">
+      <div class="caixa">Ordem importa → Arranjo</div>
+      <div class="caixa">Ordem não importa → Combinação</div>
+    </div>
+  </div>
+
+  <h3>Tabela comparativa</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Situação</th>
+        <th>Usa todos?</th>
+        <th>Ordem importa?</th>
+        <th>Tipo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Organizar pessoas em fila</td>
+        <td>Sim</td>
+        <td>Sim</td>
+        <td>Permutação</td>
+      </tr>
+      <tr>
+        <td>Anagrama</td>
+        <td>Sim</td>
+        <td>Sim</td>
+        <td>Permutação</td>
+      </tr>
+      <tr>
+        <td>Presidente, vice e secretário</td>
+        <td>Não</td>
+        <td>Sim</td>
+        <td>Arranjo</td>
+      </tr>
+      <tr>
+        <td>Pódio de competição</td>
+        <td>Não</td>
+        <td>Sim</td>
+        <td>Arranjo</td>
+      </tr>
+      <tr>
+        <td>Escolher uma comissão</td>
+        <td>Não</td>
+        <td>Não</td>
+        <td>Combinação</td>
+      </tr>
+      <tr>
+        <td>Escolher sabores ou doces</td>
+        <td>Não</td>
+        <td>Não</td>
+        <td>Combinação</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Palavras que ajudam a identificar</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Palavra do enunciado</th>
+        <th>Indicação provável</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Fila, ordenar, organizar, anagrama</td><td>Permutação</td></tr>
+      <tr><td>1º, 2º e 3º lugar, cargos diferentes, posições</td><td>Arranjo</td></tr>
+      <tr><td>Grupo, equipe, comissão, caixa, selecionar</td><td>Combinação</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Erros comuns</h3>
+
+  <div class="erro">
+    <strong>Erro 1:</strong> usar arranjo quando a ordem não importa.<br>
+    Escolher Ana, Bruno e Carlos forma o mesmo grupo que Carlos, Ana e Bruno.
+  </div>
+
+  <div class="erro">
+    <strong>Erro 2:</strong> esquecer de dividir pelas repetições em anagramas.<br>
+    Em SUCESSO, trocar um S por outro S não cria uma nova palavra.
+  </div>
+
+  <div class="erro">
+    <strong>Erro 3:</strong> calcular o fatorial inteiro sem simplificar.<br>
+    Em C(10,3), é mais fácil cancelar o 7! e calcular apenas 10 × 9 × 8.
+  </div>
+</section>
+
+<section id="graficos" class="tema">
+  <span class="mini-titulo">Tema 4</span>
+  <h2>Gráficos e interpretações gráficas</h2>
+
+  <p>
+    Um gráfico representa visualmente uma relação entre valores.
+    O plano cartesiano possui o eixo x, horizontal, e o eixo y, vertical.
+  </p>
+
+  <div class="grade">
+    <div class="cartao">
+      <h4>Eixo x</h4>
+      <p>Normalmente representa a entrada ou variável independente.</p>
+    </div>
+    <div class="cartao">
+      <h4>Eixo y</h4>
+      <p>Normalmente representa o resultado ou variável dependente.</p>
+    </div>
+  </div>
+
+  <div class="exemplo">
+    <strong>Exemplo:</strong> o ponto P = (2,3) fica 2 unidades à direita no eixo x
+    e 3 unidades acima no eixo y.
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Comportamento</th>
+        <th>Exemplo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Crescente</td><td>x aumenta e y aumenta</td><td>y = 2x + 1</td></tr>
+      <tr><td>Decrescente</td><td>x aumenta e y diminui</td><td>y = −x + 4</td></tr>
+      <tr><td>Constante</td><td>y permanece igual</td><td>y = 3</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="funcoes" class="tema">
+  <span class="mini-titulo">Tema 5</span>
+  <h2>Aprofundamento de funções</h2>
+
+  <p>
+    Função é uma regra que associa cada valor de entrada a um único valor de saída.
+  </p>
+
+  <div class="formula">f(x) = 2x + 1</div>
+
+  <div class="exemplo">
+    Para x = 3:
+    <div class="formula">f(3) = 2 × 3 + 1 = 7</div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Conceito</th>
+        <th>Explicação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Domínio</td><td>Valores permitidos para x</td></tr>
+      <tr><td>Contradomínio</td><td>Valores possíveis para a saída</td></tr>
+      <tr><td>Imagem</td><td>Valores que a função realmente produz</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Função do primeiro grau</h3>
+  <div class="formula">f(x) = ax + b</div>
+  <p>Se a &gt; 0, a função é crescente. Se a &lt; 0, é decrescente.</p>
+
+  <h3>Função quadrática</h3>
+  <div class="formula">f(x) = ax² + bx + c</div>
+  <p>Seu gráfico é uma parábola.</p>
+</section>
+
+<section id="proposicional" class="tema">
+  <span class="mini-titulo">Tema 6</span>
+  <h2>Cálculo proposicional</h2>
+
+  <p>
+    Proposição é uma frase declarativa que pode ser classificada como verdadeira ou falsa.
+  </p>
+
+  <div class="grade">
+    <div class="cartao">
+      <h4>É proposição</h4>
+      <p>2 + 2 = 4.</p>
+    </div>
+    <div class="cartao">
+      <h4>Não é proposição</h4>
+      <p>Feche a porta.</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Conectivo</th>
+        <th>Símbolo</th>
+        <th>Leitura</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Negação</td><td>¬p</td><td>não p</td></tr>
+      <tr><td>Conjunção</td><td>p ∧ q</td><td>p e q</td></tr>
+      <tr><td>Disjunção</td><td>p ∨ q</td><td>p ou q</td></tr>
+      <tr><td>Condicional</td><td>p → q</td><td>se p, então q</td></tr>
+      <tr><td>Bicondicional</td><td>p ↔ q</td><td>p se e somente se q</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="predicados" class="tema">
+  <span class="mini-titulo">Tema 7</span>
+  <h2>Cálculo de predicados</h2>
+
+  <p>
+    Predicado é uma frase com variável que ainda não possui valor lógico definido
+    até que a variável receba um valor ou seja quantificada.
+  </p>
+
+  <div class="formula">P(x): x é maior que 5</div>
+
+  <div class="grade">
+    <div class="cartao">
+      <h4>P(8)</h4>
+      <p>8 &gt; 5: verdadeiro.</p>
+    </div>
+    <div class="cartao">
+      <h4>P(2)</h4>
+      <p>2 &gt; 5: falso.</p>
+    </div>
+  </div>
+
+  <h3>Quantificadores</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Símbolo</th>
+        <th>Significado</th>
+        <th>Exemplo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>∀</td>
+        <td>Para todo</td>
+        <td>∀x ∈ ℝ, x² ≥ 0</td>
+      </tr>
+      <tr>
+        <td>∃</td>
+        <td>Existe pelo menos um</td>
+        <td>∃x ∈ ℤ tal que x² = 4</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="estrelas-barras" class="tema tema-combinatoria">
+
+    <span class="mini-titulo roxo">Tema 8</span>
+
+    <h2>Combinação com Repetição (Método das Estrelas e Barras)</h2>
+
+    <p>
+        A <strong>Combinação com Repetição</strong> é utilizada quando desejamos
+        distribuir uma determinada quantidade de objetos iguais entre pessoas,
+        caixas ou grupos, permitindo que um mesmo grupo receba mais de um objeto
+        ou até mesmo nenhum.
+    </p>
+
+    <div class="observacao">
+        <strong>Quando usar?</strong><br>
+        Sempre que o enunciado falar em:
+        <ul>
+            <li>Distribuir objetos;</li>
+            <li>Repartir doces, moedas, bolas ou fichas;</li>
+            <li>Encontrar soluções inteiras não negativas de uma equação;</li>
+            <li>Permitir repetição.</li>
+        </ul>
+    </div>
+
+    <h3>O Método das Estrelas e Barras</h3>
+
+    <p>
+        Imagine que possuímos várias estrelas (<strong>★</strong>) representando
+        objetos iguais e barras (<strong>|</strong>) separando os grupos.
+    </p>
+
+    <div class="formula roxa">
+        ★ ★ ★ ★ ★ ★ ★
+    </div>
+
+    <p>
+        Suponha que desejamos distribuir essas 7 estrelas entre
+        três pessoas (<strong>x</strong>, <strong>y</strong> e <strong>z</strong>).
+    </p>
+
+    <p>
+        Para separar três grupos, precisamos de apenas
+        <strong>duas barras</strong>.
+    </p>
+
+    <div class="formula roxa">
+        ★ ★ ★ | ★ ★ | ★ ★
+    </div>
+
+    <p>
+
+        Essa representação significa:
+
+    </p>
+
+    <div class="formula roxa">
+        x = 3 &nbsp;&nbsp;&nbsp;
+        y = 2 &nbsp;&nbsp;&nbsp;
+        z = 2
+    </div>
+
+    <hr>
+
+    <div class="formula roxa">
+        | ★ ★ ★ ★ | ★ ★ ★
+    </div>
+
+    <div class="formula roxa">
+        x = 0 &nbsp;&nbsp;&nbsp;
+        y = 4 &nbsp;&nbsp;&nbsp;
+        z = 3
+    </div>
+
+    <hr>
+
+    <div class="formula roxa">
+        ★ ★ ★ ★ ★ ★ ★ ||
+    </div>
+
+    <div class="formula roxa">
+        x = 7 &nbsp;&nbsp;&nbsp;
+        y = 0 &nbsp;&nbsp;&nbsp;
+        z = 0
+    </div>
+
+    <div class="atencao">
+        As barras podem ficar juntas.
+        Isso significa que um dos grupos recebeu
+        <strong>zero objetos</strong>.
+    </div>
+
+    <h3>Exemplo Resolvido</h3>
+
+    <div class="exemplo">
+
+        <strong>Questão</strong>
+
+        <p>
+
+            Quantas soluções possui a equação
+
+        </p>
+
+        <div class="formula roxa">
+
+            x + y + z = 7
+
+        </div>
+
+        <p>
+
+            sabendo que
+
+            x, y e z
+
+            são inteiros não negativos?
+
+        </p>
+
+    </div>
+
+    <h3>Passo 1 — Identificar os elementos</h3>
+
+    <ul class="passos">
+
+        <li>
+
+            Existem <strong>7 estrelas</strong>
+            (os objetos).
+
+        </li>
+
+        <li>
+
+            Existem <strong>3 grupos</strong>:
+            x, y e z.
+
+        </li>
+
+        <li>
+
+            Para separar três grupos,
+            precisamos de
+
+            <strong>2 barras</strong>.
+
+        </li>
+
+    </ul>
+
+    <h3>Passo 2 — Somar estrelas e barras</h3>
+
+    <div class="formula roxa">
+
+        7 estrelas + 2 barras = 9 posições
+
+    </div>
+
+    <p>
+
+        Agora basta escolher em quais posições
+        ficarão as barras.
+
+    </p>
+
+    <h3>Passo 3 — Aplicar Combinação</h3>
+
+    <div class="formula roxa">
+
+        C(9,2)
+
+    </div>
+
+    <div class="formula roxa">
+
+        C(9,2)=
+        \(\frac{9!}{2!\times7!}\)
+
+    </div>
+
+    <div class="formula roxa">
+
+        =
+        \(\frac{9\times8}{2}\)
+
+        =
+
+        36
+
+    </div>
+
+    <div class="resposta">
+
+        Existem
+
+        <strong>36 soluções</strong>.
+
+    </div>
+
+    <h3>Fórmula Geral</h3>
+
+    <p>
+
+        Quando a questão possuir a forma
+
+    </p>
+
+    <div class="formula roxa">
+
+        x₁ + x₂ + x₃ + ... + xₖ = n
+
+    </div>
+
+    <p>
+
+        com
+
+    </p>
+
+    <div class="formula roxa">
+
+        x ≥ 0
+
+    </div>
+
+    <p>
+
+        utilizamos a fórmula:
+
+    </p>
+
+    <div class="formula roxa">
+
+        C(n+k-1,k-1)
+
+    </div>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Elemento</th>
+
+                <th>Significado</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>n</td>
+
+                <td>Quantidade de objetos.</td>
+
+            </tr>
+
+            <tr>
+
+                <td>k</td>
+
+                <td>Quantidade de grupos.</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="exemplo">
+
+        <strong>Aplicando no exercício:</strong>
+
+        <div class="formula roxa">
+
+            n = 7
+
+            <br><br>
+
+            k = 3
+
+        </div>
+
+        <div class="formula roxa">
+
+            C(7+3-1,3-1)
+
+        </div>
+
+        <div class="formula roxa">
+
+            C(9,2)=36
+
+        </div>
+
+    </div>
+
+    <h3>Como identificar esse tipo de questão?</h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Se aparecer...</th>
+
+                <th>Pense em...</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>x+y+z=10</td>
+
+                <td>Estrelas e Barras</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Soluções inteiras não negativas</td>
+
+                <td>Estrelas e Barras</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Distribuir doces</td>
+
+                <td>Estrelas e Barras</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Distribuir bolas</td>
+
+                <td>Estrelas e Barras</td>
+
+            </tr>
+
+            <tr>
+
+                <td>Repartir moedas</td>
+
+                <td>Estrelas e Barras</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <div class="dica">
+
+        <strong>Macete para provas</strong>
+
+        <br><br>
+
+        Sempre que aparecer:
+
+        <ul>
+
+            <li>Distribuir;</li>
+
+            <li>Repartir;</li>
+
+            <li>Soluções inteiras;</li>
+
+            <li>Inteiros não negativos;</li>
+
+            <li>x+y+z=n;</li>
+
+        </ul>
+
+        pense imediatamente em
+
+        <strong>Combinação com Repetição (Estrelas e Barras)</strong>.
+
+    </div>
+
+</section>
+
+<section id="resumo">
+  <h2>Resumo geral para revisão</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Tema</th>
+        <th>Ideia principal</th>
+        <th>Exemplo rápido</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Valor absoluto</td><td>Distância até zero</td><td>|−7| = 7</td></tr>
+      <tr><td>Conjuntos</td><td>Coleção de elementos</td><td>A = {1,2,3}</td></tr>
+      <tr><td>Permutação</td><td>Usa todos e a ordem importa</td><td>5! = 120</td></tr>
+      <tr><td>Arranjo</td><td>Usa parte e a ordem importa</td><td>A(10,3) = 720</td></tr>
+      <tr><td>Combinação</td><td>Usa parte e a ordem não importa</td><td>C(10,3) = 120</td></tr>
+      <tr><td>Gráficos</td><td>Representação visual de valores</td><td>Ponto (2,3)</td></tr>
+      <tr><td>Funções</td><td>Transforma entrada em saída</td><td>f(x)=2x+1</td></tr>
+      <tr><td>Proposições</td><td>Frases verdadeiras ou falsas</td><td>2+2=4</td></tr>
+      <tr><td>Predicados</td><td>Frases com variável</td><td>∀x, x²≥0</td></tr>
+    </tbody>
+  </table>
+
+  <div class="dica">
+    <strong>Dica final para análise combinatória:</strong><br>
+    Todos os elementos + ordem importa = permutação.<br>
+    Parte dos elementos + ordem importa = arranjo.<br>
+    Parte dos elementos + ordem não importa = combinação.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  Manual de Matemática Discreta e Análise Combinatória — conteúdo introdutório com exemplos resolvidos.
+</footer>
+
+</body>
+</html>
