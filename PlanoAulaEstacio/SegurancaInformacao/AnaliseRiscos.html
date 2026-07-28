@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manual didático sobre ameaças, consequências e análise de riscos em Segurança da Informação.">
+    <title>Ameaças e Análise de Riscos em Segurança da Informação</title>
+
+    <style>
+        :root {
+            --azul-escuro: #12355b;
+            --azul: #1f5f99;
+            --azul-claro: #eaf3fb;
+            --verde: #1f7a5c;
+            --verde-claro: #eaf7f2;
+            --laranja: #b86612;
+            --laranja-claro: #fff4e8;
+            --vermelho: #a33a3a;
+            --vermelho-claro: #fbecec;
+            --cinza-900: #1f2933;
+            --cinza-700: #44505c;
+            --cinza-500: #6b7280;
+            --cinza-300: #cfd6dd;
+            --cinza-200: #e5e9ed;
+            --cinza-100: #f5f7f9;
+            --branco: #ffffff;
+            --sombra: 0 10px 30px rgba(22, 50, 77, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                linear-gradient(rgba(245, 247, 249, 0.96), rgba(245, 247, 249, 0.96)),
+                repeating-linear-gradient(
+                    45deg,
+                    #eef2f5 0,
+                    #eef2f5 2px,
+                    transparent 2px,
+                    transparent 12px
+                );
+            color: var(--cinza-900);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.65;
+        }
+
+        .pagina {
+            width: min(1180px, calc(100% - 32px));
+            margin: 32px auto;
+            background: var(--branco);
+            border-radius: 18px;
+            box-shadow: var(--sombra);
+            overflow: hidden;
+        }
+
+        .cabecalho {
+            padding: 44px 48px;
+            color: var(--branco);
+            background:
+                linear-gradient(135deg, rgba(18, 53, 91, 0.97), rgba(31, 95, 153, 0.92));
+        }
+
+        .cabecalho .etiqueta {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            font-size: 0.84rem;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .cabecalho h1 {
+            margin: 0 0 14px;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            line-height: 1.12;
+        }
+
+        .cabecalho p {
+            max-width: 850px;
+            margin: 0;
+            color: #e8f2fb;
+            font-size: 1.06rem;
+        }
+
+        main {
+            padding: 38px 48px 52px;
+        }
+
+        section + section {
+            margin-top: 42px;
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            color: var(--azul-escuro);
+            font-size: 1.75rem;
+            border-left: 6px solid var(--azul);
+            padding-left: 14px;
+        }
+
+        h3 {
+            margin: 26px 0 10px;
+            color: var(--azul-escuro);
+            font-size: 1.22rem;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .cartao {
+            padding: 20px;
+            border: 1px solid var(--cinza-200);
+            border-radius: 14px;
+            background: var(--cinza-100);
+        }
+
+        .cartao strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--azul-escuro);
+            font-size: 1.05rem;
+        }
+
+        .destaque {
+            margin: 22px 0;
+            padding: 18px 20px;
+            border-left: 5px solid var(--azul);
+            border-radius: 8px;
+            background: var(--azul-claro);
+        }
+
+        .alerta {
+            border-left-color: var(--laranja);
+            background: var(--laranja-claro);
+        }
+
+        .sucesso {
+            border-left-color: var(--verde);
+            background: var(--verde-claro);
+        }
+
+        .tabela-container {
+            margin-top: 22px;
+            overflow-x: auto;
+            border: 1px solid var(--cinza-300);
+            border-radius: 14px;
+            box-shadow: 0 5px 18px rgba(20, 45, 70, 0.08);
+        }
+
+        table {
+            width: 100%;
+            min-width: 820px;
+            border-collapse: collapse;
+            background: var(--branco);
+        }
+
+        th,
+        td {
+            padding: 18px;
+            border-right: 1px solid var(--cinza-300);
+            border-bottom: 1px solid var(--cinza-300);
+            vertical-align: top;
+            text-align: left;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: 0;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        thead th {
+            background: var(--cinza-900);
+            color: var(--branco);
+            font-size: 0.92rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfc;
+        }
+
+        .categoria {
+            width: 18%;
+            color: var(--azul-escuro);
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li + li {
+            margin-top: 6px;
+        }
+
+        .fluxo {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 24px 0;
+            padding: 20px;
+            border: 1px solid var(--cinza-200);
+            border-radius: 14px;
+            background: var(--cinza-100);
+        }
+
+        .fluxo span {
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: var(--branco);
+            border: 1px solid var(--cinza-300);
+            font-weight: bold;
+            color: var(--azul-escuro);
+        }
+
+        .fluxo b {
+            color: var(--azul);
+            font-size: 1.25rem;
+        }
+
+        .formula {
+            margin: 18px 0;
+            padding: 16px;
+            border-radius: 12px;
+            background: var(--cinza-900);
+            color: var(--branco);
+            text-align: center;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 1.08rem;
+        }
+
+        .grade-dupla {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .bloco {
+            padding: 20px;
+            border: 1px solid var(--cinza-200);
+            border-radius: 14px;
+        }
+
+        .bloco h3 {
+            margin-top: 0;
+        }
+
+        .exemplo {
+            border-top: 5px solid var(--verde);
+            background: var(--verde-claro);
+        }
+
+        .erro-comum {
+            border-top: 5px solid var(--vermelho);
+            background: var(--vermelho-claro);
+        }
+
+        .rodape {
+            padding: 22px 48px;
+            background: var(--cinza-900);
+            color: #d7dee5;
+            font-size: 0.9rem;
+        }
+
+        .rodape strong {
+            color: var(--branco);
+        }
+
+        @media (max-width: 820px) {
+            .pagina {
+                width: min(100% - 16px, 1180px);
+                margin: 8px auto;
+                border-radius: 12px;
+            }
+
+            .cabecalho,
+            main,
+            .rodape {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+
+            .resumo,
+            .grade-dupla {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: var(--branco);
+            }
+
+            .pagina {
+                width: 100%;
+                margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .cabecalho {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .tabela-container {
+                overflow: visible;
+                box-shadow: none;
+            }
+
+            table {
+                min-width: 0;
+                font-size: 9pt;
+            }
+
+            section {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <article class="pagina">
+        <header class="cabecalho">
+            <span class="etiqueta">Manual de estudo — Segurança da Informação</span>
+            <h1>Ameaças, consequências e análise de riscos</h1>
+            <p>
+                Este material reproduz e amplia a tabela da atividade, relacionando ameaças
+                comuns em ambientes web com seus possíveis impactos sobre a integridade,
+                a confidencialidade, a disponibilidade e a autenticação.
+            </p>
+        </header>
+
+        <main>
+            <section>
+                <h2>1. Visão geral</h2>
+
+                <p>
+                    Em Segurança da Informação, uma <strong>ameaça</strong> é um evento,
+                    agente ou situação capaz de explorar uma vulnerabilidade e causar prejuízo
+                    a um ativo. O resultado dessa exploração pode gerar perda de dados,
+                    interrupção de serviços, exposição de informações ou uso indevido de identidades.
+                </p>
+
+                <div class="resumo">
+                    <div class="cartao">
+                        <strong>Ameaça</strong>
+                        Algo que pode causar dano, como um invasor, malware, falha humana
+                        ou indisponibilidade de infraestrutura.
+                    </div>
+
+                    <div class="cartao">
+                        <strong>Vulnerabilidade</strong>
+                        Fraqueza que pode ser explorada, como senha fraca, sistema desatualizado
+                        ou ausência de controle de acesso.
+                    </div>
+
+                    <div class="cartao">
+                        <strong>Impacto</strong>
+                        Consequência produzida pelo incidente, como perda financeira,
+                        vazamento de dados ou paralisação do trabalho.
+                    </div>
+                </div>
+
+                <div class="fluxo" aria-label="Fluxo básico de um risco">
+                    <span>Ameaça</span>
+                    <b>→</b>
+                    <span>explora</span>
+                    <b>→</b>
+                    <span>Vulnerabilidade</span>
+                    <b>→</b>
+                    <span>Incidente</span>
+                    <b>→</b>
+                    <span>Impacto</span>
+                </div>
+            </section>
+
+            <section>
+                <h2>2. Tabela de ameaças e consequências</h2>
+
+                <p>
+                    A tabela a seguir apresenta exemplos de ameaças enfrentadas por ambientes web
+                    e as consequências que podem atingir a organização.
+                </p>
+
+                <div class="tabela-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Aspecto afetado</th>
+                                <th>Ameaças</th>
+                                <th>Consequências</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="categoria">Integridade</td>
+                                <td>
+                                    <ul>
+                                        <li>Modificação de dados do usuário.</li>
+                                        <li>Navegador cavalo de Troia.</li>
+                                        <li>Modificação de memória.</li>
+                                        <li>Modificação do tráfego de mensagem em trânsito.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Perda de informações.</li>
+                                        <li>Comprometimento da máquina.</li>
+                                        <li>Vulnerabilidade a todas as outras ameaças.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="categoria">Confidencialidade</td>
+                                <td>
+                                    <ul>
+                                        <li>Espionagem na rede.</li>
+                                        <li>Roubo de informações do servidor.</li>
+                                        <li>Roubo de dados do cliente.</li>
+                                        <li>Obtenção de informações sobre a configuração da rede.</li>
+                                        <li>Identificação de qual cliente se comunica com o servidor.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Perda de informações.</li>
+                                        <li>Perda de privacidade.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="categoria">Negação de serviço</td>
+                                <td>
+                                    <ul>
+                                        <li>Encerramento de processos do usuário.</li>
+                                        <li>Inundação da máquina com solicitações falsas.</li>
+                                        <li>Preenchimento do disco ou da memória.</li>
+                                        <li>Isolamento da máquina por ataques de roteamento, como DNS.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Interrupção.</li>
+                                        <li>Incômodo operacional.</li>
+                                        <li>Impedimento de o usuário realizar o trabalho.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="categoria">Autenticação</td>
+                                <td>
+                                    <ul>
+                                        <li>Personificação de usuários legítimos.</li>
+                                        <li>Falsificação de dados.</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Acesso indevido a sistemas e informações.</li>
+                                        <li>Execução de operações em nome de outra pessoa.</li>
+                                        <li>Fraudes, alterações não autorizadas e perda de confiança.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="destaque alerta">
+                    <strong>Observação:</strong> a linha de autenticação foi complementada com
+                    consequências coerentes com o tema, pois a tabela original apresentada na
+                    atividade não detalhava essa coluna.
+                </div>
+            </section>
+
+            <section>
+                <h2>3. Relação com os pilares da Segurança da Informação</h2>
+
+                <div class="grade-dupla">
+                    <div class="bloco">
+                        <h3>Integridade</h3>
+                        <p>
+                            Garante que a informação permaneça correta, completa e sem alterações
+                            indevidas. Uma modificação não autorizada em banco de dados, memória
+                            ou mensagem em trânsito compromete diretamente esse princípio.
+                        </p>
+                    </div>
+
+                    <div class="bloco">
+                        <h3>Confidencialidade</h3>
+                        <p>
+                            Garante que somente usuários autorizados tenham acesso às informações.
+                            Espionagem, roubo de dados e exposição da configuração de rede são
+                            exemplos de ameaças à confidencialidade.
+                        </p>
+                    </div>
+
+                    <div class="bloco">
+                        <h3>Disponibilidade</h3>
+                        <p>
+                            Garante que sistemas e informações estejam acessíveis quando necessários.
+                            Ataques de negação de serviço afetam esse princípio porque impedem o uso
+                            normal de servidores, redes e aplicações.
+                        </p>
+                    </div>
+
+                    <div class="bloco">
+                        <h3>Autenticidade</h3>
+                        <p>
+                            Confirma que usuários, sistemas e mensagens são realmente quem ou o que
+                            afirmam ser. A personificação de usuários e a falsificação de dados
+                            comprometem a confiança nas operações.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>4. Por que a tabela se relaciona à análise de riscos?</h2>
+
+                <p>
+                    A tabela não define apenas controles de segurança. Ela ajuda a identificar
+                    <strong>quais ameaças podem ocorrer</strong> e <strong>quais consequências
+                    podem produzir</strong>. Por isso, sua aplicação principal está na etapa de
+                    <strong>análise de riscos</strong>.
+                </p>
+
+                <div class="formula">
+                    Nível de risco = Probabilidade de ocorrência × Impacto
+                </div>
+
+                <p>
+                    Depois de identificar as ameaças e consequências, a organização deve estimar
+                    a probabilidade de cada evento e a gravidade de seu impacto. Com esses dados,
+                    torna-se possível classificar o risco como baixo, médio, alto ou crítico.
+                </p>
+
+                <div class="destaque sucesso">
+                    <strong>Resposta da atividade:</strong> a tabela é utilizada principalmente
+                    na <strong>análise dos riscos</strong>, pois relaciona ameaças a possíveis
+                    consequências para os ativos e processos da organização.
+                </div>
+            </section>
+
+            <section>
+                <h2>5. Exemplo prático</h2>
+
+                <div class="grade-dupla">
+                    <div class="bloco exemplo">
+                        <h3>Cenário</h3>
+                        <p>
+                            Um servidor web está desatualizado e possui uma falha conhecida.
+                            Um invasor explora essa falha e obtém acesso ao banco de dados de clientes.
+                        </p>
+
+                        <ul>
+                            <li><strong>Ativo:</strong> banco de dados de clientes.</li>
+                            <li><strong>Vulnerabilidade:</strong> servidor sem atualização.</li>
+                            <li><strong>Ameaça:</strong> invasor externo.</li>
+                            <li><strong>Incidente:</strong> acesso não autorizado.</li>
+                            <li><strong>Impacto:</strong> vazamento de dados e perda de confiança.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bloco erro-comum">
+                        <h3>Erro comum</h3>
+                        <p>
+                            Confundir ameaça com vulnerabilidade. O invasor é a ameaça; a falha
+                            do servidor é a vulnerabilidade. O vazamento é o impacto resultante
+                            do incidente.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>6. Controles que podem reduzir os riscos</h2>
+
+                <ul>
+                    <li>Atualizações e correções de segurança.</li>
+                    <li>Controle de acesso e princípio do menor privilégio.</li>
+                    <li>Autenticação multifator.</li>
+                    <li>Criptografia de dados armazenados e em trânsito.</li>
+                    <li>Firewall, monitoramento e detecção de intrusões.</li>
+                    <li>Backups testados e plano de continuidade de negócios.</li>
+                    <li>Treinamento de usuários contra phishing e engenharia social.</li>
+                </ul>
+
+                <div class="destaque">
+                    <strong>Conclusão:</strong> conhecer apenas a ameaça não é suficiente.
+                    A gestão de riscos exige compreender a vulnerabilidade explorada, o impacto
+                    possível, a probabilidade de ocorrência e os controles necessários para reduzir
+                    o risco a um nível aceitável.
+                </div>
+            </section>
+        </main>
+
+        <footer class="rodape">
+            <strong>Material didático complementar.</strong>
+            Conteúdo elaborado para estudo de Segurança da Informação e análise de riscos.
+        </footer>
+    </article>
+</body>
+</html>
