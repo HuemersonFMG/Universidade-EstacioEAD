@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual técnico de revisão e encerramento da disciplina de Segurança da Informação.">
+  <title>Segurança da Informação — Manual Técnico de Encerramento</title>
+
+  <style>
+    :root {
+      --azul-900: #0f2f4f;
+      --azul-700: #185987;
+      --azul-500: #2f80b9;
+      --azul-100: #eaf4fb;
+      --cinza-950: #17212b;
+      --cinza-800: #344250;
+      --cinza-600: #5f6f7e;
+      --cinza-300: #cfd8df;
+      --cinza-200: #dde5eb;
+      --cinza-100: #f4f7f9;
+      --branco: #ffffff;
+      --verde-700: #237a57;
+      --verde-100: #e8f6ef;
+      --amarelo-700: #9a6700;
+      --amarelo-100: #fff6d8;
+      --vermelho-700: #a33a36;
+      --vermelho-100: #fdeceb;
+      --sombra: 0 8px 26px rgba(15, 47, 79, 0.10);
+      --raio: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #eef3f7;
+      color: var(--cinza-950);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--azul-700);
+    }
+
+    .pagina {
+      width: min(1180px, calc(100% - 32px));
+      margin: 24px auto 48px;
+      background: var(--branco);
+      border-radius: 20px;
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+
+    .cabecalho {
+      position: relative;
+      padding: 54px 56px;
+      background:
+        linear-gradient(135deg, rgba(15, 47, 79, 0.97), rgba(24, 89, 135, 0.92)),
+        radial-gradient(circle at top right, #2f80b9, transparent 45%);
+      color: var(--branco);
+    }
+
+    .cabecalho::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 5px;
+      background: linear-gradient(90deg, #55a8d9, #8ed1ef, #55a8d9);
+    }
+
+    .etiqueta {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.10);
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .cabecalho h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.1;
+    }
+
+    .cabecalho p {
+      max-width: 850px;
+      margin: 0;
+      font-size: 1.08rem;
+      color: #e8f2f8;
+    }
+
+    .conteudo {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 34px;
+      padding: 36px;
+    }
+
+    .sumario {
+      position: sticky;
+      top: 18px;
+      align-self: start;
+      padding: 20px;
+      border: 1px solid var(--cinza-200);
+      border-radius: var(--raio);
+      background: var(--cinza-100);
+    }
+
+    .sumario h2 {
+      margin: 0 0 12px;
+      font-size: 1.05rem;
+      color: var(--azul-900);
+    }
+
+    .sumario a {
+      display: block;
+      margin: 8px 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      color: var(--cinza-800);
+      text-decoration: none;
+      font-size: 0.94rem;
+    }
+
+    .sumario a:hover {
+      background: var(--azul-100);
+      color: var(--azul-900);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      scroll-margin-top: 18px;
+      margin-bottom: 42px;
+    }
+
+    section h2 {
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--azul-100);
+      color: var(--azul-900);
+      font-size: 1.65rem;
+    }
+
+    section h3 {
+      margin-top: 28px;
+      color: var(--azul-700);
+      font-size: 1.18rem;
+    }
+
+    p {
+      margin: 10px 0 16px;
+    }
+
+    .grade {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .cartao {
+      padding: 18px;
+      border: 1px solid var(--cinza-200);
+      border-radius: var(--raio);
+      background: var(--branco);
+      box-shadow: 0 4px 14px rgba(15, 47, 79, 0.06);
+    }
+
+    .cartao h3 {
+      margin: 0 0 8px;
+      color: var(--azul-900);
+      font-size: 1.08rem;
+    }
+
+    .cartao p {
+      margin: 0;
+      color: var(--cinza-800);
+      font-size: 0.95rem;
+    }
+
+    .destaque,
+    .alerta,
+    .sucesso,
+    .nota {
+      margin: 20px 0;
+      padding: 16px 18px;
+      border-left: 5px solid;
+      border-radius: 10px;
+    }
+
+    .destaque {
+      border-color: var(--azul-500);
+      background: var(--azul-100);
+    }
+
+    .alerta {
+      border-color: var(--amarelo-700);
+      background: var(--amarelo-100);
+    }
+
+    .sucesso {
+      border-color: var(--verde-700);
+      background: var(--verde-100);
+    }
+
+    .nota {
+      border-color: var(--vermelho-700);
+      background: var(--vermelho-100);
+    }
+
+    .destaque strong,
+    .alerta strong,
+    .sucesso strong,
+    .nota strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .tabela-responsiva {
+      overflow-x: auto;
+      margin: 18px 0;
+      border: 1px solid var(--cinza-200);
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      background: var(--branco);
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--cinza-200);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--azul-900);
+      color: var(--branco);
+      font-size: 0.92rem;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafb;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 5px;
+      background: #edf2f5;
+      color: #713b15;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .fluxo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 18px 0;
+    }
+
+    .fluxo span {
+      padding: 10px 14px;
+      border: 1px solid var(--cinza-200);
+      border-radius: 999px;
+      background: var(--cinza-100);
+      font-weight: 700;
+      color: var(--azul-900);
+    }
+
+    .fluxo b {
+      color: var(--azul-500);
+      font-size: 1.2rem;
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      position: relative;
+      padding: 10px 12px 10px 38px;
+      border-bottom: 1px dashed var(--cinza-300);
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 10px;
+      top: 8px;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background: var(--verde-100);
+      color: var(--verde-700);
+      font-weight: 800;
+      text-align: center;
+      line-height: 21px;
+    }
+
+    .rodape {
+      padding: 24px 36px;
+      background: var(--cinza-950);
+      color: #dce5eb;
+      text-align: center;
+    }
+
+    .rodape p {
+      margin: 4px 0;
+    }
+
+    @media (max-width: 920px) {
+      .conteudo {
+        grid-template-columns: 1fr;
+      }
+
+      .sumario {
+        position: static;
+      }
+
+      .grade {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .pagina {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .cabecalho {
+        padding: 38px 22px;
+      }
+
+      .conteudo {
+        padding: 24px 18px;
+      }
+
+      .rodape {
+        padding: 22px 18px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .pagina {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .sumario {
+        position: static;
+      }
+
+      section,
+      .cartao,
+      table {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pagina">
+    <header class="cabecalho">
+      <span class="etiqueta">Manual técnico complementar</span>
+      <h1>Segurança da Informação</h1>
+      <p>
+        Síntese técnica para encerramento da disciplina, reunindo os principais conceitos
+        estudados: princípios de segurança, ameaças, riscos, controles, normas ISO,
+        continuidade de negócios, malware, engenharia social e boas práticas organizacionais.
+      </p>
+    </header>
+
+    <div class="conteudo">
+      <nav class="sumario" aria-label="Sumário da página">
+        <h2>Sumário</h2>
+        <a href="#fundamentos">1. Fundamentos</a>
+        <a href="#cid">2. Tríade CID</a>
+        <a href="#identidade">3. Identidade e acesso</a>
+        <a href="#riscos">4. Gestão de riscos</a>
+        <a href="#ameacas">5. Ameaças e malware</a>
+        <a href="#engenharia-social">6. Engenharia social</a>
+        <a href="#controles">7. Controles de segurança</a>
+        <a href="#iso">8. ISO 27001 e 27002</a>
+        <a href="#continuidade">9. Continuidade de negócios</a>
+        <a href="#pdca">10. PDCA</a>
+        <a href="#revisao">11. Revisão final</a>
+      </nav>
+
+      <main>
+        <section id="fundamentos">
+          <h2>1. Fundamentos da Segurança da Informação</h2>
+
+          <p>
+            Segurança da Informação é o conjunto de políticas, processos, controles e tecnologias
+            utilizados para proteger informações contra acesso, alteração, destruição, divulgação
+            ou interrupção indevida.
+          </p>
+
+          <div class="destaque">
+            <strong>Objetivo central</strong>
+            Preservar o valor da informação durante todo o seu ciclo de vida, desde a criação e o
+            armazenamento até o uso, o compartilhamento, o arquivamento e o descarte.
+          </div>
+
+          <div class="grade">
+            <article class="cartao">
+              <h3>Ativos</h3>
+              <p>Recursos que possuem valor para a organização, como informações, sistemas, pessoas, equipamentos, marca e processos.</p>
+            </article>
+
+            <article class="cartao">
+              <h3>Ativos tangíveis</h3>
+              <p>Possuem existência física, como servidores, computadores, roteadores, mídias e instalações.</p>
+            </article>
+
+            <article class="cartao">
+              <h3>Ativos lógicos ou intangíveis</h3>
+              <p>Incluem informações, bancos de dados, softwares, conhecimento, reputação e propriedade intelectual.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="cid">
+          <h2>2. Tríade CID</h2>
+
+          <p>
+            A tríade <strong>CID</strong> representa os três objetivos fundamentais que um
+            Sistema de Gestão da Segurança da Informação busca preservar.
+          </p>
+
+          <div class="tabela-responsiva">
+            <table>
+              <thead>
+                <tr>
+                  <th>Princípio</th>
+                  <th>Objetivo</th>
+                  <th>Pergunta-chave</th>
+                  <th>Exemplo de violação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Confidencialidade</strong></td>
+                  <td>Garantir acesso somente a pessoas, sistemas ou processos autorizados.</td>
+                  <td>Quem pode visualizar?</td>
+                  <td>Vazamento de dados de clientes.</td>
+                </tr>
+                <tr>
+                  <td><strong>Integridade</strong></td>
+                  <td>Evitar alterações indevidas e preservar a exatidão das informações.</td>
+                  <td>O dado foi alterado?</td>
+                  <td>Modificação não autorizada de um registro.</td>
+                </tr>
+                <tr>
+                  <td><strong>Disponibilidade</strong></td>
+                  <td>Manter informações e serviços acessíveis quando necessários.</td>
+                  <td>O serviço está disponível?</td>
+                  <td>Servidor indisponível após ataque DDoS.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sucesso">
+            <strong>Regra de memorização</strong>
+            Acesso indevido corresponde à confidencialidade; alteração indevida corresponde à integridade;
+            indisponibilidade corresponde à disponibilidade.
+          </div>
+        </section>
+
+        <section id="identidade">
+          <h2>3. Autenticidade, Autenticação, Autorização e Não Repúdio</h2>
+
+          <div class="tabela-responsiva">
+            <table>
+              <thead>
+                <tr>
+                  <th>Conceito</th>
+                  <th>Função</th>
+                  <th>Exemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Identificação</strong></td>
+                  <td>O usuário informa quem afirma ser.</td>
+                  <td>Nome de usuário ou e-mail.</td>
+                </tr>
+                <tr>
+                  <td><strong>Autenticação</strong></td>
+                  <td>Confirma que a identidade apresentada é legítima.</td>
+                  <td>Senha, biometria, token ou certificado.</td>
+                </tr>
+                <tr>
+                  <td><strong>Autorização</strong></td>
+                  <td>Define o que o usuário autenticado pode fazer.</td>
+                  <td>Permissões de leitura, alteração ou administração.</td>
+                </tr>
+                <tr>
+                  <td><strong>Autenticidade</strong></td>
+                  <td>Garante a veracidade da origem ou autoria da informação.</td>
+                  <td>Assinatura digital.</td>
+                </tr>
+                <tr>
+                  <td><strong>Não repúdio</strong></td>
+                  <td>Impede que alguém negue posteriormente uma ação realizada.</td>
+                  <td>Assinatura digital vinculada ao autor.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="alerta">
+            <strong>Princípio do menor privilégio</strong>
+            Cada usuário deve possuir somente os acessos necessários para executar suas atividades.
+            Mudanças de cargo, projeto ou desligamento exigem revisão imediata dos acessos físicos e lógicos.
+          </div>
+        </section>
+
+        <section id="riscos">
+          <h2>4. Gestão de Riscos</h2>
+
+          <p>
+            A gestão de riscos busca identificar, analisar, avaliar e tratar eventos que possam
+            comprometer os objetivos da organização.
+          </p>
+
+          <div class="fluxo" aria-label="Fluxo de risco">
+            <span>Ativo</span><b>→</b>
+            <span>Vulnerabilidade</span><b>→</b>
+            <span>Ameaça</span><b>→</b>
+            <span>Incidente</span><b>→</b>
+            <span>Impacto</span>
+          </div>
+
+          <div class="tabela-responsiva">
+            <table>
+              <thead>
+                <tr>
+                  <th>Termo</th>
+                  <th>Definição</th>
+                  <th>Exemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ameaça</strong></td>
+                  <td>Agente ou evento com potencial de causar dano.</td>
+                  <td>Atacante, malware, incêndio ou enchente.</td>
+                </tr>
+                <tr>
+                  <td><strong>Vulnerabilidade</strong></td>
+                  <td>Fragilidade que pode ser explorada por uma ameaça.</td>
+                  <td>Sistema desatualizado ou senha fraca.</td>
+                </tr>
+                <tr>
+                  <td><strong>Risco</strong></td>
+                  <td>Combinação entre probabilidade e consequência de um evento.</td>
+                  <td>Possibilidade de perda de dados por ransomware.</td>
+                </tr>
+                <tr>
+                  <td><strong>Incidente</strong></td>
+                  <td>Evento que compromete ou ameaça comprometer a segurança.</td>
+                  <td>Invasão, vazamento ou indisponibilidade.</td>
+                </tr>
+                <tr>
+                  <td><strong>Impacto</strong></td>
+                  <td>Consequência causada ao negócio.</td>
+                  <td>Perda financeira, operacional ou reputacional.</td>
+                </tr>
+                <tr>
+                  <td><strong>Controle</strong></td>
+                  <td>Medida que modifica ou reduz o risco.</td>
+                  <td>Firewall, backup, MFA ou política de acesso.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p><strong>Modelo simplificado:</strong> <code>Risco = Probabilidade × Impacto</code>.</p>
+
+          <h3>Formas de tratamento de riscos</h3>
+          <ul>
+            <li><strong>Evitar:</strong> eliminar a atividade que origina o risco.</li>
+            <li><strong>Mitigar:</strong> reduzir sua probabilidade ou impacto.</li>
+            <li><strong>Transferir:</strong> compartilhar o risco com terceiros, como seguradoras ou fornecedores.</li>
+            <li><strong>Aceitar:</strong> reconhecer formalmente o risco residual quando ele estiver dentro da tolerância da organização.</li>
+          </ul>
+        </section>
+
+        <section id="ameacas">
+          <h2>5. Ameaças, Códigos Maliciosos e Ataques</h2>
+
+          <div class="tabela-responsiva">
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Característica principal</th>
+                  <th>Impacto típico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Ransomware</strong></td>
+                  <td>Criptografa ou bloqueia dados e exige pagamento.</td>
+                  <td>Indisponibilidade, extorsão e perda de dados.</td>
+                </tr>
+                <tr>
+                  <td><strong>Spyware</strong></td>
+                  <td>Monitora e coleta informações do usuário.</td>
+                  <td>Quebra de privacidade e roubo de credenciais.</td>
+                </tr>
+                <tr>
+                  <td><strong>Trojan</strong></td>
+                  <td>Disfarça-se de programa legítimo.</td>
+                  <td>Instalação de malware e acesso remoto.</td>
+                </tr>
+                <tr>
+                  <td><strong>Vírus polimórfico</strong></td>
+                  <td>Altera sua assinatura para dificultar a detecção.</td>
+                  <td>Evasão de antivírus.</td>
+                </tr>
+                <tr>
+                  <td><strong>Vírus stealth</strong></td>
+                  <td>Oculta sua presença e manipula informações vistas pelo sistema.</td>
+                  <td>Dificuldade de identificação.</td>
+                </tr>
+                <tr>
+                  <td><strong>Botnet</strong></td>
+                  <td>Rede de dispositivos infectados controlados remotamente.</td>
+                  <td>DDoS, spam, fraude e propagação de malware.</td>
+                </tr>
+                <tr>
+                  <td><strong>DoS/DDoS</strong></td>
+                  <td>Sobrecarrega um serviço para torná-lo indisponível.</td>
+                  <td>Perda de disponibilidade.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="nota">
+            <strong>Diferença importante</strong>
+            DoS normalmente utiliza uma origem principal. DDoS utiliza múltiplos dispositivos distribuídos,
+            frequentemente pertencentes a uma botnet.
+          </div>
+        </section>
+
+        <section id="engenharia-social">
+          <h2>6. Engenharia Social</h2>
+
+          <p>
+            Engenharia social consiste na manipulação de pessoas para obter informações,
+            credenciais ou ações que favoreçam um atacante. O ponto explorado é o comportamento humano.
+          </p>
+
+          <div class="grade">
+            <article class="cartao">
+              <h3>Phishing</h3>
+              <p>Mensagem falsa que imita uma instituição legítima para roubar dados ou induzir cliques.</p>
+            </article>
+
+            <article class="cartao">
+              <h3>Vishing</h3>
+              <p>Golpe realizado por ligação telefônica, geralmente com falsa identidade.</p>
+            </article>
+
+            <article class="cartao">
+              <h3>Smishing</h3>
+              <p>Uso de SMS ou mensagens instantâneas para induzir a vítima ao erro.</p>
+            </article>
+
+            <article class="cartao">
+              <h3>Pretexting</h3>
+              <p>Criação de uma história ou identidade falsa para obter informações.</p>
+            </article>
+
+            <article class="cartao">
+              <h3>Hoax</h3>
+              <p>Boato ou alerta falso usado para causar medo e incentivar compartilhamentos.</p>
+            </article>
+
+            <article class="cartao">
+              <h3>Confirmação legítima</h3>
+              <p>E-mail de confirmação solicitado após cadastro não é, por si só, engenharia social.</p>
+            </article>
+          </div>
+
+          <h3>Medidas preventivas</h3>
+          <ul>
+            <li>Treinamento periódico e campanhas de conscientização.</li>
+            <li>Verificação de remetentes, domínios e links.</li>
+            <li>Autenticação multifator.</li>
+            <li>Procedimentos formais para solicitações de senha, acesso ou dados pessoais.</li>
+            <li>Canal interno para comunicação de mensagens suspeitas.</li>
+          </ul>
+        </section>
+
+        <section id="controles">
+          <h2>7. Controles de Segurança</h2>
+
+          <h3>Firewall</h3>
+          <p>
+            O firewall filtra o tráfego com base em regras de IP, porta, protocolo, aplicação ou identidade.
+            A política recomendada é <strong>negar por padrão e autorizar explicitamente</strong>.
+          </p>
+
+          <div class="sucesso">
+            <strong>Política padrão recomendada</strong>
+            Tudo é bloqueado, exceto aquilo que foi formalmente autorizado.
+          </div>
+
+          <h3>Segurança física em camadas</h3>
+          <ol>
+            <li><strong>Perímetro externo:</strong> muros, cercas, cancelas, vigilância e identificação.</li>
+            <li><strong>Entrada do edifício:</strong> recepção, catracas, cartões e biometria.</li>
+            <li><strong>Áreas restritas:</strong> datacenter, sala-cofre e racks protegidos.</li>
+            <li><strong>Proteção dos equipamentos:</strong> sensores, CFTV e controle ambiental.</li>
+          </ol>
+
+          <h3>Backup</h3>
+          <p>
+            Backups permitem restaurar informações após falhas de hardware, erros humanos, corrupção,
+            exclusões acidentais, ataques ou desastres.
+          </p>
+
+          <div class="alerta">
+            <strong>Backup só é confiável quando pode ser restaurado</strong>
+            A organização deve testar periodicamente a recuperação, proteger cópias contra ransomware
+            e manter ao menos uma cópia isolada ou imutável.
+          </div>
+
+          <h3>Criptografia assimétrica</h3>
+          <ul>
+            <li><strong>Confidencialidade:</strong> criptografar com a chave pública do destinatário e descriptografar com a chave privada dele.</li>
+            <li><strong>Assinatura digital:</strong> assinar com a chave privada do remetente e verificar com sua chave pública.</li>
+          </ul>
+        </section>
+
+        <section id="iso">
+          <h2>8. ISO/IEC 27001 e ISO/IEC 27002</h2>
+
+          <div class="tabela-responsiva">
+            <table>
+              <thead>
+                <tr>
+                  <th>Norma</th>
+                  <th>Finalidade</th>
+                  <th>Característica</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>ISO/IEC 27001</strong></td>
+                  <td>Estabelecer, implementar, manter e melhorar continuamente um SGSI.</td>
+                  <td>Norma de requisitos e certificável.</td>
+                </tr>
+                <tr>
+                  <td><strong>ISO/IEC 27002</strong></td>
+                  <td>Fornecer código de prática e orientações para controles de segurança.</td>
+                  <td>Guia de boas práticas.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Benefícios da ISO/IEC 27001</h3>
+          <ul>
+            <li>Identificação e tratamento sistemático de riscos.</li>
+            <li>Redução de fragilidades e incidentes.</li>
+            <li>Participação da alta direção.</li>
+            <li>Maior confiança das partes interessadas.</li>
+            <li>Integração com outros sistemas de gestão.</li>
+            <li>Demonstração de conformidade por meio de certificação.</li>
+          </ul>
+
+          <h3>Declaração de Aplicabilidade</h3>
+          <p>
+            A Declaração de Aplicabilidade registra os controles selecionados, sua situação de implementação
+            e as justificativas para inclusão ou exclusão. A ausência dessas informações pode configurar
+            <strong>não conformidade</strong> em auditoria.
+          </p>
+
+          <h3>ISO Survey of Certifications</h3>
+          <p>
+            Trata-se de uma pesquisa anual sobre o número de certificados válidos relacionados aos sistemas
+            de gestão ISO em todo o mundo.
+          </p>
+        </section>
+
+        <section id="continuidade">
+          <h2>9. Continuidade de Negócios</h2>
+
+          <p>
+            O Plano de Continuidade de Negócios tem como objetivo garantir que processos críticos sejam
+            mantidos ou recuperados dentro de prazos aceitáveis após incidentes, falhas ou desastres.
+          </p>
+
+          <div class="tabela-responsiva">
+            <table>
+              <thead>
+                <tr>
+                  <th>Plano</th>
+                  <th>Finalidade principal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>PCN</strong></td>
+                  <td>Garantir a recuperação e a continuidade das operações do negócio.</td>
+                </tr>
+                <tr>
+                  <td><strong>PAC</strong></td>
+                  <td>Definir funções, responsabilidades, decisões e comunicação durante a crise.</td>
+                </tr>
+                <tr>
+                  <td><strong>Plano de Contingência</strong></td>
+                  <td>Organizar ações imediatas de resposta à emergência.</td>
+                </tr>
+                <tr>
+                  <td><strong>PRD</strong></td>
+                  <td>Recuperar sistemas, infraestrutura e componentes após um desastre.</td>
+                </tr>
+                <tr>
+                  <td><strong>PCO</strong></td>
+                  <td>Manter processos essenciais funcionando durante uma interrupção.</td>
+                </tr>
+                <tr>
+                  <td><strong>GCSTI</strong></td>
+                  <td>Assegurar a continuidade e recuperação dos serviços de Tecnologia da Informação.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Quatro pilares do negócio</h3>
+          <div class="grade">
+            <article class="cartao"><h3>Pessoas</h3><p>Equipes, conhecimento, competências e responsabilidades.</p></article>
+            <article class="cartao"><h3>Processos</h3><p>Atividades críticas e fluxos necessários à operação.</p></article>
+            <article class="cartao"><h3>Tecnologia</h3><p>Sistemas, redes, dados e infraestrutura de TI.</p></article>
+            <article class="cartao"><h3>Recursos</h3><p>Instalações, equipamentos, fornecedores e meios de apoio.</p></article>
+          </div>
+
+          <div class="alerta">
+            <strong>Desafio organizacional</strong>
+            Um dos principais desafios da GCSTI é justificar sua importância para a alta direção,
+            obter recursos e garantir o comprometimento das áreas envolvidas.
+          </div>
+        </section>
+
+        <section id="pdca">
+          <h2>10. Ciclo PDCA</h2>
+
+          <p>
+            O PDCA é amplamente utilizado na implementação e manutenção do SGSI e do PCN por promover
+            organização, avaliação periódica e melhoria contínua.
+          </p>
+
+          <div class="tabela-responsiva">
+            <table>
+              <thead>
+                <tr>
+                  <th>Etapa</th>
+                  <th>Significado</th>
+                  <th>Aplicação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>P — Plan</strong></td>
+                  <td>Planejar</td>
+                  <td>Definir objetivos, riscos, estratégias e recursos.</td>
+                </tr>
+                <tr>
+                  <td><strong>D — Do</strong></td>
+                  <td>Executar</td>
+                  <td>Implementar os controles e colocar o plano em prática.</td>
+                </tr>
+                <tr>
+                  <td><strong>C — Check</strong></td>
+                  <td>Checar</td>
+                  <td>Testar, monitorar, auditar e avaliar os resultados.</td>
+                </tr>
+                <tr>
+                  <td><strong>A — Act</strong></td>
+                  <td>Agir</td>
+                  <td>Corrigir falhas, padronizar melhorias e reiniciar o ciclo.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="sucesso">
+            <strong>Ponto-chave</strong>
+            A etapa <strong>Act — Agir</strong> é associada à implementação de ações corretivas
+            e à melhoria contínua.
+          </div>
+        </section>
+
+        <section id="revisao">
+          <h2>11. Checklist de Revisão Final</h2>
+
+          <ul class="checklist">
+            <li>Confidencialidade protege contra acesso e divulgação não autorizados.</li>
+            <li>Integridade protege contra alterações indevidas.</li>
+            <li>Disponibilidade mantém serviços e informações acessíveis.</li>
+            <li>Autenticação confirma identidades; autorização define permissões.</li>
+            <li>Vulnerabilidade é uma fragilidade; ameaça é o agente capaz de explorá-la.</li>
+            <li>Risco combina probabilidade e impacto.</li>
+            <li>Firewall deve negar por padrão e liberar somente o necessário.</li>
+            <li>Engenharia social explora comportamento humano.</li>
+            <li>Ransomware criptografa dados e exige resgate.</li>
+            <li>Botnets podem executar DDoS, spam e propagação de malware.</li>
+            <li>ISO/IEC 27001 contém requisitos do SGSI.</li>
+            <li>ISO/IEC 27002 apresenta boas práticas e controles.</li>
+            <li>PCN busca manter ou recuperar operações críticas.</li>
+            <li>PAC coordena crise; PRD recupera infraestrutura; PCO mantém operações.</li>
+            <li>PDCA estrutura a implementação e a melhoria contínua.</li>
+          </ul>
+
+          <div class="destaque">
+            <strong>Conclusão da disciplina</strong>
+            Segurança da Informação não depende apenas de ferramentas técnicas. Ela exige integração
+            entre pessoas, processos, tecnologia, gestão de riscos, políticas formais, continuidade
+            operacional e melhoria contínua. A proteção eficaz nasce da combinação de controles físicos,
+            lógicos, administrativos e comportamentais.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="rodape">
+      <p><strong>Segurança da Informação — Manual Técnico de Encerramento</strong></p>
+      <p>Material de revisão acadêmica em HTML5 e CSS.</p>
+    </footer>
+  </div>
+</body>
+</html>

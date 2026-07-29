@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Currículo profissional de Rodrigo Carvalho Lima">
+  <meta name="author" content="Rodrigo Carvalho Lima">
+  <title>Currículo | Rodrigo Carvalho Lima</title>
+
+  <style>
+    :root {
+      --cor-principal: #17324d;
+      --cor-secundaria: #2f6f8f;
+      --cor-destaque: #d9eaf2;
+      --cor-fundo: #eef3f7;
+      --cor-cartao: #ffffff;
+      --cor-texto: #24313d;
+      --cor-suave: #667788;
+      --cor-borda: #d8e1e8;
+      --sombra: 0 18px 45px rgba(23, 50, 77, 0.12);
+      --raio: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: var(--cor-texto);
+      background:
+        linear-gradient(135deg, rgba(47, 111, 143, 0.08), transparent 45%),
+        var(--cor-fundo);
+      line-height: 1.65;
+      padding: 32px 16px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .curriculo {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      background: var(--cor-cartao);
+      border-radius: var(--raio);
+      overflow: hidden;
+      box-shadow: var(--sombra);
+      border: 1px solid rgba(23, 50, 77, 0.08);
+    }
+
+    .cabecalho {
+      position: relative;
+      padding: 54px 52px 44px;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 32%),
+        linear-gradient(135deg, var(--cor-principal), var(--cor-secundaria));
+    }
+
+    .cabecalho::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 5px;
+      background: linear-gradient(90deg, #72c3dd, #ffffff, #72c3dd);
+      opacity: 0.75;
+    }
+
+    .cabecalho-conteudo {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nome {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      line-height: 1.05;
+      letter-spacing: 0.03em;
+      margin-bottom: 12px;
+    }
+
+    .cargo-alvo {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.88);
+      max-width: 700px;
+    }
+
+    .monograma {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      border: 3px solid rgba(255,255,255,0.68);
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(6px);
+    }
+
+    .conteudo {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+    }
+
+    .lateral {
+      padding: 38px 32px;
+      background: #f7fafc;
+      border-right: 1px solid var(--cor-borda);
+    }
+
+    .principal {
+      padding: 38px 42px 46px;
+    }
+
+    .secao + .secao {
+      margin-top: 34px;
+    }
+
+    .titulo-secao {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      color: var(--cor-principal);
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .titulo-secao::before {
+      content: "";
+      width: 34px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--cor-secundaria);
+      flex: 0 0 auto;
+    }
+
+    .lista-contato {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+    }
+
+    .item-contato {
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .item-contato:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .rotulo {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.77rem;
+      font-weight: 800;
+      color: var(--cor-secundaria);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .valor {
+      display: block;
+      font-size: 0.96rem;
+      overflow-wrap: anywhere;
+    }
+
+    .link-contato:hover {
+      color: var(--cor-secundaria);
+      text-decoration: underline;
+    }
+
+    .formacao-card {
+      padding: 18px;
+      border-radius: 14px;
+      background: var(--cor-destaque);
+      border-left: 5px solid var(--cor-secundaria);
+    }
+
+    .formacao-card strong {
+      display: block;
+      color: var(--cor-principal);
+      margin-bottom: 4px;
+    }
+
+    .resumo {
+      padding: 20px 22px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f7fbfd, #edf5f9);
+      border: 1px solid var(--cor-borda);
+      color: #42515f;
+    }
+
+    .experiencias {
+      position: relative;
+      display: grid;
+      gap: 24px;
+    }
+
+    .experiencias::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 8px;
+      width: 2px;
+      background: var(--cor-borda);
+    }
+
+    .experiencia {
+      position: relative;
+      margin-left: 31px;
+      padding: 24px 24px 22px;
+      border: 1px solid var(--cor-borda);
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(23, 50, 77, 0.06);
+    }
+
+    .experiencia::before {
+      content: "";
+      position: absolute;
+      left: -30px;
+      top: 28px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--cor-secundaria);
+      border: 4px solid #ffffff;
+      box-shadow: 0 0 0 2px var(--cor-secundaria);
+    }
+
+    .experiencia-topo {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .empresa {
+      color: var(--cor-principal);
+      font-size: 1.16rem;
+      line-height: 1.35;
+    }
+
+    .local {
+      display: block;
+      margin-top: 3px;
+      color: var(--cor-suave);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .periodo {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--cor-principal);
+      background: var(--cor-destaque);
+      font-size: 0.83rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .funcao {
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #293f50;
+    }
+
+    .funcao span {
+      color: var(--cor-secundaria);
+    }
+
+    .descricao {
+      color: #4d5d69;
+      text-align: justify;
+    }
+
+    .rodape {
+      padding: 20px 32px;
+      text-align: center;
+      color: var(--cor-suave);
+      background: #f7fafc;
+      border-top: 1px solid var(--cor-borda);
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        padding: 0;
+      }
+
+      .curriculo {
+        border-radius: 0;
+      }
+
+      .cabecalho {
+        padding: 38px 26px 32px;
+      }
+
+      .cabecalho-conteudo {
+        grid-template-columns: 1fr;
+      }
+
+      .monograma {
+        width: 88px;
+        height: 88px;
+        font-size: 1.8rem;
+      }
+
+      .conteudo {
+        grid-template-columns: 1fr;
+      }
+
+      .lateral {
+        border-right: 0;
+        border-bottom: 1px solid var(--cor-borda);
+      }
+
+      .principal {
+        padding: 34px 24px 40px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .experiencia-topo {
+        flex-direction: column;
+      }
+
+      .periodo {
+        white-space: normal;
+      }
+
+      .lateral {
+        padding: 30px 24px;
+      }
+
+      .descricao {
+        text-align: left;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4;
+        margin: 10mm;
+      }
+
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .curriculo {
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .cabecalho {
+        padding: 28px 30px 24px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .conteudo {
+        grid-template-columns: 30% 70%;
+      }
+
+      .lateral,
+      .principal {
+        padding: 26px 24px;
+      }
+
+      .experiencia {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+
+      .rodape {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="curriculo">
+    <header class="cabecalho">
+      <div class="cabecalho-conteudo">
+        <div>
+          <h1 class="nome">Rodrigo Carvalho Lima</h1>
+          <p class="cargo-alvo">
+            Profissional com experiência em transporte rodoviário, logística,
+            condução de veículos e operação de equipamentos em ambiente de mineração.
+          </p>
+        </div>
+
+        <div class="monograma" aria-label="Iniciais de Rodrigo Carvalho Lima">RCL</div>
+      </div>
+    </header>
+
+    <div class="conteudo">
+      <aside class="lateral">
+        <section class="secao" aria-labelledby="titulo-contato">
+          <h2 class="titulo-secao" id="titulo-contato">Dados pessoais</h2>
+
+          <ul class="lista-contato">
+            <li class="item-contato">
+              <span class="rotulo">Data de nascimento</span>
+              <span class="valor">14/05/1983</span>
+            </li>
+
+            <li class="item-contato">
+              <span class="rotulo">Naturalidade</span>
+              <span class="valor">Ponte Nova</span>
+            </li>
+
+            <li class="item-contato">
+              <span class="rotulo">E-mail</span>
+              <a class="valor link-contato" href="mailto:diguinho.carvalholima@gmail.com">
+                diguinho.carvalholima@gmail.com
+              </a>
+            </li>
+
+            <li class="item-contato">
+              <span class="rotulo">Telefone / WhatsApp</span>
+              <a class="valor link-contato" href="tel:+553182601902">
+                (31) 31 8260-1902
+              </a>
+            </li>
+
+            <li class="item-contato">
+              <span class="rotulo">Endereço</span>
+              <address class="valor" style="font-style: normal;">
+                Rua Manaus, 136<br>
+                Bairro Jockey Clube<br>
+                Curvelo - MG
+              </address>
+            </li>
+
+            <li class="item-contato">
+              <span class="rotulo">Habilitação</span>
+              <span class="valor">Categoria D</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="secao" aria-labelledby="titulo-formacao">
+          <h2 class="titulo-secao" id="titulo-formacao">Formação</h2>
+
+          <div class="formacao-card">
+            <strong>Ensino Médio</strong>
+            <span>Segundo Grau Completo</span>
+          </div>
+        </section>
+      </aside>
+
+      <section class="principal">
+        <section class="secao" aria-labelledby="titulo-perfil">
+          <h2 class="titulo-secao" id="titulo-perfil">Perfil profissional</h2>
+
+          <p class="resumo">
+            Profissional experiente nas áreas de transporte, logística e operação de
+            equipamentos, com atuação em gestão de rotas, supervisão de equipes,
+            condução de veículos, segurança operacional, atendimento ao cliente e
+            manutenção preventiva.
+          </p>
+        </section>
+
+        <section class="secao" aria-labelledby="titulo-experiencia">
+          <h2 class="titulo-secao" id="titulo-experiencia">Experiência profissional</h2>
+
+          <div class="experiencias">
+            <article class="experiencia">
+              <div class="experiencia-topo">
+                <div>
+                  <h3 class="empresa">
+                    GDG Logística Ltda.
+                    <span class="local">Contagem - MG</span>
+                  </h3>
+                </div>
+                <span class="periodo">Outubro/2012 - Maio/2015</span>
+              </div>
+
+              <p class="funcao">
+                Função: <span>Chefe de Serviço de Transporte Rodoviário</span>
+              </p>
+
+              <p class="descricao">
+                Atuação no transporte de passageiros e cargas, com experiência em
+                logística, gestão de rotas e custos, supervisão de equipes e veículos,
+                utilização de softwares de rastreamento, liderança e resolução de
+                problemas.
+              </p>
+            </article>
+
+            <article class="experiencia">
+              <div class="experiencia-topo">
+                <div>
+                  <h3 class="empresa">
+                    Gaslima Ltda.
+                    <span class="local">Belo Horizonte - MG</span>
+                  </h3>
+                </div>
+                <span class="periodo">Agosto/2017 - Fevereiro/2025</span>
+              </div>
+
+              <p class="funcao">
+                Função: <span>Motorista</span>
+              </p>
+
+              <p class="descricao">
+                Experiência na condução de diferentes tipos de veículos, manutenção,
+                navegação, conhecimento de rotas, cumprimento de normas de segurança,
+                comunicação, atendimento ao cliente e organização das atividades de
+                transporte.
+              </p>
+            </article>
+
+            <article class="experiencia">
+              <div class="experiencia-topo">
+                <div>
+                  <h3 class="empresa">
+                    Consórcio Mina Fábrica
+                    <span class="local">Nova Lima - MG</span>
+                  </h3>
+                </div>
+                <span class="periodo">Fevereiro/2025 - Setembro/2025</span>
+              </div>
+
+              <p class="funcao">
+                Função: <span>Operador de Equipamentos I</span>
+              </p>
+
+              <p class="descricao">
+                Atuação em áreas da mineradora Vale, conduzindo caminhões traçados
+                6x4 para transporte de cargas, seguindo padrões de segurança,
+                eficiência operacional e manutenção preventiva.
+              </p>
+            </article>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <footer class="rodape">
+      Currículo profissional de Rodrigo Carvalho Lima
+    </footer>
+  </main>
+</body>
+</html>
