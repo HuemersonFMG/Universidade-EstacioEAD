@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manual técnico da disciplina Matemática e Lógica, com explicações simples, exemplos práticos e aplicações em programação, banco de dados e sistemas.">
+  <title>Matemática e Lógica | Manual Técnico</title>
+
+  <style>
+    :root {
+      --azul-900: #082b6f;
+      --azul-800: #0b3d91;
+      --azul-600: #1559d6;
+      --azul-100: #eaf2ff;
+      --cinza-950: #172033;
+      --cinza-700: #4f5d75;
+      --cinza-300: #d8dee9;
+      --cinza-100: #f5f7fb;
+      --branco: #ffffff;
+      --verde: #1f8f55;
+      --verde-claro: #e8f7ef;
+      --amarelo: #b36b00;
+      --amarelo-claro: #fff4d8;
+      --vermelho: #b3261e;
+      --vermelho-claro: #fdecea;
+      --sombra: 0 12px 32px rgba(15, 37, 77, 0.10);
+      --raio: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: var(--cinza-950);
+      background:
+        linear-gradient(180deg, #edf3ff 0, #f7f9fc 280px, #f7f9fc 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .pagina {
+      width: min(1180px, calc(100% - 32px));
+      margin: 32px auto;
+      background: var(--branco);
+      border-radius: 18px;
+      box-shadow: var(--sombra);
+      overflow: hidden;
+    }
+
+    .cabecalho {
+      padding: 48px 42px;
+      color: var(--branco);
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.14), transparent 30%),
+        linear-gradient(135deg, var(--azul-900), var(--azul-600));
+    }
+
+    .cabecalho .rotulo {
+      margin: 0 0 8px;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .88;
+    }
+
+    .cabecalho h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+    }
+
+    .cabecalho p {
+      max-width: 780px;
+      margin: 18px 0 0;
+      font-size: 1.05rem;
+      opacity: .95;
+    }
+
+    .conteudo {
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      gap: 28px;
+      padding: 30px;
+    }
+
+    .sumario {
+      position: sticky;
+      top: 18px;
+      align-self: start;
+      padding: 22px;
+      border: 1px solid var(--cinza-300);
+      border-radius: var(--raio);
+      background: var(--cinza-100);
+    }
+
+    .sumario h2 {
+      margin: 0 0 14px;
+      font-size: 1.05rem;
+      color: var(--azul-900);
+    }
+
+    .sumario nav {
+      display: grid;
+      gap: 8px;
+    }
+
+    .sumario a {
+      display: block;
+      padding: 9px 11px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--cinza-700);
+      font-size: .93rem;
+    }
+
+    .sumario a:hover {
+      color: var(--azul-900);
+      background: var(--azul-100);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .introducao,
+    .modulo,
+    .resumo-final {
+      margin-bottom: 28px;
+      padding: 28px;
+      border: 1px solid var(--cinza-300);
+      border-radius: var(--raio);
+      background: var(--branco);
+    }
+
+    .introducao {
+      background: linear-gradient(180deg, #fbfdff, #f6f9ff);
+    }
+
+    .modulo h2,
+    .introducao h2,
+    .resumo-final h2 {
+      margin: 0 0 14px;
+      color: var(--azul-900);
+      line-height: 1.25;
+    }
+
+    .modulo h3 {
+      margin-top: 26px;
+      color: var(--azul-800);
+    }
+
+    .numero {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-right: 8px;
+      border-radius: 50%;
+      color: var(--branco);
+      background: var(--azul-600);
+      font-size: .95rem;
+      vertical-align: middle;
+    }
+
+    .destaque,
+    .exemplo,
+    .atencao,
+    .aplicacao {
+      margin: 20px 0;
+      padding: 18px 20px;
+      border-left: 5px solid;
+      border-radius: 10px;
+    }
+
+    .destaque {
+      border-color: var(--azul-600);
+      background: var(--azul-100);
+    }
+
+    .exemplo {
+      border-color: var(--verde);
+      background: var(--verde-claro);
+    }
+
+    .atencao {
+      border-color: var(--amarelo);
+      background: var(--amarelo-claro);
+    }
+
+    .aplicacao {
+      border-color: #7c3aed;
+      background: #f2ecff;
+    }
+
+    .destaque strong,
+    .exemplo strong,
+    .atencao strong,
+    .aplicacao strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .formula {
+      overflow-x: auto;
+      margin: 18px 0;
+      padding: 16px;
+      border-radius: 10px;
+      color: #0d2a5d;
+      background: #f3f7ff;
+      border: 1px solid #d7e4ff;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 1rem;
+      white-space: pre-wrap;
+    }
+
+    table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border: 1px solid var(--cinza-300);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--branco);
+      background: var(--azul-900);
+    }
+
+    tr:nth-child(even) td {
+      background: #f8faff;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #173a79;
+      background: #edf3ff;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 18px;
+      border-radius: 10px;
+      color: #f8fafc;
+      background: #172033;
+      line-height: 1.5;
+    }
+
+    pre code {
+      padding: 0;
+      color: inherit;
+      background: transparent;
+    }
+
+    .duas-colunas {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .cartao {
+      padding: 18px;
+      border: 1px solid var(--cinza-300);
+      border-radius: 10px;
+      background: #fbfcfe;
+    }
+
+    .cartao h3 {
+      margin-top: 0;
+    }
+
+    .lista-check {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .lista-check li {
+      position: relative;
+      margin: 8px 0;
+      padding-left: 28px;
+    }
+
+    .lista-check li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--verde);
+      font-weight: 800;
+    }
+
+    .rodape {
+      padding: 24px 30px;
+      color: #dce7ff;
+      text-align: center;
+      background: var(--azul-900);
+    }
+
+    @media (max-width: 900px) {
+      .conteudo {
+        grid-template-columns: 1fr;
+      }
+
+      .sumario {
+        position: static;
+      }
+
+      .duas-colunas {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .pagina {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+      }
+
+      .cabecalho {
+        padding: 34px 22px;
+      }
+
+      .conteudo {
+        padding: 18px;
+      }
+
+      .introducao,
+      .modulo,
+      .resumo-final {
+        padding: 21px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .pagina {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      .sumario {
+        position: static;
+      }
+
+      .modulo,
+      .introducao,
+      .resumo-final {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pagina">
+    <header class="cabecalho">
+      <p class="rotulo">Graduação em Análise e Desenvolvimento de Sistemas</p>
+      <h1>Matemática e Lógica</h1>
+      <p>
+        Explicações diretas, exemplos práticos e aplicações em
+        programação, banco de dados, algoritmos e resolução de problemas.
+      </p>
+    </header>
+
+    <div class="conteudo">
+      <aside class="sumario">
+        <h2>Conteúdo da disciplina</h2>
+        <nav>
+          <a href="#introducao">Introdução</a>
+          <a href="#conjuntos">Teoria dos Conjuntos</a>
+          <a href="#graficos">Gráficos e Interpretação</a>
+          <a href="#funcoes">Aprofundamento de Funções</a>
+          <a href="#proposicional">Cálculo Proposicional</a>
+          <a href="#predicados">Cálculo de Predicados</a>
+          <a href="#demonstracao">Métodos de Demonstração</a>
+          <a href="#prepare">Preparação e revisão</a>
+        </nav>
+      </aside>
+
+      <main>
+        <section id="introducao" class="introducao">
+          <h2><span class="numero">1</span>Introdução</h2>
+
+          <p>
+            Matemática e Lógica fornecem ferramentas para representar problemas,
+            identificar padrões, criar regras e tomar decisões de maneira organizada.
+            Em tecnologia, esses conhecimentos aparecem em algoritmos, consultas SQL,
+            validações, estruturas condicionais e modelagem de sistemas.
+          </p>
+
+          <div class="destaque">
+            <strong>Ideia central</strong>
+            Um problema real pode ser transformado em símbolos, expressões, relações,
+            funções ou proposições. Depois disso, aplicamos regras para chegar a uma solução.
+          </div>
+
+          <div class="exemplo">
+            <strong>Exemplo prático</strong>
+            Em um ERP, a regra “pedido acima de R$ 1.000 precisa de aprovação” pode ser
+            expressa logicamente como:
+            <div class="formula">Se valor_pedido &gt; 1000, então aprovação = obrigatória.</div>
+          </div>
+        </section>
+
+        <section id="conjuntos" class="modulo">
+          <h2><span class="numero">2</span>Teoria dos Conjuntos e princípios de contagem</h2>
+
+          <p>
+            Um conjunto é uma coleção de elementos. Ele pode representar usuários,
+            produtos, pedidos, números ou qualquer grupo de objetos com uma característica comum.
+          </p>
+
+          <div class="duas-colunas">
+            <div class="cartao">
+              <h3>Representação</h3>
+              <div class="formula">A = {1, 2, 3, 4}</div>
+              <p>O conjunto A possui quatro elementos.</p>
+            </div>
+
+            <div class="cartao">
+              <h3>Pertinência</h3>
+              <div class="formula">2 ∈ A
+7 ∉ A</div>
+              <p>O símbolo ∈ significa “pertence”.</p>
+            </div>
+          </div>
+
+          <h3>Operações principais</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Operação</th>
+                <th>Símbolo</th>
+                <th>Significado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>União</td>
+                <td>A ∪ B</td>
+                <td>Elementos que pertencem a A, a B ou aos dois.</td>
+              </tr>
+              <tr>
+                <td>Interseção</td>
+                <td>A ∩ B</td>
+                <td>Elementos comuns aos dois conjuntos.</td>
+              </tr>
+              <tr>
+                <td>Diferença</td>
+                <td>A − B</td>
+                <td>Elementos que estão em A, mas não estão em B.</td>
+              </tr>
+              <tr>
+                <td>Subconjunto</td>
+                <td>A ⊆ B</td>
+                <td>Todo elemento de A também pertence a B.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="aplicacao">
+            <strong>Aplicação em banco de dados</strong>
+            A operação <code>UNION</code> combina resultados de consultas. A condição
+            <code>IN</code> verifica se um valor pertence a um conjunto de resultados.
+          </div>
+
+          <h3>Princípio multiplicativo</h3>
+          <p>
+            Se uma tarefa possui etapas independentes, o número total de possibilidades
+            é obtido multiplicando as opções de cada etapa.
+          </p>
+
+          <div class="exemplo">
+            <strong>Exemplo</strong>
+            Uma senha possui 2 letras e 3 números. Considerando 26 letras e 10 algarismos:
+            <div class="formula">26 × 26 × 10 × 10 × 10 = 676.000 possibilidades</div>
+          </div>
+        </section>
+
+        <section id="graficos" class="modulo">
+          <h2><span class="numero">3</span>Gráficos e interpretações gráficas</h2>
+
+          <p>
+            Um gráfico representa visualmente a relação entre grandezas. O eixo horizontal
+            costuma representar a variável independente, enquanto o eixo vertical representa
+            o resultado observado.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Comportamento</th>
+                <th>Interpretação</th>
+                <th>Exemplo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Crescente</td>
+                <td>Quando x aumenta, y também aumenta.</td>
+                <td>Vendas acumuladas ao longo do mês.</td>
+              </tr>
+              <tr>
+                <td>Decrescente</td>
+                <td>Quando x aumenta, y diminui.</td>
+                <td>Estoque reduzido pelas vendas.</td>
+              </tr>
+              <tr>
+                <td>Constante</td>
+                <td>O resultado não se altera.</td>
+                <td>Taxa fixa mensal.</td>
+              </tr>
+              <tr>
+                <td>Máximo</td>
+                <td>Maior valor atingido.</td>
+                <td>Pico de produção.</td>
+              </tr>
+              <tr>
+                <td>Mínimo</td>
+                <td>Menor valor atingido.</td>
+                <td>Menor nível de estoque.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="atencao">
+            <strong>Leitura correta</strong>
+            Um gráfico pode ter intervalos diferentes: crescer em um trecho, permanecer
+            constante em outro e depois diminuir.
+          </div>
+        </section>
+
+        <section id="funcoes" class="modulo">
+          <h2><span class="numero">4</span>Aprofundamento de funções</h2>
+
+          <p>
+            Uma função associa cada valor de entrada a exatamente um valor de saída.
+          </p>
+
+          <div class="formula">f: A → B</div>
+
+          <ul class="lista-check">
+            <li><strong>Domínio:</strong> conjunto de valores permitidos como entrada.</li>
+            <li><strong>Contradomínio:</strong> conjunto onde as saídas são consideradas.</li>
+            <li><strong>Imagem:</strong> valores efetivamente produzidos pela função.</li>
+          </ul>
+
+          <div class="exemplo">
+            <strong>Exemplo</strong>
+            <div class="formula">f(x) = 2x + 5
+
+f(3) = 2 × 3 + 5
+f(3) = 11</div>
+          </div>
+
+          <h3>Classificação das funções</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Definição simples</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Injetora</td>
+                <td>Entradas diferentes geram saídas diferentes.</td>
+              </tr>
+              <tr>
+                <td>Sobrejetora</td>
+                <td>Todos os elementos do contradomínio são atingidos.</td>
+              </tr>
+              <tr>
+                <td>Bijetora</td>
+                <td>É injetora e sobrejetora ao mesmo tempo.</td>
+              </tr>
+              <tr>
+                <td>Periódica</td>
+                <td>Repete o mesmo comportamento após certo intervalo.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="aplicacao">
+            <strong>Aplicação em programação</strong>
+            Uma função Java recebe parâmetros e retorna um valor:
+          </div>
+
+          <pre><code>public double calcularTotal(int quantidade, double preco) {
+    return quantidade * preco;
+}</code></pre>
+
+          <div class="aplicacao">
+            <strong>Aplicação no Oracle</strong>
+            Funções como <code>NVL()</code>, <code>ROUND()</code>,
+            <code>UPPER()</code> e <code>TO_CHAR()</code> recebem valores,
+            processam e retornam um resultado.
+          </div>
+        </section>
+
+        <section id="proposicional" class="modulo">
+          <h2><span class="numero">5</span>Cálculo Proposicional</h2>
+
+          <p>
+            Uma proposição é uma frase declarativa que pode ser classificada como
+            verdadeira ou falsa.
+          </p>
+
+          <div class="duas-colunas">
+            <div class="cartao">
+              <h3>É proposição</h3>
+              <p>“O pedido foi faturado.”</p>
+              <p>Pode ser verdadeira ou falsa.</p>
+            </div>
+            <div class="cartao">
+              <h3>Não é proposição</h3>
+              <p>“Fature o pedido.”</p>
+              <p>É uma ordem, não possui valor lógico.</p>
+            </div>
+          </div>
+
+          <h3>Conectivos lógicos</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Símbolo</th>
+                <th>Leitura</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Negação</td>
+                <td>¬p</td>
+                <td>Não p</td>
+              </tr>
+              <tr>
+                <td>Conjunção</td>
+                <td>p ∧ q</td>
+                <td>p e q</td>
+              </tr>
+              <tr>
+                <td>Disjunção</td>
+                <td>p ∨ q</td>
+                <td>p ou q</td>
+              </tr>
+              <tr>
+                <td>Condicional</td>
+                <td>p → q</td>
+                <td>Se p, então q</td>
+              </tr>
+              <tr>
+                <td>Bicondicional</td>
+                <td>p ↔ q</td>
+                <td>p se, e somente se, q</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="exemplo">
+            <strong>Exemplo de regra de negócio</strong>
+            <div class="formula">p: Pedido está confirmado.
+q: Pedido pode ser faturado.
+
+p → q
+Se o pedido está confirmado, então pode ser faturado.</div>
+          </div>
+
+          <div class="aplicacao">
+            <strong>Equivalente em Java</strong>
+          </div>
+
+          <pre><code>if (pedidoConfirmado) {
+    faturarPedido();
+}</code></pre>
+        </section>
+
+        <section id="predicados" class="modulo">
+          <h2><span class="numero">6</span>Cálculo de Predicados</h2>
+
+          <p>
+            O cálculo de predicados amplia a lógica proposicional ao trabalhar com
+            variáveis, propriedades e quantificadores.
+          </p>
+
+          <div class="formula">P(x): “x possui saldo em estoque.”</div>
+
+          <h3>Quantificadores</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Quantificador</th>
+                <th>Símbolo</th>
+                <th>Significado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Universal</td>
+                <td>∀</td>
+                <td>Para todo elemento.</td>
+              </tr>
+              <tr>
+                <td>Existencial</td>
+                <td>∃</td>
+                <td>Existe pelo menos um elemento.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="exemplo">
+            <strong>Exemplos</strong>
+            <div class="formula">∀x, produto(x) → possui_codigo(x)
+Todo produto possui código.
+
+∃x, pedido(x) ∧ atrasado(x)
+Existe pelo menos um pedido atrasado.</div>
+          </div>
+
+          <div class="aplicacao">
+            <strong>Relação com SQL</strong>
+            <code>EXISTS</code> verifica se existe pelo menos um registro que satisfaz
+            uma condição. Já uma consulta sem restrição pode representar uma verificação
+            sobre todos os registros.
+          </div>
+        </section>
+
+        <section id="demonstracao" class="modulo">
+          <h2><span class="numero">7</span>Métodos de Demonstração</h2>
+
+          <p>
+            Demonstrar significa justificar logicamente por que uma afirmação é verdadeira.
+            Em tecnologia, esse raciocínio ajuda a provar que um algoritmo funciona,
+            que uma regra não gera conflito ou que uma consulta atende aos requisitos.
+          </p>
+
+          <h3>Demonstração direta</h3>
+          <p>Parte-se das hipóteses até chegar à conclusão.</p>
+
+          <div class="exemplo">
+            <strong>Exemplo</strong>
+            Se um número é múltiplo de 4, então ele é par.
+            <div class="formula">n = 4k
+n = 2(2k)
+Logo, n é par.</div>
+          </div>
+
+          <h3>Contraposição</h3>
+          <p>
+            Para provar “se p, então q”, pode-se provar a forma equivalente
+            “se não q, então não p”.
+          </p>
+
+          <div class="formula">p → q  ≡  ¬q → ¬p</div>
+
+          <h3>Prova por contradição</h3>
+          <p>
+            Assume-se temporariamente que a afirmação é falsa. Se isso levar a uma
+            impossibilidade, a afirmação original é verdadeira.
+          </p>
+
+          <h3>Indução matemática</h3>
+          <p>
+            Utilizada para provar propriedades relacionadas a números naturais ou
+            processos repetitivos.
+          </p>
+
+          <ol>
+            <li>Comprovar o caso inicial.</li>
+            <li>Assumir que vale para um caso qualquer.</li>
+            <li>Provar que também vale para o próximo caso.</li>
+          </ol>
+
+          <div class="aplicacao">
+            <strong>Aplicação em algoritmos</strong>
+            A indução pode ser utilizada para analisar laços de repetição e algoritmos
+            recursivos, verificando se funcionam para qualquer quantidade de elementos.
+          </div>
+        </section>
+
+        <section id="prepare" class="modulo">
+          <h2><span class="numero">8</span>Preparação, revisão e estratégia de estudo</h2>
+
+          <p>
+            Para consolidar o conteúdo, o ideal é alternar teoria, exercícios e
+            aplicações práticas.
+          </p>
+
+          <div class="duas-colunas">
+            <div class="cartao">
+              <h3>Roteiro de resolução</h3>
+              <ol>
+                <li>Identifique o que o problema pede.</li>
+                <li>Defina as variáveis.</li>
+                <li>Transforme o texto em expressão ou regra.</li>
+                <li>Resolva passo a passo.</li>
+                <li>Verifique se o resultado faz sentido.</li>
+              </ol>
+            </div>
+
+            <div class="cartao">
+              <h3>Erros comuns</h3>
+              <ul>
+                <li>Confundir domínio com imagem.</li>
+                <li>Ignorar restrições do contexto.</li>
+                <li>Trocar “e” por “ou”.</li>
+                <li>Usar igualdade quando há vários resultados possíveis.</li>
+                <li>Não conferir a resposta na expressão original.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="atencao">
+            <strong>Dica importante</strong>
+            Sempre relacione o conteúdo matemático a algo que você já conhece:
+            funções no Excel, métodos em Java, funções do Oracle, condições em SQL
+            e regras de negócio em sistemas.
+          </div>
+        </section>
+
+        <section class="resumo-final">
+          <h2>Resumo geral</h2>
+
+          <ul class="lista-check">
+            <li>Conjuntos organizam elementos e relações.</li>
+            <li>Gráficos mostram o comportamento das grandezas.</li>
+            <li>Funções relacionam entradas e saídas.</li>
+            <li>A lógica proposicional trabalha com valores verdadeiro e falso.</li>
+            <li>Predicados permitem aplicar regras a elementos variáveis.</li>
+            <li>Demonstrações justificam formalmente uma conclusão.</li>
+            <li>Todos esses conceitos são aplicados em programação e banco de dados.</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <footer class="rodape">
+      Manual de Estudos — Matemática e Lógica | ADS
+    </footer>
+  </div>
+</body>
+</html>
