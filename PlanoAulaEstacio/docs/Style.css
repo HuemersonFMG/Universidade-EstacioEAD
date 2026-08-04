@@ -81,6 +81,12 @@
     padding: 20px;
     }
 
+    .container {
+        width: 95%;
+        margin: 30px auto;
+        padding: 20px;
+        }
+
     .grid {
     display: grid;
     grid-template-columns: 1fr 360px;
