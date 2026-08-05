@@ -394,417 +394,982 @@
           <a href="#proposicional">Cálculo Proposicional</a>
           <a href="#predicados">Cálculo de Predicados</a>
           <a href="#demonstracao">Métodos de Demonstração</a>
+          <a href="#tabela-verdade">Tabela-Verdade</a>
           <a href="#prepare">Preparação e revisão</a>
         </nav>
       </aside>
 
       <main>
         <section id="introducao" class="introducao">
-          <h2><span class="numero">1</span>Introdução</h2>
+            <h2><span class="numero">1</span>Introdução</h2>
 
-          <p>
-            Matemática e Lógica fornecem ferramentas para representar problemas,
-            identificar padrões, criar regras e tomar decisões de maneira organizada.
-            Em tecnologia, esses conhecimentos aparecem em algoritmos, consultas SQL,
-            validações, estruturas condicionais e modelagem de sistemas.
-          </p>
+            <p>
+              Matemática e Lógica fornecem ferramentas para representar problemas,
+              identificar padrões, criar regras e tomar decisões de maneira organizada.
+              Em tecnologia, esses conhecimentos aparecem em algoritmos, consultas SQL,
+              validações, estruturas condicionais e modelagem de sistemas.
+            </p>
 
-          <div class="destaque">
-            <strong>Ideia central</strong>
-            Um problema real pode ser transformado em símbolos, expressões, relações,
-            funções ou proposições. Depois disso, aplicamos regras para chegar a uma solução.
-          </div>
-
-          <div class="exemplo">
-            <strong>Exemplo prático</strong>
-            Em um ERP, a regra “pedido acima de R$ 1.000 precisa de aprovação” pode ser
-            expressa logicamente como:
-            <div class="formula">Se valor_pedido &gt; 1000, então aprovação = obrigatória.</div>
-          </div>
-        </section>
-
-        <section id="conjuntos" class="modulo">
-          <h2><span class="numero">2</span>Teoria dos Conjuntos e princípios de contagem</h2>
-
-          <p>
-            Um conjunto é uma coleção de elementos. Ele pode representar usuários,
-            produtos, pedidos, números ou qualquer grupo de objetos com uma característica comum.
-          </p>
-
-          <div class="duas-colunas">
-            <div class="cartao">
-              <h3>Representação</h3>
-              <div class="formula">A = {1, 2, 3, 4}</div>
-              <p>O conjunto A possui quatro elementos.</p>
+            <div class="destaque">
+              <strong>Ideia central</strong>
+              Um problema real pode ser transformado em símbolos, expressões, relações,
+              funções ou proposições. Depois disso, aplicamos regras para chegar a uma solução.
             </div>
 
-            <div class="cartao">
-              <h3>Pertinência</h3>
-              <div class="formula">2 ∈ A
-7 ∉ A</div>
-              <p>O símbolo ∈ significa “pertence”.</p>
+            <div class="exemplo">
+              <strong>Exemplo prático</strong>
+              Em um ERP, a regra “pedido acima de R$ 1.000 precisa de aprovação” pode ser
+              expressa logicamente como:
+              <div class="formula">Se valor_pedido &gt; 1000, então aprovação = obrigatória.</div>
             </div>
-          </div>
+          </section>
 
-          <h3>Operações principais</h3>
+          <section id="conjuntos" class="modulo">
+            <h2><span class="numero">2</span>Teoria dos Conjuntos e princípios de contagem</h2>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Operação</th>
-                <th>Símbolo</th>
-                <th>Significado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>União</td>
-                <td>A ∪ B</td>
-                <td>Elementos que pertencem a A, a B ou aos dois.</td>
-              </tr>
-              <tr>
-                <td>Interseção</td>
-                <td>A ∩ B</td>
-                <td>Elementos comuns aos dois conjuntos.</td>
-              </tr>
-              <tr>
-                <td>Diferença</td>
-                <td>A − B</td>
-                <td>Elementos que estão em A, mas não estão em B.</td>
-              </tr>
-              <tr>
-                <td>Subconjunto</td>
-                <td>A ⊆ B</td>
-                <td>Todo elemento de A também pertence a B.</td>
-              </tr>
-            </tbody>
-          </table>
+            <p>
+              Um conjunto é uma coleção de elementos. Ele pode representar usuários,
+              produtos, pedidos, números ou qualquer grupo de objetos com uma característica comum.
+            </p>
 
-          <div class="aplicacao">
-            <strong>Aplicação em banco de dados</strong>
-            A operação <code>UNION</code> combina resultados de consultas. A condição
-            <code>IN</code> verifica se um valor pertence a um conjunto de resultados.
-          </div>
+            <div class="duas-colunas">
+              <div class="cartao">
+                <h3>Representação</h3>
+                <div class="formula">A = {1, 2, 3, 4}</div>
+                <p>O conjunto A possui quatro elementos.</p>
+              </div>
 
-          <h3>Princípio multiplicativo</h3>
-          <p>
-            Se uma tarefa possui etapas independentes, o número total de possibilidades
-            é obtido multiplicando as opções de cada etapa.
-          </p>
-
-          <div class="exemplo">
-            <strong>Exemplo</strong>
-            Uma senha possui 2 letras e 3 números. Considerando 26 letras e 10 algarismos:
-            <div class="formula">26 × 26 × 10 × 10 × 10 = 676.000 possibilidades</div>
-          </div>
-        </section>
-
-        <section id="graficos" class="modulo">
-          <h2><span class="numero">3</span>Gráficos e interpretações gráficas</h2>
-
-          <p>
-            Um gráfico representa visualmente a relação entre grandezas. O eixo horizontal
-            costuma representar a variável independente, enquanto o eixo vertical representa
-            o resultado observado.
-          </p>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Comportamento</th>
-                <th>Interpretação</th>
-                <th>Exemplo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Crescente</td>
-                <td>Quando x aumenta, y também aumenta.</td>
-                <td>Vendas acumuladas ao longo do mês.</td>
-              </tr>
-              <tr>
-                <td>Decrescente</td>
-                <td>Quando x aumenta, y diminui.</td>
-                <td>Estoque reduzido pelas vendas.</td>
-              </tr>
-              <tr>
-                <td>Constante</td>
-                <td>O resultado não se altera.</td>
-                <td>Taxa fixa mensal.</td>
-              </tr>
-              <tr>
-                <td>Máximo</td>
-                <td>Maior valor atingido.</td>
-                <td>Pico de produção.</td>
-              </tr>
-              <tr>
-                <td>Mínimo</td>
-                <td>Menor valor atingido.</td>
-                <td>Menor nível de estoque.</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="atencao">
-            <strong>Leitura correta</strong>
-            Um gráfico pode ter intervalos diferentes: crescer em um trecho, permanecer
-            constante em outro e depois diminuir.
-          </div>
-        </section>
-
-        <section id="funcoes" class="modulo">
-          <h2><span class="numero">4</span>Aprofundamento de funções</h2>
-
-          <p>
-            Uma função associa cada valor de entrada a exatamente um valor de saída.
-          </p>
-
-          <div class="formula">f: A → B</div>
-
-          <ul class="lista-check">
-            <li><strong>Domínio:</strong> conjunto de valores permitidos como entrada.</li>
-            <li><strong>Contradomínio:</strong> conjunto onde as saídas são consideradas.</li>
-            <li><strong>Imagem:</strong> valores efetivamente produzidos pela função.</li>
-          </ul>
-
-          <div class="exemplo">
-            <strong>Exemplo</strong>
-            <div class="formula">f(x) = 2x + 5
-
-f(3) = 2 × 3 + 5
-f(3) = 11</div>
-          </div>
-
-          <h3>Classificação das funções</h3>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Tipo</th>
-                <th>Definição simples</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Injetora</td>
-                <td>Entradas diferentes geram saídas diferentes.</td>
-              </tr>
-              <tr>
-                <td>Sobrejetora</td>
-                <td>Todos os elementos do contradomínio são atingidos.</td>
-              </tr>
-              <tr>
-                <td>Bijetora</td>
-                <td>É injetora e sobrejetora ao mesmo tempo.</td>
-              </tr>
-              <tr>
-                <td>Periódica</td>
-                <td>Repete o mesmo comportamento após certo intervalo.</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="aplicacao">
-            <strong>Aplicação em programação</strong>
-            Uma função Java recebe parâmetros e retorna um valor:
-          </div>
-
-          <pre><code>public double calcularTotal(int quantidade, double preco) {
-    return quantidade * preco;
-}</code></pre>
-
-          <div class="aplicacao">
-            <strong>Aplicação no Oracle</strong>
-            Funções como <code>NVL()</code>, <code>ROUND()</code>,
-            <code>UPPER()</code> e <code>TO_CHAR()</code> recebem valores,
-            processam e retornam um resultado.
-          </div>
-        </section>
-
-        <section id="proposicional" class="modulo">
-          <h2><span class="numero">5</span>Cálculo Proposicional</h2>
-
-          <p>
-            Uma proposição é uma frase declarativa que pode ser classificada como
-            verdadeira ou falsa.
-          </p>
-
-          <div class="duas-colunas">
-            <div class="cartao">
-              <h3>É proposição</h3>
-              <p>“O pedido foi faturado.”</p>
-              <p>Pode ser verdadeira ou falsa.</p>
+              <div class="cartao">
+                <h3>Pertinência</h3>
+                <div class="formula">2 ∈ A
+  7 ∉ A</div>
+                <p>O símbolo ∈ significa “pertence”.</p>
+              </div>
             </div>
-            <div class="cartao">
-              <h3>Não é proposição</h3>
-              <p>“Fature o pedido.”</p>
-              <p>É uma ordem, não possui valor lógico.</p>
+
+            <h3>Operações principais</h3>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Operação</th>
+                  <th>Símbolo</th>
+                  <th>Significado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>União</td>
+                  <td>A ∪ B</td>
+                  <td>Elementos que pertencem a A, a B ou aos dois.</td>
+                </tr>
+                <tr>
+                  <td>Interseção</td>
+                  <td>A ∩ B</td>
+                  <td>Elementos comuns aos dois conjuntos.</td>
+                </tr>
+                <tr>
+                  <td>Diferença</td>
+                  <td>A − B</td>
+                  <td>Elementos que estão em A, mas não estão em B.</td>
+                </tr>
+                <tr>
+                  <td>Subconjunto</td>
+                  <td>A ⊆ B</td>
+                  <td>Todo elemento de A também pertence a B.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="aplicacao">
+              <strong>Aplicação em banco de dados</strong>
+              A operação <code>UNION</code> combina resultados de consultas. A condição
+              <code>IN</code> verifica se um valor pertence a um conjunto de resultados.
             </div>
-          </div>
 
-          <h3>Conectivos lógicos</h3>
+            <h3>Princípio multiplicativo</h3>
+            <p>
+              Se uma tarefa possui etapas independentes, o número total de possibilidades
+              é obtido multiplicando as opções de cada etapa.
+            </p>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Nome</th>
-                <th>Símbolo</th>
-                <th>Leitura</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Negação</td>
-                <td>¬p</td>
-                <td>Não p</td>
-              </tr>
-              <tr>
-                <td>Conjunção</td>
-                <td>p ∧ q</td>
-                <td>p e q</td>
-              </tr>
-              <tr>
-                <td>Disjunção</td>
-                <td>p ∨ q</td>
-                <td>p ou q</td>
-              </tr>
-              <tr>
-                <td>Condicional</td>
-                <td>p → q</td>
-                <td>Se p, então q</td>
-              </tr>
-              <tr>
-                <td>Bicondicional</td>
-                <td>p ↔ q</td>
-                <td>p se, e somente se, q</td>
-              </tr>
-            </tbody>
-          </table>
+            <div class="exemplo">
+              <strong>Exemplo</strong>
+              Uma senha possui 2 letras e 3 números. Considerando 26 letras e 10 algarismos:
+              <div class="formula">26 × 26 × 10 × 10 × 10 = 676.000 possibilidades</div>
+            </div>
+          </section>
 
-          <div class="exemplo">
-            <strong>Exemplo de regra de negócio</strong>
-            <div class="formula">p: Pedido está confirmado.
-q: Pedido pode ser faturado.
+          <section id="graficos" class="modulo">
+            <h2><span class="numero">3</span>Gráficos e interpretações gráficas</h2>
 
-p → q
-Se o pedido está confirmado, então pode ser faturado.</div>
-          </div>
+            <p>
+              Um gráfico representa visualmente a relação entre grandezas. O eixo horizontal
+              costuma representar a variável independente, enquanto o eixo vertical representa
+              o resultado observado.
+            </p>
 
-          <div class="aplicacao">
-            <strong>Equivalente em Java</strong>
-          </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Comportamento</th>
+                  <th>Interpretação</th>
+                  <th>Exemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Crescente</td>
+                  <td>Quando x aumenta, y também aumenta.</td>
+                  <td>Vendas acumuladas ao longo do mês.</td>
+                </tr>
+                <tr>
+                  <td>Decrescente</td>
+                  <td>Quando x aumenta, y diminui.</td>
+                  <td>Estoque reduzido pelas vendas.</td>
+                </tr>
+                <tr>
+                  <td>Constante</td>
+                  <td>O resultado não se altera.</td>
+                  <td>Taxa fixa mensal.</td>
+                </tr>
+                <tr>
+                  <td>Máximo</td>
+                  <td>Maior valor atingido.</td>
+                  <td>Pico de produção.</td>
+                </tr>
+                <tr>
+                  <td>Mínimo</td>
+                  <td>Menor valor atingido.</td>
+                  <td>Menor nível de estoque.</td>
+                </tr>
+              </tbody>
+            </table>
 
-          <pre><code>if (pedidoConfirmado) {
-    faturarPedido();
-}</code></pre>
-        </section>
+            <div class="atencao">
+              <strong>Leitura correta</strong>
+              Um gráfico pode ter intervalos diferentes: crescer em um trecho, permanecer
+              constante em outro e depois diminuir.
+            </div>
+          </section>
 
-        <section id="predicados" class="modulo">
-          <h2><span class="numero">6</span>Cálculo de Predicados</h2>
+          <section id="funcoes" class="modulo">
+            <h2><span class="numero">4</span>Aprofundamento de funções</h2>
 
-          <p>
-            O cálculo de predicados amplia a lógica proposicional ao trabalhar com
-            variáveis, propriedades e quantificadores.
-          </p>
+            <p>
+              Uma função associa cada valor de entrada a exatamente um valor de saída.
+            </p>
 
-          <div class="formula">P(x): “x possui saldo em estoque.”</div>
+            <div class="formula">f: A → B</div>
 
-          <h3>Quantificadores</h3>
+            <ul class="lista-check">
+              <li><strong>Domínio:</strong> conjunto de valores permitidos como entrada.</li>
+              <li><strong>Contradomínio:</strong> conjunto onde as saídas são consideradas.</li>
+              <li><strong>Imagem:</strong> valores efetivamente produzidos pela função.</li>
+            </ul>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Quantificador</th>
-                <th>Símbolo</th>
-                <th>Significado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Universal</td>
-                <td>∀</td>
-                <td>Para todo elemento.</td>
-              </tr>
-              <tr>
-                <td>Existencial</td>
-                <td>∃</td>
-                <td>Existe pelo menos um elemento.</td>
-              </tr>
-            </tbody>
-          </table>
+            <div class="exemplo">
+              <strong>Exemplo</strong>
+              <div class="formula">f(x) = 2x + 5
 
-          <div class="exemplo">
-            <strong>Exemplos</strong>
-            <div class="formula">∀x, produto(x) → possui_codigo(x)
-Todo produto possui código.
+  f(3) = 2 × 3 + 5
+  f(3) = 11</div>
+            </div>
 
-∃x, pedido(x) ∧ atrasado(x)
-Existe pelo menos um pedido atrasado.</div>
-          </div>
+            <h3>Classificação das funções</h3>
 
-          <div class="aplicacao">
-            <strong>Relação com SQL</strong>
-            <code>EXISTS</code> verifica se existe pelo menos um registro que satisfaz
-            uma condição. Já uma consulta sem restrição pode representar uma verificação
-            sobre todos os registros.
-          </div>
-        </section>
+            <table>
+              <thead>
+                <tr>
+                  <th>Tipo</th>
+                  <th>Definição simples</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Injetora</td>
+                  <td>Entradas diferentes geram saídas diferentes.</td>
+                </tr>
+                <tr>
+                  <td>Sobrejetora</td>
+                  <td>Todos os elementos do contradomínio são atingidos.</td>
+                </tr>
+                <tr>
+                  <td>Bijetora</td>
+                  <td>É injetora e sobrejetora ao mesmo tempo.</td>
+                </tr>
+                <tr>
+                  <td>Periódica</td>
+                  <td>Repete o mesmo comportamento após certo intervalo.</td>
+                </tr>
+              </tbody>
+            </table>
 
-        <section id="demonstracao" class="modulo">
-          <h2><span class="numero">7</span>Métodos de Demonstração</h2>
+            <div class="aplicacao">
+              <strong>Aplicação em programação</strong>
+              Uma função Java recebe parâmetros e retorna um valor:
+            </div>
 
-          <p>
-            Demonstrar significa justificar logicamente por que uma afirmação é verdadeira.
-            Em tecnologia, esse raciocínio ajuda a provar que um algoritmo funciona,
-            que uma regra não gera conflito ou que uma consulta atende aos requisitos.
-          </p>
+            <pre><code>public double calcularTotal(int quantidade, double preco) {
+      return quantidade * preco;
+  }</code></pre>
 
-          <h3>Demonstração direta</h3>
-          <p>Parte-se das hipóteses até chegar à conclusão.</p>
+            <div class="aplicacao">
+              <strong>Aplicação no Oracle</strong>
+              Funções como <code>NVL()</code>, <code>ROUND()</code>,
+              <code>UPPER()</code> e <code>TO_CHAR()</code> recebem valores,
+              processam e retornam um resultado.
+            </div>
+          </section>
 
-          <div class="exemplo">
-            <strong>Exemplo</strong>
-            Se um número é múltiplo de 4, então ele é par.
-            <div class="formula">n = 4k
-n = 2(2k)
-Logo, n é par.</div>
-          </div>
+          <section id="proposicional" class="modulo">
+            <h2><span class="numero">5</span>Cálculo Proposicional</h2>
 
-          <h3>Contraposição</h3>
-          <p>
-            Para provar “se p, então q”, pode-se provar a forma equivalente
-            “se não q, então não p”.
-          </p>
+            <p>
+              Uma proposição é uma frase declarativa que pode ser classificada como
+              verdadeira ou falsa.
+            </p>
 
-          <div class="formula">p → q  ≡  ¬q → ¬p</div>
+            <div class="duas-colunas">
+              <div class="cartao">
+                <h3>É proposição</h3>
+                <p>“O pedido foi faturado.”</p>
+                <p>Pode ser verdadeira ou falsa.</p>
+              </div>
+              <div class="cartao">
+                <h3>Não é proposição</h3>
+                <p>“Fature o pedido.”</p>
+                <p>É uma ordem, não possui valor lógico.</p>
+              </div>
+            </div>
 
-          <h3>Prova por contradição</h3>
-          <p>
-            Assume-se temporariamente que a afirmação é falsa. Se isso levar a uma
-            impossibilidade, a afirmação original é verdadeira.
-          </p>
+            <h3>Conectivos lógicos</h3>
 
-          <h3>Indução matemática</h3>
-          <p>
-            Utilizada para provar propriedades relacionadas a números naturais ou
-            processos repetitivos.
-          </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Símbolo</th>
+                  <th>Leitura</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Negação</td>
+                  <td>¬p</td>
+                  <td>Não p</td>
+                </tr>
+                <tr>
+                  <td>Conjunção</td>
+                  <td>p ∧ q</td>
+                  <td>p e q</td>
+                </tr>
+                <tr>
+                  <td>Disjunção</td>
+                  <td>p ∨ q</td>
+                  <td>p ou q</td>
+                </tr>
+                <tr>
+                  <td>Condicional</td>
+                  <td>p → q</td>
+                  <td>Se p, então q</td>
+                </tr>
+                <tr>
+                  <td>Bicondicional</td>
+                  <td>p ↔ q</td>
+                  <td>p se, e somente se, q</td>
+                </tr>
+              </tbody>
+            </table>
 
-          <ol>
-            <li>Comprovar o caso inicial.</li>
-            <li>Assumir que vale para um caso qualquer.</li>
-            <li>Provar que também vale para o próximo caso.</li>
-          </ol>
+            <div class="exemplo">
+              <strong>Exemplo de regra de negócio</strong>
+              <div class="formula">p: Pedido está confirmado.
+  q: Pedido pode ser faturado.
 
-          <div class="aplicacao">
-            <strong>Aplicação em algoritmos</strong>
-            A indução pode ser utilizada para analisar laços de repetição e algoritmos
-            recursivos, verificando se funcionam para qualquer quantidade de elementos.
-          </div>
+  p → q
+  Se o pedido está confirmado, então pode ser faturado.</div>
+            </div>
+
+            <div class="aplicacao">
+              <strong>Equivalente em Java</strong>
+            </div>
+
+            <pre><code>if (pedidoConfirmado) {
+      faturarPedido();
+  }</code></pre>
+          </section>
+
+          <section id="predicados" class="modulo">
+            <h2><span class="numero">6</span>Cálculo de Predicados</h2>
+
+            <p>
+              O cálculo de predicados amplia a lógica proposicional ao trabalhar com
+              variáveis, propriedades e quantificadores.
+            </p>
+
+            <div class="formula">P(x): “x possui saldo em estoque.”</div>
+
+            <h3>Quantificadores</h3>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Quantificador</th>
+                  <th>Símbolo</th>
+                  <th>Significado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Universal</td>
+                  <td>∀</td>
+                  <td>Para todo elemento.</td>
+                </tr>
+                <tr>
+                  <td>Existencial</td>
+                  <td>∃</td>
+                  <td>Existe pelo menos um elemento.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="exemplo">
+              <strong>Exemplos</strong>
+              <div class="formula">∀x, produto(x) → possui_codigo(x)
+  Todo produto possui código.
+
+  ∃x, pedido(x) ∧ atrasado(x)
+  Existe pelo menos um pedido atrasado.</div>
+            </div>
+
+            <div class="aplicacao">
+              <strong>Relação com SQL</strong>
+              <code>EXISTS</code> verifica se existe pelo menos um registro que satisfaz
+              uma condição. Já uma consulta sem restrição pode representar uma verificação
+              sobre todos os registros.
+            </div>
+          </section>
+
+          <section id="demonstracao" class="modulo">
+            <h2><span class="numero">7</span>Métodos de Demonstração</h2>
+
+            <p>
+              Demonstrar significa justificar logicamente por que uma afirmação é verdadeira.
+              Em tecnologia, esse raciocínio ajuda a provar que um algoritmo funciona,
+              que uma regra não gera conflito ou que uma consulta atende aos requisitos.
+            </p>
+
+            <h3>Demonstração direta</h3>
+            <p>Parte-se das hipóteses até chegar à conclusão.</p>
+
+            <div class="exemplo">
+              <strong>Exemplo</strong>
+              Se um número é múltiplo de 4, então ele é par.
+              <div class="formula">n = 4k
+  n = 2(2k)
+  Logo, n é par.</div>
+            </div>
+
+            <h3>Contraposição</h3>
+            <p>
+              Para provar “se p, então q”, pode-se provar a forma equivalente
+              “se não q, então não p”.
+            </p>
+
+            <div class="formula">p → q  ≡  ¬q → ¬p</div>
+
+            <h3>Prova por contradição</h3>
+            <p>
+              Assume-se temporariamente que a afirmação é falsa. Se isso levar a uma
+              impossibilidade, a afirmação original é verdadeira.
+            </p>
+
+            <h3>Indução matemática</h3>
+            <p>
+              Utilizada para provar propriedades relacionadas a números naturais ou
+              processos repetitivos.
+            </p>
+
+            <ol>
+              <li>Comprovar o caso inicial.</li>
+              <li>Assumir que vale para um caso qualquer.</li>
+              <li>Provar que também vale para o próximo caso.</li>
+            </ol>
+
+            <div class="aplicacao">
+              <strong>Aplicação em algoritmos</strong>
+              A indução pode ser utilizada para analisar laços de repetição e algoritmos
+              recursivos, verificando se funcionam para qualquer quantidade de elementos.
+            </div>
+          </section>
+
+          <section id="tabela-verdade" class="modulo">
+            <h2>
+                <span class="numero">8</span>
+                Tabela-Verdade
+            </h2>
+
+            <p>
+                Uma <strong>tabela-verdade</strong> é uma ferramenta utilizada para representar
+                todas as combinações possíveis dos valores lógicos de uma ou mais proposições.
+            </p>
+
+            <p>
+                Na lógica proposicional, uma proposição pode assumir apenas dois valores:
+            </p>
+
+            <ul class="lista-check">
+                <li><strong>V</strong> — verdadeiro;</li>
+                <li><strong>F</strong> — falso.</li>
+            </ul>
+
+            <div class="destaque">
+                <strong>Objetivo da tabela-verdade</strong>
+                Verificar o resultado de uma expressão lógica em todas as combinações possíveis
+                de valores verdadeiros e falsos.
+            </div>
+
+            <h3>Quantidade de linhas</h3>
+
+            <p>
+                O número de linhas de uma tabela-verdade depende da quantidade de proposições
+                simples existentes na expressão.
+            </p>
+
+            <div class="formula">Número de linhas = 2ⁿ</div>
+
+            <p>
+                Nessa fórmula, <strong>n</strong> representa a quantidade de proposições simples.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Quantidade de proposições</th>
+                        <th>Cálculo</th>
+                        <th>Número de linhas</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1 proposição</td>
+                        <td>2¹</td>
+                        <td>2 linhas</td>
+                    </tr>
+
+                    <tr>
+                        <td>2 proposições</td>
+                        <td>2²</td>
+                        <td>4 linhas</td>
+                    </tr>
+
+                    <tr>
+                        <td>3 proposições</td>
+                        <td>2³</td>
+                        <td>8 linhas</td>
+                    </tr>
+
+                    <tr>
+                        <td>4 proposições</td>
+                        <td>2⁴</td>
+                        <td>16 linhas</td>
+                    </tr>
+
+                    <tr>
+                        <td>5 proposições</td>
+                        <td>2⁵</td>
+                        <td>32 linhas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Tabela com uma proposição</h3>
+
+            <p>
+                Uma proposição simples, representada por <strong>p</strong>, pode assumir dois valores.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Tabela com duas proposições</h3>
+
+            <p>
+                Com duas proposições, <strong>p</strong> e <strong>q</strong>, existem quatro
+                combinações possíveis.
+            </p>
+
+            <div class="formula">2² = 4 linhas</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                        <th>q</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Tabela com três proposições</h3>
+
+            <p>
+                Com três proposições, <strong>p</strong>, <strong>q</strong> e
+                <strong>r</strong>, existem oito combinações.
+            </p>
+
+            <div class="formula">2³ = 8 linhas</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                        <th>q</th>
+                        <th>r</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Como organizar as colunas</h3>
+
+            <p>
+                Para evitar combinações repetidas ou esquecidas, os valores de
+                <strong>V</strong> e <strong>F</strong> devem ser distribuídos seguindo um padrão.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Coluna</th>
+                        <th>Padrão para três proposições</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>p</td>
+                        <td>4 valores V seguidos de 4 valores F</td>
+                    </tr>
+
+                    <tr>
+                        <td>q</td>
+                        <td>2 valores V, 2 valores F, repetindo o padrão</td>
+                    </tr>
+
+                    <tr>
+                        <td>r</td>
+                        <td>Alternância entre V e F em cada linha</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="exemplo">
+                <strong>Forma simples de memorizar</strong>
+
+                <div class="formula">p: V V V V | F F F F
+        q: V V F F | V V F F
+        r: V F V F | V F V F</div>
+            </div>
+
+            <h3>Conjunção — “e”</h3>
+
+            <p>
+                A conjunção é representada pelo símbolo <strong>∧</strong>.
+                Ela somente é verdadeira quando as duas proposições são verdadeiras.
+            </p>
+
+            <div class="formula">p ∧ q</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                        <th>q</th>
+                        <th>p ∧ q</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Disjunção — “ou”</h3>
+
+            <p>
+                A disjunção é representada pelo símbolo <strong>∨</strong>.
+                Ela só é falsa quando as duas proposições são falsas.
+            </p>
+
+            <div class="formula">p ∨ q</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                        <th>q</th>
+                        <th>p ∨ q</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Condicional — “se... então”</h3>
+
+            <p>
+                A condicional é representada pelo símbolo <strong>→</strong>.
+                Ela só é falsa quando a primeira proposição é verdadeira e a segunda é falsa.
+            </p>
+
+            <div class="formula">p → q</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                        <th>q</th>
+                        <th>p → q</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                        <td>V</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Bicondicional — “se, e somente se”</h3>
+
+            <p>
+                A bicondicional é representada pelo símbolo <strong>↔</strong>.
+                Ela é verdadeira quando as duas proposições possuem o mesmo valor lógico.
+            </p>
+
+            <div class="formula">p ↔ q</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                        <th>q</th>
+                        <th>p ↔ q</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>V</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                        <td>V</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Negação</h3>
+
+            <p>
+                A negação é representada pelo símbolo <strong>¬</strong>.
+                Ela inverte o valor lógico de uma proposição.
+            </p>
+
+            <div class="formula">¬p</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>p</th>
+                        <th>¬p</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Exemplo completo</h3>
+
+            <p>Considere a expressão:</p>
+
+            <div class="formula">p ∧ q</div>
+
+            <p>Podemos representar:</p>
+
+            <ul>
+                <li><strong>p:</strong> O pedido está confirmado.</li>
+                <li><strong>q:</strong> Existe estoque disponível.</li>
+            </ul>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pedido confirmado</th>
+                        <th>Estoque disponível</th>
+                        <th>Pode faturar?</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>V</td>
+                        <td>V</td>
+                        <td>Sim</td>
+                    </tr>
+
+                    <tr>
+                        <td>V</td>
+                        <td>F</td>
+                        <td>Não</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>V</td>
+                        <td>Não</td>
+                    </tr>
+
+                    <tr>
+                        <td>F</td>
+                        <td>F</td>
+                        <td>Não</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="aplicacao">
+                <strong>Aplicação em Java</strong>
+
+                <pre><code>if (pedidoConfirmado && estoqueDisponivel) {
+            faturarPedido();
+        }</code></pre>
+
+                O operador <code>&amp;&amp;</code> representa a conjunção lógica:
+                as duas condições precisam ser verdadeiras.
+            </div>
+
+            <div class="aplicacao">
+                <strong>Aplicação no Oracle SQL</strong>
+
+                <pre><code>SELECT *
+        FROM TGFCAB
+        WHERE STATUSNOTA = 'L'
+          AND PENDENTE = 'S';</code></pre>
+
+                O registro só será retornado quando as duas condições ligadas pelo
+                operador <code>AND</code> forem verdadeiras.
+            </div>
+
+            <div class="atencao">
+                <strong>Passos para resolver uma tabela-verdade</strong>
+
+                <ol>
+                    <li>Identifique as proposições simples.</li>
+                    <li>Conte quantas proposições existem.</li>
+                    <li>Calcule o número de linhas usando <strong>2ⁿ</strong>.</li>
+                    <li>Distribua corretamente os valores V e F.</li>
+                    <li>Resolva primeiro as expressões entre parênteses.</li>
+                    <li>Aplique as negações.</li>
+                    <li>Resolva os demais conectivos.</li>
+                </ol>
+            </div>
+
+            <div class="destaque">
+                <strong>Resumo para memorizar</strong>
+
+                <ul>
+                    <li><strong>p ∧ q:</strong> só é verdadeira quando ambas são verdadeiras.</li>
+                    <li><strong>p ∨ q:</strong> só é falsa quando ambas são falsas.</li>
+                    <li><strong>p → q:</strong> só é falsa quando V implica F.</li>
+                    <li><strong>p ↔ q:</strong> é verdadeira quando os valores são iguais.</li>
+                    <li><strong>¬p:</strong> inverte o valor lógico.</li>
+                </ul>
+            </div>
         </section>
 
         <section id="prepare" class="modulo">
-          <h2><span class="numero">8</span>Preparação, revisão e estratégia de estudo</h2>
+          <h2><span class="numero">9</span>Preparação, revisão e estratégia de estudo</h2>
 
           <p>
             Para consolidar o conteúdo, o ideal é alternar teoria, exercícios e
