@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explicação didática sobre a ordem de prioridade das operações matemáticas usando a expressão 2 + 3 × 4.">
+  <title>Ordem de Prioridade das Operações | 2 + 3 × 4</title>
+
+  <style>
+    :root {
+      --azul-900: #082b6f;
+      --azul-700: #164fb8;
+      --azul-100: #eaf2ff;
+      --verde-700: #1f7a4d;
+      --verde-100: #e9f8ef;
+      --amarelo-700: #a66000;
+      --amarelo-100: #fff4d6;
+      --vermelho-700: #b3261e;
+      --vermelho-100: #fdecea;
+      --cinza-950: #172033;
+      --cinza-700: #4f5d75;
+      --cinza-300: #d8dee9;
+      --cinza-100: #f6f8fc;
+      --branco: #ffffff;
+      --sombra: 0 14px 36px rgba(15, 37, 77, 0.12);
+      --raio: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color: var(--cinza-950);
+      background:
+        linear-gradient(180deg, #eaf2ff 0, #f7f9fc 280px, #f7f9fc 100%);
+      line-height: 1.65;
+    }
+
+    .pagina {
+      width: min(1100px, calc(100% - 32px));
+      margin: 32px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      background: var(--branco);
+      box-shadow: var(--sombra);
+    }
+
+    .cabecalho {
+      padding: 48px 42px;
+      color: var(--branco);
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.16), transparent 30%),
+        linear-gradient(135deg, var(--azul-900), var(--azul-700));
+    }
+
+    .cabecalho .rotulo {
+      margin: 0 0 8px;
+      font-size: .82rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .9;
+    }
+
+    .cabecalho h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+    }
+
+    .cabecalho p {
+      max-width: 760px;
+      margin: 18px 0 0;
+      font-size: 1.05rem;
+      opacity: .96;
+    }
+
+    main {
+      padding: 32px;
+    }
+
+    section {
+      margin-bottom: 28px;
+      padding: 28px;
+      border: 1px solid var(--cinza-300);
+      border-radius: var(--raio);
+      background: var(--branco);
+    }
+
+    h2,
+    h3 {
+      color: var(--azul-900);
+      line-height: 1.25;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .expressao-principal {
+      margin: 22px 0;
+      padding: 24px;
+      border: 2px solid #cfe0ff;
+      border-radius: 14px;
+      text-align: center;
+      color: var(--azul-900);
+      background: var(--azul-100);
+      font-size: clamp(2rem, 7vw, 4rem);
+      font-weight: 800;
+      letter-spacing: .03em;
+    }
+
+    .destaque,
+    .exemplo,
+    .atencao,
+    .erro {
+      margin: 20px 0;
+      padding: 18px 20px;
+      border-left: 5px solid;
+      border-radius: 10px;
+    }
+
+    .destaque {
+      border-color: var(--azul-700);
+      background: var(--azul-100);
+    }
+
+    .exemplo {
+      border-color: var(--verde-700);
+      background: var(--verde-100);
+    }
+
+    .atencao {
+      border-color: var(--amarelo-700);
+      background: var(--amarelo-100);
+    }
+
+    .erro {
+      border-color: var(--vermelho-700);
+      background: var(--vermelho-100);
+    }
+
+    .destaque strong,
+    .exemplo strong,
+    .atencao strong,
+    .erro strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .formula {
+      overflow-x: auto;
+      margin: 16px 0;
+      padding: 16px;
+      border: 1px solid #d6e3ff;
+      border-radius: 10px;
+      color: #0d2a5d;
+      background: #f3f7ff;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 1.08rem;
+      white-space: pre-wrap;
+    }
+
+    table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border: 1px solid var(--cinza-300);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--branco);
+      background: var(--azul-900);
+    }
+
+    tr:nth-child(even) td {
+      background: #f8faff;
+    }
+
+    .passos {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .passo {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--cinza-300);
+      border-radius: 12px;
+      background: var(--cinza-100);
+    }
+
+    .passo-numero {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      color: var(--branco);
+      background: var(--azul-700);
+      font-weight: 800;
+    }
+
+    .comparacao {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .cartao {
+      padding: 20px;
+      border: 1px solid var(--cinza-300);
+      border-radius: 12px;
+      background: #fbfcff;
+    }
+
+    .cartao h3 {
+      margin-top: 0;
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 18px;
+      border-radius: 10px;
+      color: #f8fafc;
+      background: #172033;
+      line-height: 1.5;
+    }
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .rodape {
+      padding: 24px 30px;
+      color: #dce7ff;
+      text-align: center;
+      background: var(--azul-900);
+    }
+
+    @media (max-width: 760px) {
+      .comparacao {
+        grid-template-columns: 1fr;
+      }
+
+      .cabecalho {
+        padding: 36px 24px;
+      }
+
+      main {
+        padding: 18px;
+      }
+
+      section {
+        padding: 21px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .pagina {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pagina">
+    <header class="cabecalho">
+      <p class="rotulo">Matemática e Lógica</p>
+      <h1>Ordem de prioridade das operações</h1>
+      <p>
+        Entenda por que a expressão <strong>2 + 3 × 4</strong> resulta em 14
+        e não em 20, seguindo corretamente a precedência das operações.
+      </p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Expressão analisada</h2>
+
+        <div class="expressao-principal">2 + 3 × 4</div>
+
+        <p>
+          À primeira vista, pode parecer natural resolver a expressão da esquerda
+          para a direita. Porém, a Matemática estabelece uma ordem de prioridade
+          para evitar resultados diferentes para a mesma expressão.
+        </p>
+
+        <div class="destaque">
+          <strong>Regra fundamental</strong>
+          Multiplicações e divisões devem ser resolvidas antes de adições e subtrações,
+          salvo quando os parênteses determinarem outra ordem.
+        </div>
+      </section>
+
+      <section>
+        <h2>Ordem de prioridade</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Prioridade</th>
+              <th>Operação</th>
+              <th>Exemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Parênteses, colchetes e chaves</td>
+              <td>(2 + 3)</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Potenciação e radiciação</td>
+              <td>2³ e √16</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Multiplicação e divisão</td>
+              <td>3 × 4 e 12 ÷ 3</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Adição e subtração</td>
+              <td>2 + 12 e 8 − 3</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="atencao">
+          <strong>Operações de mesma prioridade</strong>
+          Quando aparecem apenas multiplicações e divisões, ou apenas adições e
+          subtrações, resolvemos da esquerda para a direita.
+        </div>
+      </section>
+
+      <section>
+        <h2>Resolução passo a passo</h2>
+
+        <div class="passos">
+          <div class="passo">
+            <div class="passo-numero">1</div>
+            <div>
+              <h3>Verificar parênteses</h3>
+              <p>A expressão não possui parênteses.</p>
+              <div class="formula">2 + 3 × 4</div>
+            </div>
+          </div>
+
+          <div class="passo">
+            <div class="passo-numero">2</div>
+            <div>
+              <h3>Verificar potências ou raízes</h3>
+              <p>A expressão também não possui potenciação nem radiciação.</p>
+              <div class="formula">2 + 3 × 4</div>
+            </div>
+          </div>
+
+          <div class="passo">
+            <div class="passo-numero">3</div>
+            <div>
+              <h3>Resolver a multiplicação</h3>
+              <div class="formula">3 × 4 = 12</div>
+              <p>Substituindo o resultado na expressão:</p>
+              <div class="formula">2 + 12</div>
+            </div>
+          </div>
+
+          <div class="passo">
+            <div class="passo-numero">4</div>
+            <div>
+              <h3>Resolver a soma</h3>
+              <div class="formula">2 + 12 = 14</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="exemplo">
+          <strong>Resultado correto</strong>
+          <div class="formula">2 + 3 × 4 = 14</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Por que o resultado 20 está errado?</h2>
+
+        <div class="erro">
+          <strong>Resolução incorreta</strong>
+          <div class="formula">2 + 3 = 5
+5 × 4 = 20</div>
+          Essa resolução está errada porque a soma foi feita antes da multiplicação.
+        </div>
+
+        <p>
+          A expressão só resultaria em 20 se os parênteses determinassem que a soma
+          deveria ser resolvida primeiro:
+        </p>
+
+        <div class="formula">(2 + 3) × 4
+5 × 4
+20</div>
+      </section>
+
+      <section>
+        <h2>Comparação entre as expressões</h2>
+
+        <div class="comparacao">
+          <article class="cartao">
+            <h3>Sem parênteses</h3>
+            <div class="formula">2 + 3 × 4</div>
+            <p>Primeiro a multiplicação:</p>
+            <div class="formula">2 + 12 = 14</div>
+          </article>
+
+          <article class="cartao">
+            <h3>Com parênteses</h3>
+            <div class="formula">(2 + 3) × 4</div>
+            <p>Primeiro o conteúdo dos parênteses:</p>
+            <div class="formula">5 × 4 = 20</div>
+          </article>
+        </div>
+
+        <div class="destaque">
+          <strong>Conclusão</strong>
+          Os parênteses podem alterar a ordem das operações e, consequentemente,
+          modificar o resultado final.
+        </div>
+      </section>
+
+      <section>
+        <h2>Exemplos adicionais</h2>
+
+        <h3>Exemplo 1</h3>
+        <div class="formula">8 + 12 ÷ 4
+8 + 3
+11</div>
+
+        <h3>Exemplo 2</h3>
+        <div class="formula">3 + 2³ × 5
+3 + 8 × 5
+3 + 40
+43</div>
+
+        <h3>Exemplo 3</h3>
+        <div class="formula">(8 + 12) ÷ 4
+20 ÷ 4
+5</div>
+      </section>
+
+      <section>
+        <h2>Aplicação na programação</h2>
+
+        <p>
+          Linguagens de programação seguem a mesma regra de precedência.
+        </p>
+
+        <h3>Java</h3>
+        <pre><code>int resultado = 2 + 3 * 4;
+System.out.println(resultado); // 14</code></pre>
+
+        <h3>Java com parênteses</h3>
+        <pre><code>int resultado = (2 + 3) * 4;
+System.out.println(resultado); // 20</code></pre>
+
+        <h3>Oracle SQL</h3>
+        <pre><code>SELECT 2 + 3 * 4 AS RESULTADO
+FROM DUAL;</code></pre>
+
+        <p>O resultado retornado pelo Oracle será <strong>14</strong>.</p>
+      </section>
+
+      <section>
+        <h2>Resumo para memorizar</h2>
+
+        <div class="formula">1º  ( )  Parênteses
+
+2º  Potências e raízes
+
+3º  × e ÷
+
+4º  + e −</div>
+
+        <div class="exemplo">
+          <strong>Resposta final</strong>
+          <div class="formula">2 + 3 × 4 = 14</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      Manual de Estudos — Matemática e Lógica | Ordem das Operações
+    </footer>
+  </div>
+</body>
+</html>
