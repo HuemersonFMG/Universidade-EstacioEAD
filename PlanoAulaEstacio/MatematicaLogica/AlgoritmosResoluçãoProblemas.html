@@ -395,6 +395,8 @@
           <a href="#predicados">Cálculo de Predicados</a>
           <a href="#demonstracao">Métodos de Demonstração</a>
           <a href="#tabela-verdade">Tabela-Verdade</a>
+          <a href="#demorgan">Leis de Morgan</a>
+          <a href="#precedencia">Precedência dos Operadores Lógicos</a>
           <a href="#prepare">Preparação e revisão</a>
         </nav>
       </aside>
@@ -1367,6 +1369,393 @@
                 </ul>
             </div>
         </section>
+
+        <section id="demorgan" class="modulo">
+
+            <h2>
+                <span class="numero">5.2</span>
+                Leis de De Morgan
+            </h2>
+
+            <p>
+                As <strong>Leis de De Morgan</strong> são regras utilizadas para simplificar
+                expressões lógicas quando existe uma negação envolvendo uma conjunção
+                (<strong>e</strong>) ou uma disjunção (<strong>ou</strong>).
+            </p>
+
+            <div class="destaque">
+                <strong>Objetivo</strong>
+                Transformar expressões complexas em outras equivalentes, facilitando a resolução
+                de problemas, a criação de algoritmos e a elaboração de consultas SQL.
+            </div>
+
+            <h3>Primeira Lei de De Morgan</h3>
+
+            <div class="formula">
+        ¬(p ∧ q) = (¬p) ∨ (¬q)
+            </div>
+
+            <p>
+                A negação de uma conjunção transforma-se em uma disjunção das negações.
+            </p>
+
+            <div class="exemplo">
+                <strong>Exemplo</strong>
+
+                <p>
+                    Não é verdade que:
+                    <strong>"o pedido está confirmado e o estoque está disponível"</strong>.
+                </p>
+
+                <div class="formula">
+        ¬(Confirmado ∧ Estoque)
+
+        ↓
+
+        (¬Confirmado) ∨ (¬Estoque)
+                </div>
+
+                <p>
+                    Em outras palavras:
+                    <strong>o pedido não está confirmado OU não existe estoque.</strong>
+                </p>
+            </div>
+
+            <h3>Segunda Lei de De Morgan</h3>
+
+            <div class="formula">
+        ¬(p ∨ q) = (¬p) ∧ (¬q)
+            </div>
+
+            <p>
+                A negação de uma disjunção transforma-se em uma conjunção das negações.
+            </p>
+
+            <div class="exemplo">
+
+                <strong>Exemplo</strong>
+
+                <p>
+                    Não é verdade que:
+                    <strong>"Carlos é engenheiro ou Paulo é professor".</strong>
+                </p>
+
+                <div class="formula">
+        ¬(p ∨ q)
+
+        ↓
+
+        (¬p) ∧ (¬q)
+                </div>
+
+                <p>
+                    Ou seja:
+                    <strong>Carlos não é engenheiro E Paulo não é professor.</strong>
+                </p>
+
+            </div>
+
+            <h3>Resumo das Leis</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Expressão Original</th>
+                        <th>Expressão Equivalente</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>¬(p ∧ q)</td>
+                        <td>(¬p) ∨ (¬q)</td>
+                    </tr>
+
+                    <tr>
+                        <td>¬(p ∨ q)</td>
+                        <td>(¬p) ∧ (¬q)</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="aplicacao">
+
+                <strong>Aplicação em SQL</strong>
+
+        <pre><code>NOT (STATUS = 'L' AND PENDENTE = 'S')</code></pre>
+
+        <p>Pode ser reescrito como:</p>
+
+        <pre><code>STATUS &lt;&gt; 'L'
+        OR
+        PENDENTE &lt;&gt; 'S'</code></pre>
+
+            </div>
+
+            <div class="aplicacao">
+
+                <strong>Aplicação em Java</strong>
+
+        <pre><code>!(pedidoConfirmado && estoqueDisponivel)</code></pre>
+
+        <p>Equivale a:</p>
+
+        <pre><code>!pedidoConfirmado || !estoqueDisponivel</code></pre>
+
+            </div>
+
+        </section>
+
+
+
+
+        <section id="precedencia" class="modulo">
+
+            <h2>
+
+                <span class="numero">5.3</span>
+
+                Precedência dos Operadores Lógicos
+
+            </h2>
+
+            <p>
+
+                Em uma expressão lógica com vários operadores, existe uma ordem correta de
+                resolução. Conhecer essa ordem evita interpretações incorretas.
+
+            </p>
+
+            <div class="destaque">
+
+                <strong>Importante</strong>
+
+                Assim como na matemática primeiro resolvemos os parênteses e depois a
+                multiplicação antes da soma, na lógica também existe uma ordem de prioridade.
+
+            </div>
+
+            <h3>Ordem de precedência</h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Prioridade</th>
+
+                        <th>Operador</th>
+
+                        <th>Significado</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>1</td>
+
+                        <td>( )</td>
+
+                        <td>Parênteses</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>2</td>
+
+                        <td>¬</td>
+
+                        <td>Negação</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>3</td>
+
+                        <td>∧</td>
+
+                        <td>Conjunção</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>4</td>
+
+                        <td>∨</td>
+
+                        <td>Disjunção</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>5</td>
+
+                        <td>→</td>
+
+                        <td>Condicional</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>6</td>
+
+                        <td>↔</td>
+
+                        <td>Bicondicional</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <h3>Exemplo 1</h3>
+
+            <div class="formula">
+        ¬p ∨ q ∧ r
+            </div>
+
+            <p>
+
+                A ordem correta será:
+
+            </p>
+
+            <ol>
+
+                <li>Resolver a negação.</li>
+
+                <li>Resolver a conjunção.</li>
+
+                <li>Resolver a disjunção.</li>
+
+            </ol>
+
+            <div class="formula">
+        1º → ¬p
+
+        2º → q ∧ r
+
+        3º → (¬p) ∨ (q ∧ r)
+            </div>
+
+            <h3>Exemplo 2</h3>
+
+            <div class="formula">
+        (p ∨ q) ∧ ¬r
+            </div>
+
+            <p>
+
+                Primeiro resolvemos o conteúdo entre parênteses,
+                depois a negação e por último a conjunção.
+
+            </p>
+
+            <div class="formula">
+        1º → (p ∨ q)
+
+        2º → ¬r
+
+        3º → (p ∨ q) ∧ ¬r
+            </div>
+
+            <div class="aplicacao">
+
+                <strong>Aplicação em Java</strong>
+
+        <pre><code>if ((pedidoPago || clienteVip)
+            && !pedidoCancelado) {
+
+            faturarPedido();
+
+        }</code></pre>
+
+            </div>
+
+            <div class="aplicacao">
+
+                <strong>Aplicação em SQL</strong>
+
+        <pre><code>WHERE
+        (
+            STATUS = 'L'
+            OR
+            CLIENTEVIP = 'S'
+        )
+        AND
+        PENDENTE = 'S'</code></pre>
+
+        <p>
+
+        Os parênteses garantem que o Oracle resolva primeiro a condição
+        <strong>OR</strong>, evitando interpretações incorretas.
+
+        </p>
+
+            </div>
+
+            <div class="atencao">
+
+                <strong>Erro comum</strong>
+
+                Muitos estudantes resolvem a expressão da esquerda para a direita.
+                Entretanto, a resolução deve obedecer sempre à ordem de precedência
+                apresentada anteriormente.
+
+            </div>
+
+            <div class="destaque">
+
+                <strong>Resumo para memorizar</strong>
+
+                <div class="formula">
+
+        1º ( )
+
+        ↓
+
+        2º ¬
+
+        ↓
+
+        3º ∧
+
+        ↓
+
+        4º ∨
+
+        ↓
+
+        5º →
+
+        ↓
+
+        6º ↔
+
+                </div>
+
+            </div>
+
+        </section>
+
+
 
         <section id="prepare" class="modulo">
           <h2><span class="numero">9</span>Preparação, revisão e estratégia de estudo</h2>
