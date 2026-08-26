@@ -1,0 +1,3125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Resumo sobre Computação em Nuvem, modelos de serviço, modelos de implantação e responsabilidade compartilhada em Segurança da Informação."
+    >
+
+    <title>
+        Computação em Nuvem e Segurança da Informação
+    </title>
+
+    <style>
+        :root {
+            --azul-900: #172554;
+            --azul-800: #1e3a8a;
+            --azul-700: #1d4ed8;
+            --azul-600: #2563eb;
+
+            --azul-100: #dbeafe;
+            --azul-50: #eff6ff;
+
+            --verde-700: #15803d;
+            --verde-100: #dcfce7;
+
+            --laranja-700: #c2410c;
+            --laranja-100: #ffedd5;
+
+            --roxo-700: #6d28d9;
+            --roxo-100: #ede9fe;
+
+            --rosa-700: #be185d;
+            --rosa-100: #fce7f3;
+
+            --vermelho-700: #b91c1c;
+            --vermelho-100: #fee2e2;
+
+            --amarelo-700: #a16207;
+            --amarelo-100: #fef3c7;
+
+            --ciano-700: #0e7490;
+            --ciano-100: #cffafe;
+
+            --cinza-950: #020617;
+            --cinza-900: #0f172a;
+            --cinza-800: #1e293b;
+            --cinza-700: #334155;
+            --cinza-600: #475569;
+            --cinza-500: #64748b;
+            --cinza-300: #cbd5e1;
+            --cinza-200: #e2e8f0;
+            --cinza-100: #f1f5f9;
+            --cinza-50: #f8fafc;
+
+            --branco: #ffffff;
+
+            --sombra:
+                0 4px 18px rgba(15, 23, 42, 0.08);
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            line-height: 1.65;
+
+            background:
+                var(--cinza-100);
+
+            color:
+                var(--cinza-900);
+        }
+
+
+        /* =====================================================
+           CABEÇALHO
+        ===================================================== */
+
+        header {
+            padding:
+                50px 20px;
+
+            text-align: center;
+
+            color:
+                var(--branco);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--azul-900),
+                    var(--azul-700)
+                );
+        }
+
+
+        header h1 {
+            margin:
+                0 0 12px;
+
+            font-size:
+                clamp(
+                    2rem,
+                    5vw,
+                    3.2rem
+                );
+        }
+
+
+        header p {
+            max-width:
+                950px;
+
+            margin:
+                0 auto;
+
+            font-size:
+                1.08rem;
+
+            opacity:
+                0.95;
+        }
+
+
+        /* =====================================================
+           MENU
+        ===================================================== */
+
+        nav {
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                100;
+
+            background:
+                var(--branco);
+
+            border-bottom:
+                1px solid
+                var(--cinza-200);
+
+            box-shadow:
+                0 2px 10px
+                rgba(15, 23, 42, 0.08);
+        }
+
+
+        nav ul {
+            max-width:
+                1250px;
+
+            margin:
+                auto;
+
+            padding:
+                10px 20px;
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            justify-content:
+                center;
+
+            gap:
+                6px;
+
+            list-style:
+                none;
+        }
+
+
+        nav a {
+            display:
+                block;
+
+            padding:
+                8px 12px;
+
+            border-radius:
+                6px;
+
+            color:
+                var(--azul-900);
+
+            font-size:
+                0.92rem;
+
+            font-weight:
+                bold;
+
+            text-decoration:
+                none;
+
+            transition:
+                0.2s;
+        }
+
+
+        nav a:hover {
+            color:
+                var(--azul-700);
+
+            background:
+                var(--azul-100);
+        }
+
+
+        /* =====================================================
+           CONTEÚDO
+        ===================================================== */
+
+        main {
+            width:
+                min(
+                    1250px,
+                    calc(100% - 30px)
+                );
+
+            margin:
+                30px auto;
+        }
+
+
+        section {
+            margin-bottom:
+                28px;
+
+            padding:
+                32px;
+
+            border-radius:
+                14px;
+
+            background:
+                var(--branco);
+
+            box-shadow:
+                var(--sombra);
+        }
+
+
+        section h2 {
+            margin-top:
+                0;
+
+            padding-bottom:
+                10px;
+
+            color:
+                var(--azul-900);
+
+            border-bottom:
+                3px solid
+                var(--azul-700);
+        }
+
+
+        section h3 {
+            margin-top:
+                25px;
+
+            color:
+                var(--azul-700);
+        }
+
+
+        p {
+            margin:
+                10px 0;
+        }
+
+
+        strong {
+            color:
+                var(--azul-900);
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .grid {
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(
+                        250px,
+                        1fr
+                    )
+                );
+
+            gap:
+                18px;
+
+            margin-top:
+                22px;
+        }
+
+
+        .card {
+            padding:
+                20px;
+
+            border:
+                1px solid
+                var(--cinza-200);
+
+            border-radius:
+                12px;
+
+            background:
+                var(--cinza-50);
+        }
+
+
+        .card h3 {
+            margin-top:
+                0;
+        }
+
+
+        .iaas {
+            border-top:
+                5px solid
+                var(--azul-700);
+
+            background:
+                var(--azul-50);
+        }
+
+
+        .paas {
+            border-top:
+                5px solid
+                var(--roxo-700);
+
+            background:
+                var(--roxo-100);
+        }
+
+
+        .saas {
+            border-top:
+                5px solid
+                var(--rosa-700);
+
+            background:
+                var(--rosa-100);
+        }
+
+
+        .publica {
+            border-top:
+                5px solid
+                var(--azul-700);
+        }
+
+
+        .privada {
+            border-top:
+                5px solid
+                var(--verde-700);
+        }
+
+
+        .hibrida {
+            border-top:
+                5px solid
+                var(--laranja-700);
+        }
+
+
+        .comunitaria {
+            border-top:
+                5px solid
+                var(--roxo-700);
+        }
+
+
+        /* =====================================================
+           DESTAQUES
+        ===================================================== */
+
+        .destaque {
+            margin:
+                22px 0;
+
+            padding:
+                18px;
+
+            border-left:
+                5px solid
+                var(--azul-700);
+
+            border-radius:
+                8px;
+
+            background:
+                var(--azul-100);
+        }
+
+
+        .atencao {
+            margin:
+                22px 0;
+
+            padding:
+                18px;
+
+            border-left:
+                5px solid
+                var(--vermelho-700);
+
+            border-radius:
+                8px;
+
+            background:
+                var(--vermelho-100);
+        }
+
+
+        .importante {
+            margin:
+                22px 0;
+
+            padding:
+                18px;
+
+            border-left:
+                5px solid
+                var(--amarelo-700);
+
+            border-radius:
+                8px;
+
+            background:
+                var(--amarelo-100);
+        }
+
+
+        .exemplo {
+            margin:
+                22px 0;
+
+            padding:
+                18px;
+
+            border-left:
+                5px solid
+                var(--ciano-700);
+
+            border-radius:
+                8px;
+
+            background:
+                var(--ciano-100);
+        }
+
+
+        /* =====================================================
+           FLUXOS
+        ===================================================== */
+
+        .fluxo {
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                10px;
+
+            margin:
+                25px 0;
+        }
+
+
+        .fluxo-item {
+            flex:
+                1 1 150px;
+
+            min-width:
+                150px;
+
+            padding:
+                18px;
+
+            text-align:
+                center;
+
+            font-weight:
+                bold;
+
+            color:
+                var(--azul-900);
+
+            background:
+                var(--azul-100);
+
+            border-radius:
+                10px;
+        }
+
+
+        .seta {
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                1.8rem;
+
+            color:
+                var(--azul-700);
+        }
+
+
+        /* =====================================================
+           TABELAS
+        ===================================================== */
+
+        .table-wrapper {
+            width:
+                100%;
+
+            overflow-x:
+                auto;
+
+            margin-top:
+                20px;
+        }
+
+
+        table {
+            width:
+                100%;
+
+            min-width:
+                700px;
+
+            border-collapse:
+                collapse;
+        }
+
+
+        th,
+        td {
+            padding:
+                12px;
+
+            text-align:
+                left;
+
+            vertical-align:
+                top;
+
+            border:
+                1px solid
+                var(--cinza-200);
+        }
+
+
+        th {
+            color:
+                var(--branco);
+
+            background:
+                var(--azul-900);
+        }
+
+
+        tbody tr:nth-child(even) {
+            background:
+                var(--cinza-50);
+        }
+
+
+        /* =====================================================
+           RESPONSABILIDADE COMPARTILHADA
+        ===================================================== */
+
+        .legenda-responsabilidade {
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            gap:
+                15px;
+
+            margin:
+                20px 0;
+        }
+
+
+        .legenda-item {
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            font-weight:
+                bold;
+        }
+
+
+        .cor-cliente,
+        .cor-provedor {
+            width:
+                22px;
+
+            height:
+                22px;
+
+            border-radius:
+                4px;
+        }
+
+
+        .cor-cliente {
+            background:
+                #b7cef7;
+        }
+
+
+        .cor-provedor {
+            background:
+                #253d78;
+        }
+
+
+        .responsabilidades-grid {
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(
+                        240px,
+                        1fr
+                    )
+                );
+
+            gap:
+                18px;
+
+            margin-top:
+                25px;
+        }
+
+
+        .modelo-responsabilidade {
+            padding:
+                18px;
+
+            border:
+                1px solid
+                var(--cinza-300);
+
+            border-radius:
+                12px;
+
+            background:
+                var(--cinza-50);
+        }
+
+
+        .modelo-responsabilidade h3 {
+            margin:
+                0 0 18px;
+
+            text-align:
+                center;
+
+            font-size:
+                1.8rem;
+
+            color:
+                var(--cinza-900);
+        }
+
+
+        .camada {
+            margin-bottom:
+                3px;
+
+            padding:
+                10px;
+
+            text-align:
+                center;
+
+            border-radius:
+                5px;
+
+            font-weight:
+                bold;
+        }
+
+
+        .cliente {
+            color:
+                var(--cinza-900);
+
+            background:
+                #b7cef7;
+        }
+
+
+        .provedor {
+            color:
+                var(--branco);
+
+            background:
+                #253d78;
+        }
+
+
+        /* =====================================================
+           RESPONSABILIDADE SI
+        ===================================================== */
+
+        .si-cliente {
+            background:
+                var(--laranja-100);
+
+            border-left:
+                5px solid
+                var(--laranja-700);
+        }
+
+
+        .si-provedor {
+            background:
+                var(--verde-100);
+
+            border-left:
+                5px solid
+                var(--verde-700);
+        }
+
+
+        .si-compartilhada {
+            background:
+                var(--azul-100);
+
+            border-left:
+                5px solid
+                var(--azul-700);
+        }
+
+
+        /* =====================================================
+           RESUMO FINAL
+        ===================================================== */
+
+        .resumo-final {
+            color:
+                var(--branco);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--azul-900),
+                    #312e81
+                );
+        }
+
+
+        .resumo-final h2 {
+            color:
+                var(--branco);
+
+            border-color:
+                #93c5fd;
+        }
+
+
+        .resumo-final strong {
+            color:
+                #bfdbfe;
+        }
+
+
+        /* =====================================================
+           RODAPÉ
+        ===================================================== */
+
+        footer {
+            margin-top:
+                30px;
+
+            padding:
+                28px 20px;
+
+            text-align:
+                center;
+
+            color:
+                var(--branco);
+
+            background:
+                var(--cinza-900);
+        }
+
+
+        footer p {
+            margin:
+                5px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (
+            max-width: 900px
+        ) {
+
+            .responsabilidades-grid {
+                grid-template-columns:
+                    1fr;
+            }
+        }
+
+
+        @media (
+            max-width: 700px
+        ) {
+
+            main {
+                width:
+                    calc(
+                        100% - 20px
+                    );
+            }
+
+
+            section {
+                padding:
+                    22px 16px;
+            }
+
+
+            nav {
+                position:
+                    static;
+            }
+
+
+            .seta {
+                display:
+                    none;
+            }
+
+
+            header {
+                padding:
+                    35px 18px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <header>
+
+        <h1>
+            Computação em Nuvem
+        </h1>
+
+        <p>
+            Resumo sobre conceitos fundamentais,
+            características essenciais, modelos de serviço,
+            modelos de implantação e responsabilidade
+            compartilhada em Segurança da Informação.
+        </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         MENU
+    ====================================================== -->
+
+    <nav>
+
+        <ul>
+
+            <li>
+                <a href="#conceito">
+                    Conceito
+                </a>
+            </li>
+
+            <li>
+                <a href="#caracteristicas">
+                    Características
+                </a>
+            </li>
+
+            <li>
+                <a href="#servicos">
+                    Serviços
+                </a>
+            </li>
+
+            <li>
+                <a href="#implantacao">
+                    Implantação
+                </a>
+            </li>
+
+            <li>
+                <a href="#responsabilidade">
+                    Responsabilidade
+                </a>
+            </li>
+
+            <li>
+                <a href="#seguranca">
+                    Segurança
+                </a>
+            </li>
+
+            <li>
+                <a href="#processos">
+                    Serviços × Processos
+                </a>
+            </li>
+
+            <li>
+                <a href="#virtualizacao">
+                    Virtualização
+                </a>
+            </li>
+
+            <li>
+                <a href="#resumo">
+                    Resumo
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+
+    <main>
+
+        <!-- =================================================
+             1 - CONCEITO
+        ================================================== -->
+
+        <section id="conceito">
+
+            <h2>
+                1. O que é Computação em Nuvem?
+            </h2>
+
+            <p>
+                <strong>
+                    Computação em Nuvem
+                    (Cloud Computing)
+                </strong>
+                é um modelo de disponibilização de
+                recursos computacionais através de uma rede,
+                geralmente a Internet.
+            </p>
+
+            <p>
+                Esses recursos podem envolver:
+            </p>
+
+            <ul>
+                <li>
+                    processamento;
+                </li>
+
+                <li>
+                    servidores;
+                </li>
+
+                <li>
+                    máquinas virtuais;
+                </li>
+
+                <li>
+                    armazenamento;
+                </li>
+
+                <li>
+                    redes;
+                </li>
+
+                <li>
+                    bancos de dados;
+                </li>
+
+                <li>
+                    sistemas operacionais;
+                </li>
+
+                <li>
+                    aplicações;
+                </li>
+
+                <li>
+                    ferramentas de desenvolvimento.
+                </li>
+            </ul>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Ideia principal:
+                </strong>
+
+                <p>
+                    Em vez de possuir e manter localmente
+                    toda a infraestrutura computacional,
+                    uma organização pode utilizar recursos
+                    disponibilizados por um provedor de nuvem.
+                </p>
+
+            </div>
+
+
+            <div class="fluxo">
+
+                <div class="fluxo-item">
+                    Usuário
+                    ou Empresa
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Internet
+                    ou Rede
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Provedor
+                    de Nuvem
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Infraestrutura
+                    e Serviços
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             2 - CARACTERÍSTICAS
+        ================================================== -->
+
+        <section id="caracteristicas">
+
+            <h2>
+                2. Características Essenciais
+            </h2>
+
+            <p>
+                A Computação em Nuvem possui algumas
+                características fundamentais que ajudam
+                a diferenciá-la de uma infraestrutura
+                tradicional.
+            </p>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>
+                        On-Demand Self-Service
+                    </h3>
+
+                    <p>
+                        Significa
+                        <strong>
+                            autosserviço sob demanda.
+                        </strong>
+                    </p>
+
+                    <p>
+                        O usuário pode solicitar recursos
+                        computacionais conforme sua necessidade,
+                        sem depender da intervenção manual do
+                        fornecedor a cada solicitação.
+                    </p>
+
+                    <p>
+                        <strong>Exemplo:</strong>
+                        criar uma máquina virtual através
+                        de um painel web.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Broad Network Access
+                    </h3>
+
+                    <p>
+                        Significa
+                        <strong>
+                            amplo acesso através da rede.
+                        </strong>
+                    </p>
+
+                    <p>
+                        Os serviços podem ser acessados
+                        por diferentes dispositivos
+                        autorizados através da rede.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Resource Pooling
+                    </h3>
+
+                    <p>
+                        Significa
+                        <strong>
+                            agrupamento de recursos.
+                        </strong>
+                    </p>
+
+                    <p>
+                        Recursos como processamento,
+                        memória e armazenamento podem
+                        ser agrupados e distribuídos
+                        entre diferentes usuários.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Rapid Elasticity
+                    </h3>
+
+                    <p>
+                        É a capacidade de aumentar ou
+                        reduzir rapidamente os recursos
+                        computacionais utilizados.
+                    </p>
+
+                    <p>
+                        Isso permite adaptar o ambiente
+                        conforme a demanda.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Measured Service
+                    </h3>
+
+                    <p>
+                        Os recursos utilizados podem
+                        ser medidos e monitorados.
+                    </p>
+
+                    <p>
+                        O consumo de processamento,
+                        armazenamento, rede e outros
+                        recursos pode ser contabilizado.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             3 - MODELOS DE SERVIÇO
+        ================================================== -->
+
+        <section id="servicos">
+
+            <h2>
+                3. Modelos de Serviço
+            </h2>
+
+            <p>
+                Os modelos
+                <strong>
+                    IaaS, PaaS e SaaS
+                </strong>
+                representam diferentes níveis de
+                serviços disponibilizados pelo provedor.
+            </p>
+
+
+            <div class="grid">
+
+                <article class="card iaas">
+
+                    <h3>
+                        IaaS
+                    </h3>
+
+                    <p>
+                        <strong>
+                            Infrastructure as a Service
+                        </strong>
+                    </p>
+
+                    <p>
+                        Infraestrutura como Serviço.
+                    </p>
+
+                    <p>
+                        O provedor fornece recursos como:
+                    </p>
+
+                    <ul>
+                        <li>
+                            servidores;
+                        </li>
+
+                        <li>
+                            máquinas virtuais;
+                        </li>
+
+                        <li>
+                            armazenamento;
+                        </li>
+
+                        <li>
+                            redes;
+                        </li>
+
+                        <li>
+                            virtualização.
+                        </li>
+                    </ul>
+
+                    <p>
+                        O cliente possui maior liberdade,
+                        mas também maiores responsabilidades
+                        administrativas e de segurança.
+                    </p>
+
+                </article>
+
+
+                <article class="card paas">
+
+                    <h3>
+                        PaaS
+                    </h3>
+
+                    <p>
+                        <strong>
+                            Platform as a Service
+                        </strong>
+                    </p>
+
+                    <p>
+                        Plataforma como Serviço.
+                    </p>
+
+                    <p>
+                        O provedor disponibiliza
+                        uma plataforma pronta para
+                        desenvolvimento e execução
+                        de aplicações.
+                    </p>
+
+                    <p>
+                        O cliente concentra-se
+                        principalmente nas aplicações
+                        e nos dados.
+                    </p>
+
+                </article>
+
+
+                <article class="card saas">
+
+                    <h3>
+                        SaaS
+                    </h3>
+
+                    <p>
+                        <strong>
+                            Software as a Service
+                        </strong>
+                    </p>
+
+                    <p>
+                        Software como Serviço.
+                    </p>
+
+                    <p>
+                        O provedor disponibiliza
+                        uma aplicação praticamente
+                        pronta para utilização.
+                    </p>
+
+                    <p>
+                        O usuário normalmente acessa
+                        o sistema utilizando navegador,
+                        aplicativo ou outro cliente.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Forma simples de memorizar:
+                </strong>
+
+                <p>
+                    <strong>IaaS:</strong>
+                    contrato infraestrutura.
+                </p>
+
+                <p>
+                    <strong>PaaS:</strong>
+                    contrato uma plataforma para desenvolver
+                    ou executar aplicações.
+                </p>
+
+                <p>
+                    <strong>SaaS:</strong>
+                    contrato ou utilizo uma aplicação pronta.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             4 - IMPLANTAÇÃO
+        ================================================== -->
+
+        <section id="implantacao">
+
+            <h2>
+                4. Modelos de Implantação
+            </h2>
+
+            <p>
+                Enquanto
+                <strong>IaaS, PaaS e SaaS</strong>
+                indicam
+                <strong>
+                    o tipo de serviço utilizado,
+                </strong>
+                os modelos de implantação indicam
+                <strong>
+                    como e para quem a infraestrutura
+                    de nuvem é disponibilizada.
+                </strong>
+            </p>
+
+
+            <div class="grid">
+
+                <article class="card publica">
+
+                    <h3>
+                        Nuvem Pública
+                    </h3>
+
+                    <p>
+                        A infraestrutura pertence
+                        a um provedor e pode atender
+                        vários clientes.
+                    </p>
+
+                </article>
+
+
+                <article class="card privada">
+
+                    <h3>
+                        Nuvem Privada
+                    </h3>
+
+                    <p>
+                        A infraestrutura é dedicada
+                        a uma única organização.
+                    </p>
+
+                </article>
+
+
+                <article class="card hibrida">
+
+                    <h3>
+                        Nuvem Híbrida
+                    </h3>
+
+                    <p>
+                        Combina ambientes públicos
+                        e privados.
+                    </p>
+
+                </article>
+
+
+                <article class="card comunitaria">
+
+                    <h3>
+                        Nuvem Comunitária
+                    </h3>
+
+                    <p>
+                        É compartilhada por organizações
+                        que possuem necessidades,
+                        requisitos ou objetivos semelhantes.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             5 - RESPONSABILIDADE COMPARTILHADA
+        ================================================== -->
+
+        <section id="responsabilidade">
+
+            <h2>
+                5. Modelo de Responsabilidade Compartilhada
+            </h2>
+
+            <p>
+                Um dos conceitos mais importantes para
+                compreender a relação entre
+                <strong>
+                    Computação em Nuvem
+                </strong>
+                e
+                <strong>
+                    Segurança da Informação
+                </strong>
+                é o
+                <strong>
+                    Modelo de Responsabilidade Compartilhada.
+                </strong>
+            </p>
+
+            <p>
+                A utilização da nuvem
+                <strong>
+                    não transfere automaticamente toda
+                    a responsabilidade de segurança
+                    para o provedor.
+                </strong>
+            </p>
+
+            <p>
+                As responsabilidades são divididas
+                entre o
+                <strong>cliente</strong>
+                e o
+                <strong>provedor de nuvem</strong>,
+                dependendo do modelo de serviço contratado.
+            </p>
+
+
+            <div class="legenda-responsabilidade">
+
+                <div class="legenda-item">
+
+                    <span class="cor-cliente"></span>
+
+                    Responsabilidade do Cliente
+
+                </div>
+
+                <div class="legenda-item">
+
+                    <span class="cor-provedor"></span>
+
+                    Responsabilidade do Provedor
+
+                </div>
+
+            </div>
+
+
+            <div class="responsabilidades-grid">
+
+                <!-- IaaS -->
+
+                <article class="modelo-responsabilidade">
+
+                    <h3>
+                        IaaS
+                    </h3>
+
+                    <div class="camada cliente">
+                        Dados
+                    </div>
+
+                    <div class="camada cliente">
+                        Aplicações
+                    </div>
+
+                    <div class="camada cliente">
+                        Sistema Operacional
+                    </div>
+
+                    <div class="camada provedor">
+                        Virtualização
+                    </div>
+
+                    <div class="camada provedor">
+                        Servidores
+                    </div>
+
+                    <div class="camada provedor">
+                        Armazenamento
+                    </div>
+
+                    <div class="camada provedor">
+                        Rede
+                    </div>
+
+                    <div class="camada provedor">
+                        Infraestrutura Física
+                    </div>
+
+                </article>
+
+
+                <!-- PaaS -->
+
+                <article class="modelo-responsabilidade">
+
+                    <h3>
+                        PaaS
+                    </h3>
+
+                    <div class="camada cliente">
+                        Dados
+                    </div>
+
+                    <div class="camada cliente">
+                        Aplicações
+                    </div>
+
+                    <div class="camada provedor">
+                        Sistema Operacional
+                    </div>
+
+                    <div class="camada provedor">
+                        Virtualização
+                    </div>
+
+                    <div class="camada provedor">
+                        Servidores
+                    </div>
+
+                    <div class="camada provedor">
+                        Armazenamento
+                    </div>
+
+                    <div class="camada provedor">
+                        Rede
+                    </div>
+
+                    <div class="camada provedor">
+                        Infraestrutura Física
+                    </div>
+
+                </article>
+
+
+                <!-- SaaS -->
+
+                <article class="modelo-responsabilidade">
+
+                    <h3>
+                        SaaS
+                    </h3>
+
+                    <div class="camada cliente">
+                        Dados
+                    </div>
+
+                    <div class="camada provedor">
+                        Aplicações
+                    </div>
+
+                    <div class="camada provedor">
+                        Sistema Operacional
+                    </div>
+
+                    <div class="camada provedor">
+                        Virtualização
+                    </div>
+
+                    <div class="camada provedor">
+                        Servidores
+                    </div>
+
+                    <div class="camada provedor">
+                        Armazenamento
+                    </div>
+
+                    <div class="camada provedor">
+                        Rede
+                    </div>
+
+                    <div class="camada provedor">
+                        Infraestrutura Física
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <div class="importante">
+
+                <strong>
+                    Observe a relação:
+                </strong>
+
+                <p>
+                    De
+                    <strong>IaaS → PaaS → SaaS</strong>,
+                    o provedor assume progressivamente
+                    mais responsabilidades técnicas.
+                </p>
+
+                <p>
+                    Consequentemente, o cliente administra
+                    cada vez menos componentes da infraestrutura.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             6 - SEGURANÇA DA INFORMAÇÃO
+        ================================================== -->
+
+        <section id="seguranca">
+
+            <h2>
+                6. Responsabilidade Compartilhada e
+                Segurança da Informação
+            </h2>
+
+            <p>
+                Em Segurança da Informação,
+                possuir um serviço hospedado em nuvem
+                não significa que toda a segurança
+                passou a ser responsabilidade do fornecedor.
+            </p>
+
+            <p>
+                Existe uma divisão de responsabilidades
+                conhecida também como:
+            </p>
+
+            <div class="destaque">
+
+                <strong>
+                    Segurança DA nuvem
+                    ×
+                    Segurança NA nuvem
+                </strong>
+
+            </div>
+
+
+            <div class="grid">
+
+                <article class="card si-provedor">
+
+                    <h3>
+                        Segurança DA Nuvem
+                    </h3>
+
+                    <p>
+                        Está relacionada principalmente
+                        à infraestrutura mantida pelo
+                        <strong>
+                            provedor.
+                        </strong>
+                    </p>
+
+                    <p>
+                        Pode envolver:
+                    </p>
+
+                    <ul>
+                        <li>
+                            datacenters;
+                        </li>
+
+                        <li>
+                            servidores físicos;
+                        </li>
+
+                        <li>
+                            equipamentos de rede;
+                        </li>
+
+                        <li>
+                            armazenamento físico;
+                        </li>
+
+                        <li>
+                            hipervisores;
+                        </li>
+
+                        <li>
+                            infraestrutura de virtualização;
+                        </li>
+
+                        <li>
+                            controles físicos de acesso;
+                        </li>
+
+                        <li>
+                            energia e refrigeração;
+                        </li>
+
+                        <li>
+                            disponibilidade da infraestrutura.
+                        </li>
+                    </ul>
+
+                </article>
+
+
+                <article class="card si-cliente">
+
+                    <h3>
+                        Segurança NA Nuvem
+                    </h3>
+
+                    <p>
+                        Está relacionada principalmente
+                        aos recursos, configurações e
+                        informações sob responsabilidade
+                        do
+                        <strong>
+                            cliente.
+                        </strong>
+                    </p>
+
+                    <p>
+                        Pode envolver:
+                    </p>
+
+                    <ul>
+                        <li>
+                            proteção dos dados;
+                        </li>
+
+                        <li>
+                            definição de usuários;
+                        </li>
+
+                        <li>
+                            senhas;
+                        </li>
+
+                        <li>
+                            autenticação;
+                        </li>
+
+                        <li>
+                            permissões;
+                        </li>
+
+                        <li>
+                            controle de acesso;
+                        </li>
+
+                        <li>
+                            classificação da informação;
+                        </li>
+
+                        <li>
+                            configuração dos serviços;
+                        </li>
+
+                        <li>
+                            segurança das aplicações;
+                        </li>
+
+                        <li>
+                            utilização correta dos recursos.
+                        </li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+
+            <h3>
+                Segurança no IaaS
+            </h3>
+
+            <p>
+                No modelo
+                <strong>IaaS</strong>,
+                o cliente possui maior controle sobre
+                o ambiente e, consequentemente,
+                maior responsabilidade pela segurança.
+            </p>
+
+            <div class="grid">
+
+                <article class="card si-cliente">
+
+                    <h3>
+                        Cliente
+                    </h3>
+
+                    <ul>
+                        <li>
+                            protege seus dados;
+                        </li>
+
+                        <li>
+                            protege as aplicações;
+                        </li>
+
+                        <li>
+                            administra o sistema operacional;
+                        </li>
+
+                        <li>
+                            instala atualizações e correções;
+                        </li>
+
+                        <li>
+                            configura usuários;
+                        </li>
+
+                        <li>
+                            administra permissões;
+                        </li>
+
+                        <li>
+                            configura firewall e regras
+                            disponíveis ao seu ambiente;
+                        </li>
+
+                        <li>
+                            monitora suas aplicações.
+                        </li>
+                    </ul>
+
+                </article>
+
+
+                <article class="card si-provedor">
+
+                    <h3>
+                        Provedor
+                    </h3>
+
+                    <ul>
+                        <li>
+                            protege a infraestrutura física;
+                        </li>
+
+                        <li>
+                            protege os servidores físicos;
+                        </li>
+
+                        <li>
+                            mantém o armazenamento físico;
+                        </li>
+
+                        <li>
+                            administra a virtualização;
+                        </li>
+
+                        <li>
+                            mantém a infraestrutura de rede;
+                        </li>
+
+                        <li>
+                            mantém o datacenter.
+                        </li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+
+            <h3>
+                Segurança no PaaS
+            </h3>
+
+            <p>
+                No
+                <strong>PaaS</strong>,
+                o provedor passa a administrar
+                também o sistema operacional
+                e o ambiente de execução.
+            </p>
+
+            <div class="grid">
+
+                <article class="card si-cliente">
+
+                    <h3>
+                        Cliente
+                    </h3>
+
+                    <ul>
+                        <li>
+                            protege os dados;
+                        </li>
+
+                        <li>
+                            desenvolve aplicações seguras;
+                        </li>
+
+                        <li>
+                            controla usuários;
+                        </li>
+
+                        <li>
+                            define permissões;
+                        </li>
+
+                        <li>
+                            mantém credenciais protegidas;
+                        </li>
+
+                        <li>
+                            configura corretamente
+                            sua aplicação.
+                        </li>
+                    </ul>
+
+                </article>
+
+
+                <article class="card si-provedor">
+
+                    <h3>
+                        Provedor
+                    </h3>
+
+                    <ul>
+                        <li>
+                            administra o sistema operacional;
+                        </li>
+
+                        <li>
+                            mantém o ambiente de execução;
+                        </li>
+
+                        <li>
+                            administra a virtualização;
+                        </li>
+
+                        <li>
+                            administra servidores;
+                        </li>
+
+                        <li>
+                            mantém armazenamento;
+                        </li>
+
+                        <li>
+                            protege a infraestrutura física.
+                        </li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+
+            <h3>
+                Segurança no SaaS
+            </h3>
+
+            <p>
+                No
+                <strong>SaaS</strong>,
+                grande parte da infraestrutura
+                e da aplicação é administrada pelo provedor.
+            </p>
+
+            <p>
+                Entretanto,
+                <strong>
+                    o cliente ainda possui importantes
+                    responsabilidades de Segurança da Informação.
+                </strong>
+            </p>
+
+            <div class="grid">
+
+                <article class="card si-cliente">
+
+                    <h3>
+                        Cliente
+                    </h3>
+
+                    <ul>
+                        <li>
+                            controla seus usuários;
+                        </li>
+
+                        <li>
+                            define quem pode acessar o sistema;
+                        </li>
+
+                        <li>
+                            administra permissões;
+                        </li>
+
+                        <li>
+                            protege credenciais;
+                        </li>
+
+                        <li>
+                            utiliza autenticação multifator
+                            quando disponível;
+                        </li>
+
+                        <li>
+                            classifica seus dados;
+                        </li>
+
+                        <li>
+                            evita compartilhar informações
+                            indevidamente;
+                        </li>
+
+                        <li>
+                            configura corretamente
+                            as opções disponíveis;
+                        </li>
+
+                        <li>
+                            remove acessos de usuários
+                            que não precisam mais utilizar
+                            o sistema.
+                        </li>
+                    </ul>
+
+                </article>
+
+
+                <article class="card si-provedor">
+
+                    <h3>
+                        Provedor
+                    </h3>
+
+                    <ul>
+                        <li>
+                            mantém a aplicação;
+                        </li>
+
+                        <li>
+                            mantém o sistema operacional;
+                        </li>
+
+                        <li>
+                            mantém a infraestrutura;
+                        </li>
+
+                        <li>
+                            administra servidores;
+                        </li>
+
+                        <li>
+                            administra virtualização;
+                        </li>
+
+                        <li>
+                            mantém armazenamento;
+                        </li>
+
+                        <li>
+                            administra infraestrutura
+                            de rede;
+                        </li>
+
+                        <li>
+                            protege os datacenters.
+                        </li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+
+            <div class="atencao">
+
+                <strong>
+                    Atenção:
+                </strong>
+
+                <p>
+                    Utilizar um sistema SaaS
+                    não elimina os riscos relacionados
+                    a usuários e acessos.
+                </p>
+
+                <p>
+                    Se um funcionário possuir acesso
+                    indevido a informações confidenciais,
+                    por exemplo, o problema pode estar
+                    relacionado à configuração realizada
+                    pela própria organização e não
+                    necessariamente à infraestrutura
+                    do provedor.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             7 - PRINCÍPIOS DE SI
+        ================================================== -->
+
+        <section>
+
+            <h2>
+                7. Princípios da Segurança da Informação
+                na Nuvem
+            </h2>
+
+            <p>
+                A utilização da nuvem deve continuar
+                respeitando os princípios fundamentais
+                da Segurança da Informação.
+            </p>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>
+                        Confidencialidade
+                    </h3>
+
+                    <p>
+                        Garantir que informações sejam
+                        acessadas somente por pessoas
+                        ou sistemas autorizados.
+                    </p>
+
+                    <p>
+                        Exemplos:
+                    </p>
+
+                    <ul>
+                        <li>
+                            controle de acesso;
+                        </li>
+
+                        <li>
+                            criptografia;
+                        </li>
+
+                        <li>
+                            autenticação;
+                        </li>
+
+                        <li>
+                            gerenciamento de permissões.
+                        </li>
+                    </ul>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Integridade
+                    </h3>
+
+                    <p>
+                        Garantir que a informação
+                        não seja alterada de maneira
+                        indevida ou não autorizada.
+                    </p>
+
+                    <p>
+                        Exemplos:
+                    </p>
+
+                    <ul>
+                        <li>
+                            logs;
+                        </li>
+
+                        <li>
+                            controle de alterações;
+                        </li>
+
+                        <li>
+                            assinatura digital;
+                        </li>
+
+                        <li>
+                            hashes;
+                        </li>
+                    </ul>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Disponibilidade
+                    </h3>
+
+                    <p>
+                        Garantir que sistemas e informações
+                        estejam disponíveis quando
+                        forem necessários.
+                    </p>
+
+                    <p>
+                        Exemplos:
+                    </p>
+
+                    <ul>
+                        <li>
+                            redundância;
+                        </li>
+
+                        <li>
+                            backup;
+                        </li>
+
+                        <li>
+                            replicação;
+                        </li>
+
+                        <li>
+                            recuperação de desastres.
+                        </li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+
+            <div class="importante">
+
+                <strong>
+                    Importante:
+                </strong>
+
+                <p>
+                    Os princípios de
+                    <strong>
+                        Confidencialidade,
+                        Integridade e Disponibilidade
+                    </strong>
+                    continuam sendo aplicáveis
+                    independentemente de o sistema
+                    estar em uma infraestrutura local
+                    ou em nuvem.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             8 - EXEMPLO
+        ================================================== -->
+
+        <section>
+
+            <h2>
+                8. Exemplo Prático de Segurança
+            </h2>
+
+            <div class="exemplo">
+
+                <h3>
+                    Empresa utilizando um ERP em SaaS
+                </h3>
+
+                <p>
+                    Imagine uma empresa que utiliza
+                    seu ERP através de um serviço
+                    disponibilizado pela Internet.
+                </p>
+
+            </div>
+
+
+            <div class="fluxo">
+
+                <div class="fluxo-item">
+                    Provedor mantém
+                    infraestrutura
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Provedor mantém
+                    aplicação
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Empresa configura
+                    usuários
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Empresa define
+                    permissões
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Usuários acessam
+                    os dados
+                </div>
+
+            </div>
+
+
+            <p>
+                Nesse cenário, o provedor pode ser
+                responsável por manter servidores,
+                rede, banco de dados, sistema operacional
+                e aplicação disponíveis.
+            </p>
+
+            <p>
+                Entretanto, se a empresa conceder
+                acesso administrativo a um funcionário
+                que não deveria possuir esse acesso,
+                trata-se de uma falha de
+                <strong>
+                    gestão de segurança por parte
+                    do cliente.
+                </strong>
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>
+                    Portanto:
+                </strong>
+
+                <p>
+                    O provedor pode proteger
+                    <strong>
+                        a infraestrutura,
+                    </strong>
+                    mas o cliente precisa proteger
+                    <strong>
+                        a maneira como utiliza
+                        essa infraestrutura.
+                    </strong>
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             9 - SERVIÇO X PROCESSO
+        ================================================== -->
+
+        <section id="processos">
+
+            <h2>
+                9. Serviço × Processo
+            </h2>
+
+            <p>
+                Também é importante diferenciar
+                um
+                <strong>serviço</strong>
+                de um
+                <strong>processo</strong>.
+            </p>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>
+                        Serviço
+                    </h3>
+
+                    <p>
+                        É um recurso ou solução
+                        disponibilizada para utilização.
+                    </p>
+
+                    <p>
+                        Exemplos:
+                    </p>
+
+                    <ul>
+                        <li>
+                            servidor virtual;
+                        </li>
+
+                        <li>
+                            banco de dados;
+                        </li>
+
+                        <li>
+                            armazenamento;
+                        </li>
+
+                        <li>
+                            plataforma de desenvolvimento;
+                        </li>
+
+                        <li>
+                            sistema de e-mail;
+                        </li>
+
+                        <li>
+                            ERP.
+                        </li>
+                    </ul>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Processo
+                    </h3>
+
+                    <p>
+                        É uma sequência de atividades
+                        realizada utilizando um ou mais
+                        serviços.
+                    </p>
+
+                    <p>
+                        Exemplos:
+                    </p>
+
+                    <ul>
+                        <li>
+                            cadastrar um pedido;
+                        </li>
+
+                        <li>
+                            processar uma venda;
+                        </li>
+
+                        <li>
+                            executar uma consulta SQL;
+                        </li>
+
+                        <li>
+                            realizar um backup;
+                        </li>
+
+                        <li>
+                            gerar um relatório;
+                        </li>
+
+                        <li>
+                            emitir uma nota fiscal.
+                        </li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+
+            <div class="exemplo">
+
+                <strong>
+                    Exemplo:
+                </strong>
+
+                <p>
+                    Um banco de dados disponibilizado
+                    em nuvem é um
+                    <strong>serviço</strong>.
+                </p>
+
+                <p>
+                    Executar uma consulta nesse banco
+                    para localizar os pedidos de um cliente
+                    é um
+                    <strong>processo</strong>.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             10 - VIRTUALIZAÇÃO
+        ================================================== -->
+
+        <section id="virtualizacao">
+
+            <h2>
+                10. Virtualização e Computação em Nuvem
+            </h2>
+
+            <p>
+                A
+                <strong>virtualização</strong>
+                é uma tecnologia muito utilizada
+                nos ambientes de Computação em Nuvem.
+            </p>
+
+            <p>
+                Ela permite dividir os recursos
+                de um servidor físico entre
+                diferentes máquinas virtuais.
+            </p>
+
+
+            <div class="fluxo">
+
+                <div class="fluxo-item">
+                    Servidor
+                    Físico
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Hypervisor
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    VM 01
+                </div>
+
+                <div class="fluxo-item">
+                    VM 02
+                </div>
+
+                <div class="fluxo-item">
+                    VM 03
+                </div>
+
+            </div>
+
+
+            <p>
+                O
+                <strong>hypervisor</strong>
+                é o componente responsável por
+                criar e administrar as máquinas virtuais.
+            </p>
+
+
+            <div class="atencao">
+
+                <strong>
+                    Não confunda:
+                </strong>
+
+                <p>
+                    <strong>Virtualização</strong>
+                    é uma tecnologia.
+                </p>
+
+                <p>
+                    <strong>Computação em Nuvem</strong>
+                    é um modelo de disponibilização
+                    e consumo de recursos computacionais.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             11 - COMPARAÇÃO
+        ================================================== -->
+
+        <section>
+
+            <h2>
+                11. Comparação Geral
+            </h2>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Camada
+                            </th>
+
+                            <th>
+                                IaaS
+                            </th>
+
+                            <th>
+                                PaaS
+                            </th>
+
+                            <th>
+                                SaaS
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                Dados
+                            </td>
+
+                            <td>
+                                Cliente
+                            </td>
+
+                            <td>
+                                Cliente
+                            </td>
+
+                            <td>
+                                Cliente
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Aplicações
+                            </td>
+
+                            <td>
+                                Cliente
+                            </td>
+
+                            <td>
+                                Cliente
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Sistema Operacional
+                            </td>
+
+                            <td>
+                                Cliente
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Virtualização
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Servidores
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Armazenamento
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Rede
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                Infraestrutura Física
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                            <td>
+                                Provedor
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             12 - RESUMO
+        ================================================== -->
+
+        <section
+            id="resumo"
+            class="resumo-final"
+        >
+
+            <h2>
+                12. Resumo para Memorizar
+            </h2>
+
+
+            <p>
+                <strong>
+                    Computação em Nuvem:
+                </strong>
+
+                fornecimento de recursos computacionais
+                através de uma rede.
+            </p>
+
+
+            <p>
+                <strong>
+                    IaaS:
+                </strong>
+
+                fornece infraestrutura.
+            </p>
+
+
+            <p>
+                <strong>
+                    PaaS:
+                </strong>
+
+                fornece uma plataforma para desenvolver
+                e executar aplicações.
+            </p>
+
+
+            <p>
+                <strong>
+                    SaaS:
+                </strong>
+
+                fornece uma aplicação pronta para utilização.
+            </p>
+
+
+            <p>
+                <strong>
+                    Responsabilidade Compartilhada:
+                </strong>
+
+                cliente e provedor possuem responsabilidades
+                diferentes sobre administração e segurança.
+            </p>
+
+
+            <p>
+                <strong>
+                    IaaS:
+                </strong>
+
+                cliente administra dados,
+                aplicações e sistema operacional.
+            </p>
+
+
+            <p>
+                <strong>
+                    PaaS:
+                </strong>
+
+                cliente administra principalmente
+                dados e aplicações.
+            </p>
+
+
+            <p>
+                <strong>
+                    SaaS:
+                </strong>
+
+                cliente administra principalmente
+                dados, usuários, acessos,
+                permissões e utilização do sistema.
+            </p>
+
+
+            <p>
+                <strong>
+                    Segurança DA nuvem:
+                </strong>
+
+                predominantemente responsabilidade
+                do provedor.
+            </p>
+
+
+            <p>
+                <strong>
+                    Segurança NA nuvem:
+                </strong>
+
+                depende das configurações e da utilização
+                realizada pelo cliente.
+            </p>
+
+
+            <p>
+                <strong>
+                    Confidencialidade:
+                </strong>
+
+                somente pessoas autorizadas
+                acessam a informação.
+            </p>
+
+
+            <p>
+                <strong>
+                    Integridade:
+                </strong>
+
+                informação não é alterada indevidamente.
+            </p>
+
+
+            <p>
+                <strong>
+                    Disponibilidade:
+                </strong>
+
+                informação e sistemas permanecem
+                disponíveis quando necessários.
+            </p>
+
+
+            <p>
+                <strong>
+                    Regra importante:
+                </strong>
+
+                utilizar a nuvem não significa
+                transferir toda a responsabilidade
+                de Segurança da Informação
+                para o fornecedor.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         RODAPÉ
+    ====================================================== -->
+
+    <footer>
+
+        <p>
+            <strong>
+                Faculdade Estácio
+            </strong>
+        </p>
+
+        <p>
+            Análise e Desenvolvimento de Sistemas
+        </p>
+
+        <p>
+            Fundamentos de Computação em Nuvem
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
