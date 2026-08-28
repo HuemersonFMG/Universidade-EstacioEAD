@@ -1000,6 +1000,13 @@
                 </a>
             </li>
 
+
+            <li>
+                <a href="#recursos-nuvem">
+                    recursos-nuvem
+                </a>
+            </li>
+
         </ul>
 
     </nav>
@@ -3094,6 +3101,728 @@
             </p>
 
         </section>
+
+====================================================================================
+
+        <!-- =================================================
+            RECURSOS E FORMAS DE EXECUÇÃO NA NUVEM
+        ================================================== -->
+
+        <section id="recursos-nuvem">
+
+            <h2>
+                Recursos e Formas de Execução na Computação em Nuvem
+            </h2>
+
+            <p>
+                A Computação em Nuvem oferece diferentes maneiras de
+                disponibilizar infraestrutura, executar aplicações e
+                armazenar dados.
+            </p>
+
+            <p>
+                Entre as principais tecnologias e serviços utilizados estão
+                as <strong>Máquinas Virtuais (VMs)</strong>,
+                <strong>Contêineres</strong>,
+                <strong>Serverless / FaaS</strong> e
+                <strong>Bancos de Dados Gerenciados</strong>.
+            </p>
+
+            <div class="destaque">
+
+                <strong>Ideia principal:</strong>
+
+                <p>
+                    Conforme avançamos de uma máquina virtual para serviços
+                    mais gerenciados, normalmente diminuímos a quantidade de
+                    infraestrutura que precisamos administrar diretamente.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                MÁQUINAS VIRTUAIS
+            ================================================== -->
+
+            <h3>1. Máquinas Virtuais (VMs)</h3>
+
+            <p>
+                Uma <strong>Máquina Virtual (Virtual Machine - VM)</strong>
+                é um ambiente computacional virtual que se comporta como
+                se fosse um computador independente.
+            </p>
+
+            <p>
+                Cada máquina virtual pode possuir seus próprios recursos,
+                como:
+            </p>
+
+            <div class="grid">
+
+                <article class="card">
+                    <h3>CPU Virtual</h3>
+
+                    <p>
+                        Capacidade de processamento disponibilizada
+                        para a máquina virtual.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <h3>Memória</h3>
+
+                    <p>
+                        Quantidade de memória RAM disponibilizada
+                        para o sistema operacional e suas aplicações.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <h3>Armazenamento</h3>
+
+                    <p>
+                        Espaço utilizado para sistema operacional,
+                        aplicações, arquivos e outros dados.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <h3>Rede</h3>
+
+                    <p>
+                        Interface virtual utilizada para comunicação
+                        com outros equipamentos, serviços e redes.
+                    </p>
+                </article>
+
+            </div>
+
+
+            <div class="fluxo">
+
+                <div class="fluxo-item">
+                    Servidor Físico
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Hypervisor
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Máquina Virtual
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Sistema Operacional
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Aplicação
+                </div>
+
+            </div>
+
+
+            <div class="importante">
+
+                <strong>Ponto importante:</strong>
+
+                <p>
+                    Uma VM possui seu próprio sistema operacional.
+                    Isso oferece grande isolamento e flexibilidade,
+                    mas também exige recursos computacionais para manter
+                    cada sistema operacional em execução.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                CONTEINERIZAÇÃO
+            ================================================== -->
+
+            <h3>2. Conteinerização</h3>
+
+            <p>
+                A <strong>conteinerização</strong> é uma forma mais leve
+                de empacotar e executar aplicações.
+            </p>
+
+            <p>
+                Um contêiner pode reunir a
+                <strong>aplicação e suas dependências</strong>,
+                permitindo que ela seja executada de maneira padronizada
+                em diferentes ambientes compatíveis.
+            </p>
+
+            <p>
+                Diferentemente de uma máquina virtual tradicional,
+                os contêineres normalmente
+                <strong>compartilham o kernel do sistema operacional
+                do host</strong>.
+                Por isso, tendem a consumir menos recursos que VMs completas.
+            </p>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>📦 Empacotamento</h3>
+
+                    <p>
+                        A aplicação e suas dependências podem ser
+                        distribuídas juntas em uma unidade padronizada.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>⚡ Leveza</h3>
+
+                    <p>
+                        Como não é necessário executar um sistema
+                        operacional completo para cada contêiner,
+                        o consumo de recursos tende a ser menor.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>🔒 Isolamento</h3>
+
+                    <p>
+                        As aplicações podem executar em ambientes
+                        isolados umas das outras, mesmo utilizando
+                        o mesmo servidor.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>🚀 Portabilidade</h3>
+
+                    <p>
+                        O mesmo contêiner pode ser utilizado em
+                        diferentes ambientes compatíveis,
+                        facilitando desenvolvimento e implantação.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- =================================================
+                VM X CONTÊINER
+            ================================================== -->
+
+            <h3>Máquina Virtual × Contêiner</h3>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Característica</th>
+                            <th>Máquina Virtual</th>
+                            <th>Contêiner</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                Sistema Operacional
+                            </td>
+
+                            <td>
+                                Cada VM possui seu próprio
+                                sistema operacional.
+                            </td>
+
+                            <td>
+                                Normalmente compartilha o kernel
+                                do sistema operacional do host.
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Consumo de recursos
+                            </td>
+
+                            <td>
+                                Geralmente maior.
+                            </td>
+
+                            <td>
+                                Geralmente menor.
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Inicialização
+                            </td>
+
+                            <td>
+                                Normalmente mais demorada.
+                            </td>
+
+                            <td>
+                                Normalmente mais rápida.
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Isolamento
+                            </td>
+
+                            <td>
+                                Forte isolamento entre
+                                sistemas operacionais.
+                            </td>
+
+                            <td>
+                                Isolamento de processos e aplicações.
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Uso comum
+                            </td>
+
+                            <td>
+                                Servidores e ambientes que precisam
+                                de sistemas operacionais independentes.
+                            </td>
+
+                            <td>
+                                Aplicações, APIs, microsserviços
+                                e ambientes padronizados.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- =================================================
+                SERVERLESS / FAAS
+            ================================================== -->
+
+            <h3>3. Serverless e FaaS</h3>
+
+            <p>
+                <strong>Serverless</strong> é uma abordagem em que
+                o desenvolvedor pode executar aplicações ou partes
+                de uma aplicação sem precisar administrar diretamente
+                os servidores que sustentam a execução.
+            </p>
+
+            <p>
+                Isso
+                <strong>não significa que não existam servidores</strong>.
+                Os servidores continuam existindo, mas sua administração
+                fica abstraída e é realizada pelo provedor de nuvem.
+            </p>
+
+
+            <div class="destaque">
+
+                <strong>FaaS — Function as a Service</strong>
+
+                <p>
+                    FaaS significa
+                    <strong>Função como Serviço</strong>.
+                    É um modelo associado à abordagem serverless
+                    no qual pequenas funções de código podem ser
+                    executadas em resposta a determinados eventos.
+                </p>
+
+            </div>
+
+
+            <p>
+                Um fluxo simplificado pode ser representado assim:
+            </p>
+
+
+            <div class="fluxo">
+
+                <div class="fluxo-item">
+                    Evento
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Função
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Processamento
+                </div>
+
+                <div class="seta">
+                    →
+                </div>
+
+                <div class="fluxo-item">
+                    Resultado
+                </div>
+
+            </div>
+
+
+            <p>
+                O evento que inicia a função pode ser, por exemplo:
+            </p>
+
+            <ul>
+                <li>
+                    uma requisição HTTP;
+                </li>
+
+                <li>
+                    o envio de um arquivo;
+                </li>
+
+                <li>
+                    uma mensagem em uma fila;
+                </li>
+
+                <li>
+                    uma alteração em determinado dado;
+                </li>
+
+                <li>
+                    um agendamento;
+                </li>
+
+                <li>
+                    outro evento definido pela aplicação.
+                </li>
+            </ul>
+
+
+            <div class="importante">
+
+                <strong>Forma simples de entender:</strong>
+
+                <p>
+                    Em uma máquina virtual, o cliente normalmente pensa
+                    no <strong>servidor que executará a aplicação</strong>.
+                </p>
+
+                <p>
+                    Em uma abordagem serverless/FaaS, o desenvolvedor
+                    concentra-se principalmente na
+                    <strong>função ou código que precisa ser executado</strong>,
+                    enquanto o provedor administra a infraestrutura
+                    necessária para sua execução.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                BANCO DE DADOS GERENCIADO
+            ================================================== -->
+
+            <h3>4. Bancos de Dados Gerenciados</h3>
+
+            <p>
+                Um <strong>Banco de Dados Gerenciado</strong>
+                é um serviço no qual o provedor de nuvem assume
+                parte significativa da administração da infraestrutura
+                necessária para executar o banco de dados.
+            </p>
+
+            <p>
+                Dependendo do serviço contratado, o provedor pode
+                administrar atividades relacionadas a:
+            </p>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>⚙️ Infraestrutura</h3>
+
+                    <p>
+                        Administração dos servidores e recursos
+                        computacionais utilizados pelo banco.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>🔄 Atualizações</h3>
+
+                    <p>
+                        Determinadas atualizações e manutenções
+                        podem ser executadas pelo próprio provedor.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>💾 Backup</h3>
+
+                    <p>
+                        O serviço pode oferecer mecanismos
+                        automatizados de backup e recuperação.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>📈 Escalabilidade</h3>
+
+                    <p>
+                        Os recursos destinados ao banco podem ser
+                        ajustados conforme a capacidade oferecida
+                        pelo serviço contratado.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <!-- =================================================
+                RESPONSABILIDADE SOBRE OS DADOS
+            ================================================== -->
+
+            <div class="atencao">
+
+                <strong>Atenção — Responsabilidade Compartilhada:</strong>
+
+                <p>
+                    O fato de um banco de dados ser gerenciado pelo
+                    provedor <strong>não significa que o cliente deixa
+                    de ser responsável pelos seus dados</strong>.
+                </p>
+
+                <p>
+                    A organização ainda precisa administrar aspectos como
+                    usuários, permissões, credenciais, classificação das
+                    informações e utilização adequada dos dados, conforme
+                    as características do serviço contratado.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                COMPARAÇÃO
+            ================================================== -->
+
+            <h3>5. Comparação dos Recursos</h3>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Tecnologia / Serviço</th>
+                            <th>O que oferece</th>
+                            <th>Foco principal</th>
+                            <th>Administração de infraestrutura</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                <strong>Máquina Virtual</strong>
+                            </td>
+
+                            <td>
+                                Ambiente computacional virtual
+                                com CPU, memória, rede e armazenamento.
+                            </td>
+
+                            <td>
+                                Sistema operacional e servidor virtual.
+                            </td>
+
+                            <td>
+                                Maior participação do cliente.
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <strong>Contêiner</strong>
+                            </td>
+
+                            <td>
+                                Ambiente isolado para executar
+                                uma aplicação e suas dependências.
+                            </td>
+
+                            <td>
+                                Aplicação.
+                            </td>
+
+                            <td>
+                                Menor que em uma VM tradicional,
+                                dependendo da plataforma utilizada.
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <strong>Serverless / FaaS</strong>
+                            </td>
+
+                            <td>
+                                Execução de código ou funções
+                                sem administração direta dos servidores.
+                            </td>
+
+                            <td>
+                                Código e eventos.
+                            </td>
+
+                            <td>
+                                Predominantemente abstraída
+                                pelo provedor.
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <strong>Banco de Dados Gerenciado</strong>
+                            </td>
+
+                            <td>
+                                Serviço de banco de dados com parte
+                                da administração realizada pelo provedor.
+                            </td>
+
+                            <td>
+                                Dados e utilização do banco.
+                            </td>
+
+                            <td>
+                                Compartilhada conforme
+                                o serviço contratado.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- =================================================
+                RESUMO
+            ================================================== -->
+
+            <div class="destaque">
+
+                <strong>Resumo para memorizar:</strong>
+
+                <p>
+                    🖥️ <strong>Máquina Virtual:</strong>
+                    virtualiza um computador completo,
+                    incluindo seu próprio sistema operacional.
+                </p>
+
+                <p>
+                    📦 <strong>Contêiner:</strong>
+                    empacota e isola a aplicação e suas dependências,
+                    normalmente compartilhando o kernel do host.
+                </p>
+
+                <p>
+                    ⚡ <strong>Serverless:</strong>
+                    permite executar aplicações ou código sem que
+                    o cliente precise administrar diretamente
+                    os servidores.
+                </p>
+
+                <p>
+                    ⚙️ <strong>FaaS:</strong>
+                    permite executar funções em resposta
+                    a eventos.
+                </p>
+
+                <p>
+                    🗄️ <strong>Banco de Dados Gerenciado:</strong>
+                    o provedor assume parte significativa da administração
+                    da infraestrutura do banco de dados.
+                </p>
+
+            </div>
+
+        </section>
+
 
     </main>
 
